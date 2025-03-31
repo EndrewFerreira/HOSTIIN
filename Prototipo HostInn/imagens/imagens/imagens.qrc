@@ -1,0 +1,19 @@
+<RCC>
+  <qresource prefix="newPrefix">
+    <file>assignment_ind_19dp_E3E3E3_FILL0_wght400_GRAD0_opsz20.png</file>
+    <file>bed_19dp_E3E3E3_FILL0_wght400_GRAD0_opsz20.png</file>
+    <file>chat_info_19dp_E3E3E3_FILL0_wght400_GRAD0_opsz20.png</file>
+    <file>event_19dp_E3E3E3_FILL0_wght400_GRAD0_opsz20.png</file>
+    <file>event_seat_19dp_E3E3E3_FILL0_wght400_GRAD0_opsz20.png</file>
+    <file>fundo azul.jpg</file>
+    <file>imagens.qrc</file>
+    <file>location_away_19dp_E3E3E3_FILL0_wght400_GRAD0_opsz20 (1).png</file>
+    <file>location_away_19dp_E3E3E3_FILL0_wght400_GRAD0_opsz20.png</file>
+    <file>logout_19dp_E3E3E3_FILL0_wght400_GRAD0_opsz20.png</file>
+    <file>menu_19dp_E3E3E3_FILL0_wght400_GRAD0_opsz20.png</file>
+    <file>payments_19dp_E3E3E3_FILL0_wght400_GRAD0_opsz20.png</file>
+    <file>person_18dp_E3E3E3_FILL0_wght400_GRAD0_opsz20 (1).png</file>
+    <file>visibility_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png</file>
+    <file>visibility_off_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png</file>
+  </qresource>
+</RCC>

@@ -13,9 +13,9 @@ banco = pymysql.connect(
 class MainMenu(QMainWindow):
     def __init__(self):
         super().__init__()
-
+        self.setupUi(self)
         # Carregar a interface gráfica
-        uic.loadUi("Telas/tela_menu_principal.ui", self)
+        uic.loadUi("C:/Users/11054836/Desktop/PI/HOSTIIN/Prototipo HostInn/Telas/tela_menu_principal.ui", self)
         icon_eye_closed = QIcon("Icones/visibility_off.png")
         self.setWindowTitle("HostInn")
         self.setFixedSize(801, 652)
@@ -75,14 +75,13 @@ class MainMenu(QMainWindow):
 
         self.bttn_chatbot.clicked.connect(self.chatbot)
 
-        # Botão de voltar
         self.bttn_back.clicked.connect(self.back_main_menu)
         self.bttn_back_2.clicked.connect(self.back_main_menu)
         self.bttn_back_3.clicked.connect(self.back_main_menu)
         self.btn_voltar.clicked.connect(self.back_main_menu)
 
         self.btn_voltar_2.clicked.connect(self.back_roomlist_menu)
-
+        self.btn_aplicar_filtros.clicked.connect(self.menu_list_all_room)
         self.bttn_rooms.clicked.connect(self.room_menu)
         self.btn_novo_quarto.clicked.connect(self.new_room)
         self.btn_listar_quartos.clicked.connect(self.menu_list_room)
@@ -145,14 +144,36 @@ class MainMenu(QMainWindow):
         self.stackedMenu.setCurrentIndex(4)
         self.stackedWidget.setCurrentIndex(5)
 
+        # Capturando os valores dos filtros
+        numero_quarto = self.line_filtro_numero.text()  # Número do quarto
+        tipo_quarto = self.combo_filtro_tipo.currentText()  # Tipo de quarto
+        status_quarto = self.combo_filtro_stts.currentText()  # Status do quarto
+
+        # Construindo a query dinâmica
+        query = "SELECT * FROM quartos WHERE 1=1"  # 'WHERE 1=1' serve como base para adicionar condições
+
+        # Aplicando o filtro de número de quarto
+        if numero_quarto:
+            query += f" AND numero LIKE '%{numero_quarto}%'"
+
+        # Aplicando o filtro de tipo de quarto
+        if tipo_quarto and tipo_quarto != "Todos":  # Adicione "Todos" como opção no ComboBox
+            query += f" AND tipo = '{tipo_quarto}'"
+
+        # Aplicando o filtro de status do quarto
+        if status_quarto and status_quarto != "Todos":  # Adicione "Todos" como opção no ComboBox
+            query += f" AND Status_quarto = '{status_quarto}'"
+
+        # Executando a query com os filtros aplicados
         cursor = banco.cursor()
-        cursor.execute("SELECT * FROM quartos")
+        cursor.execute(query)
         dados_lidos = cursor.fetchall()
 
         # Definir número de linhas e colunas (menos 1 coluna)
         self.tableWidget_2.setRowCount(len(dados_lidos))
         self.tableWidget_2.setColumnCount(5)  # Ajustado para ignorar a primeira coluna
 
+        # Preenchendo a tabela com os dados filtrados
         for i, linha in enumerate(dados_lidos):
             for j, valor in enumerate(linha[1:]):  # Pulando a primeira coluna
                 self.tableWidget_2.setItem(i, j, QtWidgets.QTableWidgetItem(str(valor)))
@@ -573,6 +594,10 @@ class MainMenu(QMainWindow):
 
 
 if __name__ == "__main__":
-    app = QtWidgets.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)  
+    window = MainMenu()  
+    window.show() 
+    sys.exit(app.exec())  
 
-    # Defina os ícones (ajuste os caminhos para os seus arquivos PNG)
+
+   
