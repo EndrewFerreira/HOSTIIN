@@ -13,9 +13,9 @@ banco = pymysql.connect(
 class MainMenu(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setupUi(self)
+        # self(self)
         # Carregar a interface gráfica
-        uic.loadUi("C:/Users/11054836/Desktop/PI/HOSTIIN/Prototipo HostInn/Telas/tela_menu_principal.ui", self)
+        uic.loadUi("C:/Users/11052806/Desktop/HostInn/HOSTIIN/Prototipo HostInn/Telas/tela_menu_principal.ui", self)
         icon_eye_closed = QIcon("Icones/visibility_off.png")
         self.setWindowTitle("HostInn")
         self.setFixedSize(801, 652)

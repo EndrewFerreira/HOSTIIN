@@ -4,8 +4,6 @@ from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QMessageBox, QLineEdit
 import pymysql, sys
 import Menu
-from imagens import recursos
-#from Telas.tela_login import Ui_MainWindow
 
 
 
@@ -131,22 +129,7 @@ icon_eye_open = QIcon("Icones/visibility.png")
 icon_eye_closed = QIcon("Icones/visibility_off.png")
 
 #===========================( Login/ Cadastro )=============================================
-login_register = uic.loadUi("C:/Users/11054836/Desktop/PI/HOSTIIN/Prototipo HostInn/Telas/MainWindow.ui")
-# # Carregar a imagem
-# pixmap = QPixmap(r"C:\Users\11054836\Desktop\PI\HOSTIIN\Prototipo HostInn\imagens\fundo_azul.jpg")
-
-# # Ajustar a imagem ao tamanho do QLabel
-# scaled_pixmap = pixmap.scaled(login_register.label.width(), 
-#                               login_register.label.height(), 
-#                               Qt.AspectRatioMode.KeepAspectRatio, 
-#                               Qt.TransformationMode.SmoothTransformation)
-
-# # Definir a imagem no QLabel
-# login_register.label.setPixmap(scaled_pixmap)
-# login_register.label.setAlignment(Qt.AlignmentFlag.AlignCenter)  # Centraliza a imagem
-
-
-
+login_register = uic.loadUi("C:/Users/11052806/Desktop/HostInn/HOSTIIN/Prototipo HostInn/Telas/TELA NOVO CADASTRO,LOGIN ULTIMA VERSAO QT.ui")
 login_register.setWindowTitle("HostInn")
 login_register.stackedWidget.setCurrentIndex(0)
 login_register.lineEdit_passwrd.setEchoMode(QLineEdit.EchoMode.Password)
@@ -158,7 +141,7 @@ login_register.bttn_alterindex_2.clicked.connect(alter_reg)
 login_register.bttn_register.clicked.connect(new_reg)
 login_register.bttn_alterindex.clicked.connect(alter_log)
 login_register.bttn_passwrdview.clicked.connect(password_view)
-# login_register.bttn_passwrdview_2.clicked.connect(password_view)
+login_register.bttn_passwrdview_2.clicked.connect(password_view)
 login_register.bttn_login.clicked.connect(login)
 
 # Define os ícones iniciais dos botões de visualização de senha
