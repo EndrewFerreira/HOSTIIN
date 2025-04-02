@@ -818,7 +818,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>4</number>
+     <number>7</number>
     </property>
     <widget class="QWidget" name="page">
      <widget class="QWidget" name="verticalLayoutWidget_9">
@@ -1440,7 +1440,7 @@
        </rect>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>4</number>
       </property>
       <widget class="QWidget" name="page_13">
        <widget class="QWidget" name="verticalLayoutWidget_6">
@@ -4561,7 +4561,7 @@ color: rgb(255, 255, 255);</string>
           </spacer>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_7">
+          <widget class="QPushButton" name="bttn_reservar">
            <property name="font">
             <font>
              <pointsize>10</pointsize>

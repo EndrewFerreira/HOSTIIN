@@ -1,4 +1,5 @@
 from PyQt6 import uic, QtWidgets
+from PyQt6.QtCore import QDate
 from PyQt6.QtGui import QIcon
 from PyQt6.QtWidgets import QLineEdit, QMessageBox, QMainWindow, QPushButton, QGridLayout, QDialog
 import sys, pymysql, Tela_edicao, chatbot
@@ -60,7 +61,8 @@ class MainMenu(QMainWindow):
         self.bttn_reserva.clicked.connect(self.reserva_menu)
         self.bttn_close.clicked.connect(self.close_reserva)
         self.pushButton_buscar.clicked.connect(self.filtrar_clientes)
-        self.bttn_confirm.clicked.connect(self.Reservar_cliente)
+        self.bttn_confirm.clicked.connect(self.puxar_cliente)
+        self.bttn_reservar.clicked.connect(self.reservar)
 
 
         self.bttn_financial.clicked.connect(self.financial_menu)
@@ -466,7 +468,7 @@ class MainMenu(QMainWindow):
         else:
             self.carregar_clientes()  # Se não há valor, carrega todos os clientes 
 
-    def Reservar_cliente(self):       
+    def puxar_cliente(self):       
         linha = self.tableWidget_6.currentRow()
         if linha == -1:
             QMessageBox.warning(self, "Erro", "Selecione um cliente para editar.")
@@ -481,7 +483,46 @@ class MainMenu(QMainWindow):
         self.lineEdit_cpf_2.setText(str(clientes[2]))
         self.lineEdit_email_3.setText(str(clientes[3]))
         self.lineEdit_phone_2.setText(str(clientes[4]))
-        self.lineEdit_endereco_2.setText(str(clientes[5]))     
+        self.lineEdit_endereco_2.setText(str(clientes[5]))
+
+    def reservar(self):
+        nome = self.lineEdit_name_3.text()
+        cpf = self.lineEdit_cpf_2.text()
+        email = self.lineEdit_email_3.text()
+        phone = self.lineEdit_phone_2.text()
+        endereco = self.lineEdit_endereco_2.text()
+
+        cursor = banco.cursor()
+        comando_SQL = "SELECT id_cliente FROM clientes WHERE nome = %s  AND cpf = %s"
+        cursor.execute(comando_SQL, (nome, cpf,))
+        id_cliente = cursor.fetchone()
+
+
+        data_atual = QDate.currentDate()
+        checkin = self.dateEdit_checkin.date().toString("yyyy-MM-dd")
+        checkout = self.dateEdit_checkout.date().toString("yyyy-MM-dd")
+
+        if checkin < data_atual.toString("yyyy-MM-dd") or checkout < data_atual.toString("yyyy-MM-dd"):
+            QMessageBox.warning(self,"Erro", "selecione uma data válida")
+            return
+
+        valor_reserva = self.lineEdit_total.text()
+        status = "Reservado"
+
+        if not nome or not cpf or not email or not phone or not endereco:
+            QMessageBox.warning(self,"Erro", "Um cliente deve ser selecionado!")
+            return
+        
+        if not checkin or not checkout:
+            QMessageBox.warning(self,"Erro", "Selecione um período de estadia!")
+            return
+        
+        comando_SQL = "INSERT INTO reserva (Data_Checkin, Data_Checkout, Valor_Reserva, Status_reserva, ID_Cliente) VALUES (%s, %s, %s, %s, %s)"
+        dados = (checkin, checkout, valor_reserva, status, id_cliente)
+        cursor.execute(comando_SQL, dados)
+        banco.commit()
+
+        QMessageBox.information(self, "Sucesso", "Reserva realizada com sucesso!")
 
     # ===========================( Financeiro )=============================================
     def movements_subMenu(self):
