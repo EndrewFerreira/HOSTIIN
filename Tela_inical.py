@@ -1,0 +1,163 @@
+from PyQt6 import uic, QtWidgets
+from PyQt6.QtGui import QIcon
+from PyQt6.QtWidgets import QMessageBox, QLineEdit
+import pymysql, sys
+import Menu
+
+
+# Conexão com o banco de dados
+banco = pymysql.connect(
+    host="localhost",
+    user="root",
+    passwd="",
+    database="bd_teste2"
+)
+
+def alter_reg():
+    login_register.stackedWidget.setCurrentIndex(1)
+
+def alter_log():
+    login_register.stackedWidget.setCurrentIndex(0)
+
+def forgot_password():
+    login_register.stackedWidget.setCurrentIndex(3)
+
+def buscar_cad():
+    global login_register, menu
+    cpf = login_register.lineEdit_cpf.text()
+    bday = login_register.lineEdit_bday.text()
+
+
+    cursor = banco.cursor()
+    comando_SQL = "SELECT Usuario FROM usuarios WHERE Usuario = %s"
+    cursor.execute(comando_SQL, (cpf,))
+    resultado = cursor.fetchone()
+
+    if resultado:
+        cpf_bd: resultado[0] #incompleto
+        
+    
+    
+
+def password_view():
+    """
+    Alterna o modo de exibição das senhas e troca os ícones dos botões de visualização.
+    """
+    # Verifica o modo atual de exibição (Password ou Normal)
+    if login_register.lineEdit_passwrd.echoMode() == QLineEdit.EchoMode.Password:
+        # Muda para visualização normal (texto visível)
+        login_register.lineEdit_passwrd.setEchoMode(QLineEdit.EchoMode.Normal)
+        login_register.lineEdit_passwrd_2.setEchoMode(QLineEdit.EchoMode.Normal)
+        login_register.lineEdit_passwrd_3.setEchoMode(QLineEdit.EchoMode.Normal)
+        # Atualiza os ícones para o olho aberto
+        login_register.bttn_passwrdview.setIcon(icon_eye_open)
+        login_register.bttn_passwrdview_2.setIcon(icon_eye_open)
+    else:
+        # Muda para o modo de senha (texto oculto)
+        login_register.lineEdit_passwrd.setEchoMode(QLineEdit.EchoMode.Password)
+        login_register.lineEdit_passwrd_2.setEchoMode(QLineEdit.EchoMode.Password)
+        login_register.lineEdit_passwrd_3.setEchoMode(QLineEdit.EchoMode.Password)
+        # Atualiza os ícones para o olho fechado
+        login_register.bttn_passwrdview.setIcon(icon_eye_closed)
+        login_register.bttn_passwrdview_2.setIcon(icon_eye_closed)
+
+def login():
+    global login_register, menu
+    user = login_register.lineEdit_user_2.text()
+    passwrd = login_register.lineEdit_passwrd_3.text()
+
+    cursor = banco.cursor()
+    comando_SQL = "SELECT Senha FROM usuarios WHERE Usuario = %s"
+    cursor.execute(comando_SQL, (user,))
+    resultado = cursor.fetchone()
+
+    if resultado:
+        senha_bd = resultado[0]
+        if passwrd == senha_bd:
+            QMessageBox.information(login_register, "Sucesso", "Login realizado com sucesso!")
+            login_register.close()  # Fecha a tela de login
+            menu = Menu.MainMenu()  # Exibe a tela do menu
+            menu.show()
+        else:
+            QMessageBox.warning(login_register, "Erro", "Senha incorreta!")
+    else:
+        QMessageBox.warning(login_register, "Erro", "Usuário não encontrado!")
+
+def new_reg():
+    name = login_register.lineEdit_name.text()
+    user = login_register.lineEdit_user.text()
+    email = login_register.lineEdit_email.text()
+    passwrd = login_register.lineEdit_passwrd.text()
+    passwrd_conf = login_register.lineEdit_passwrd_2.text()
+
+    if not name or not user or not email or not passwrd or not passwrd_conf:
+        QMessageBox.warning(login_register, "Erro", "Todos os campos devem ser preenchidos!")
+        return
+
+    cursor = banco.cursor()
+    comando_SQL = "SELECT usuario FROM usuarios WHERE usuario = %s"
+    cursor.execute(comando_SQL, (user,))
+    resultado = cursor.fetchone()
+
+    if resultado:
+        QMessageBox.warning(login_register, "Erro", "Usuário já existente!")
+        return
+
+    cursor = banco.cursor()
+    comando_SQL = "SELECT email FROM usuarios WHERE email = %s"
+    cursor.execute(comando_SQL, (email,))
+    resultado = cursor.fetchone()
+
+    if resultado:
+        QMessageBox.warning(login_register, "Erro", "E-mail já existente!")
+        return
+
+    if passwrd != passwrd_conf:
+        QMessageBox.warning(login_register, "Erro", "As senhas não coincidem!")
+        return
+
+    comando_SQL = "INSERT INTO usuarios (nome, usuario, email, senha) VALUES (%s, %s, %s, %s)"
+    dados = (name, user, email, passwrd)
+    cursor.execute(comando_SQL, dados)
+    banco.commit()
+
+    QMessageBox.information(login_register, "Sucesso", "Cadastro realizado com sucesso!")
+
+    # Limpa os campos após o cadastro
+    login_register.lineEdit_name.setText("")
+    login_register.lineEdit_user.setText("")
+    login_register.lineEdit_email.setText("")
+    login_register.lineEdit_passwrd.setText("")
+    login_register.lineEdit_passwrd_2.setText("")
+
+# Cria a aplicação antes de qualquer operação gráfica
+app = QtWidgets.QApplication(sys.argv)
+
+# Defina os ícones (ajuste os caminhos para os seus arquivos PNG)
+icon_eye_open = QIcon("Icones/visibility.png")
+icon_eye_closed = QIcon("Icones/visibility_off.png")
+
+#===========================( Login/ Cadastro )=============================================
+login_register = uic.loadUi(r"C:\Users\57090816\Downloads\Prototipo HostInn\Prototipo HostInn\Telas\tela_login_cadastro.ui")
+login_register.setWindowTitle("HostInn")
+login_register.stackedWidget.setCurrentIndex(0)
+login_register.lineEdit_passwrd.setEchoMode(QLineEdit.EchoMode.Password)
+login_register.lineEdit_passwrd_2.setEchoMode(QLineEdit.EchoMode.Password)
+login_register.lineEdit_passwrd_3.setEchoMode(QLineEdit.EchoMode.Password)
+
+# Conecta os botões com suas funções
+login_register.bttn_alterindex_2.clicked.connect(alter_reg)
+login_register.bttn_register.clicked.connect(new_reg)
+login_register.bttn_alterindex.clicked.connect(alter_log)
+login_register.bttn_passwrdview.clicked.connect(password_view)
+login_register.bttn_passwrdview_2.clicked.connect(password_view)
+login_register.bttn_login.clicked.connect(login)
+login_register.commandLinkButton.clicked.connect(forgot_password)
+login_register.pushButton.clicked.connect(buscar_cad) #incompleto
+
+# Define os ícones iniciais dos botões de visualização de senha
+login_register.bttn_passwrdview.setIcon(icon_eye_closed)
+login_register.bttn_passwrdview_2.setIcon(icon_eye_closed)
+
+login_register.show()
+sys.exit(app.exec())
