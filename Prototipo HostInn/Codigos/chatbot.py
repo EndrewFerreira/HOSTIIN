@@ -325,5 +325,3 @@ if __name__ == "__main__":
     window = ChatBotWindow()
     window.show()
     sys.exit(app.exec())
-
-    #
