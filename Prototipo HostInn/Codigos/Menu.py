@@ -16,7 +16,7 @@ class MainMenu(QMainWindow):
         super().__init__()
         # self(self)
         # Carregar a interface gráfica
-        uic.loadUi("C:/Users/11052806/Desktop/HostInn/HOSTIIN/Prototipo HostInn/Telas/tela_menu_principal.ui", self)
+        uic.loadUi(r"C:\Users\11054836\Desktop\PI\HOSTIIN\Prototipo HostInn\Telas\tela_menu_principal.ui", self)
         icon_eye_closed = QIcon("Icones/visibility_off.png")
         self.setWindowTitle("HostInn")
         self.setFixedSize(801, 652)
@@ -491,12 +491,21 @@ class MainMenu(QMainWindow):
         email = self.lineEdit_email_3.text()
         phone = self.lineEdit_phone_2.text()
         endereco = self.lineEdit_endereco_2.text()
+        numero_quarto = self.linha_numero_quarto.text()
 
+        if not nome or not cpf or not email or not phone or not endereco or not numero_quarto:
+            QMessageBox.warning(self,"Erro", "Todos os campos devem ser preenchidos!")
+            return
+    
         cursor = banco.cursor()
         comando_SQL = "SELECT id_cliente FROM clientes WHERE nome = %s  AND cpf = %s"
         cursor.execute(comando_SQL, (nome, cpf,))
-        id_cliente = cursor.fetchone()
-
+        resultado = cursor.fetchone()
+        if not resultado:
+            QMessageBox.warning(self, "Erro", "Cliente não encontrado!")
+            return
+        
+        id_cliente = resultado[0]
 
         data_atual = QDate.currentDate()
         checkin = self.dateEdit_checkin.date().toString("yyyy-MM-dd")
@@ -516,6 +525,8 @@ class MainMenu(QMainWindow):
         if not checkin or not checkout:
             QMessageBox.warning(self,"Erro", "Selecione um período de estadia!")
             return
+        
+        
         
         comando_SQL = "INSERT INTO reserva (Data_Checkin, Data_Checkout, Valor_Reserva, Status_reserva, ID_Cliente) VALUES (%s, %s, %s, %s, %s)"
         dados = (checkin, checkout, valor_reserva, status, id_cliente)
