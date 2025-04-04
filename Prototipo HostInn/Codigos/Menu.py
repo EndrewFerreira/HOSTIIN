@@ -16,7 +16,7 @@ class MainMenu(QMainWindow):
         super().__init__()
         # self(self)
         # Carregar a interface gráfica
-        uic.loadUi(r"C:\Users\11054836\Desktop\PI\HOSTIIN\Prototipo HostInn\Telas\tela_menu_principal.ui", self)
+        uic.loadUi(r"C:\Users\11052806\Desktop\HostInn\HOSTIIN\Prototipo HostInn\Telas\tela_menu_principal.ui", self)
         icon_eye_closed = QIcon("Icones/visibility_off.png")
         self.setWindowTitle("HostInn")
         self.setFixedSize(801, 652)
@@ -70,6 +70,7 @@ class MainMenu(QMainWindow):
         self.bttn_newPayment.clicked.connect(self.novo_pagamento)
         self.bttn_validate.clicked.connect(self.validate_payment)
         self.bttn_voltar.clicked.connect(self.back_confirmation)
+        self.bttn_confirm_2.clicked.connect(self.confirma_busca_financeiro)
 
         self.bttn_report.clicked.connect(self.report_subMenu)
         self.bttn_dashBoard.clicked.connect(self.dashboard)
@@ -573,6 +574,49 @@ class MainMenu(QMainWindow):
                 item = QTableWidgetItem(str(valor))
                 item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
                 self.tableWidget_4.setItem(linha, coluna, item)
+
+    def confirma_busca_financeiro(self):
+        linha = self.tableWidget_4.currentRow()
+        if linha == -1:
+            QMessageBox.warning(self, "Erro", "Selecione uma reserva.")
+            return
+        
+        # Pegando o nome do cliente da tabela
+        nome_cliente = self.tableWidget_4.item(linha, 0).text()  # Coluna 0 -> Nome do Cliente
+
+        cursor = banco.cursor()
+        
+        # Buscar dados do cliente
+        cursor.execute("SELECT * FROM clientes WHERE nome = %s", (nome_cliente,))
+        dados_cliente = cursor.fetchone()
+
+        if not dados_cliente:
+            QMessageBox.warning(self, "Erro", "Cliente não encontrado no banco de dados.")
+            return
+
+        # Preencher os campos do cliente
+        self.lineEdit_9.setText(str(dados_cliente[1]))  # Nome
+        self.lineEdit_10.setText(str(dados_cliente[2])) # CPF
+        self.lineEdit_11.setText(str(dados_cliente[3])) # Telefone
+        self.lineEdit_12.setText(str(dados_cliente[4])) # Email
+        self.lineEdit_13.setText(str(dados_cliente[5])) # Endereço
+
+        # Buscar dados da reserva vinculada ao cliente
+        cursor.execute("""
+            SELECT data_checkin, data_checkout, valor_reserva, status_reserva 
+            FROM reserva 
+            WHERE id_cliente = %s
+        """, (dados_cliente[0],))  # dados_cliente[0] deve ser o ID do cliente
+
+        dados_reserva = cursor.fetchone()
+
+        if dados_reserva:
+            # Preencher os campos da reserva
+            self.dateEdit.setDate(QDate.fromString(str(dados_reserva[0]), "yyyy-MM-dd")) # Checkin
+            self.dateEdit_2.setDate(QDate.fromString(str(dados_reserva[1]), "yyyy-MM-dd")) # Checkout
+            self.lineEdit_23.setText(f"{dados_reserva[2]:.2f}")
+        else:
+            QMessageBox.warning(self, "Erro", "Nenhuma reserva encontrada para este cliente.")
 
     def validate_payment(self):
         self.stackedWidget_2.setCurrentIndex(1)

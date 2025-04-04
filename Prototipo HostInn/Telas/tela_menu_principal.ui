@@ -1476,6 +1476,13 @@
              </property>
             </widget>
            </item>
+           <item>
+            <widget class="QPushButton" name="bttn_confirm_2">
+             <property name="text">
+              <string>Confirmar</string>
+             </property>
+            </widget>
+           </item>
           </layout>
          </item>
          <item>
@@ -3518,12 +3525,12 @@ Filtros</string>
          </column>
          <column>
           <property name="text">
-           <string>STATUS</string>
+           <string>PREÇO</string>
           </property>
          </column>
          <column>
           <property name="text">
-           <string>PREÇO</string>
+           <string>STATUS</string>
           </property>
          </column>
          <column>
