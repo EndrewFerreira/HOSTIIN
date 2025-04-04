@@ -491,20 +491,21 @@ class MainMenu(QMainWindow):
         email = self.lineEdit_email_3.text()
         phone = self.lineEdit_phone_2.text()
         endereco = self.lineEdit_endereco_2.text()
-        numero_quarto = self.linha_numero_quarto.text()
+        numero_quarto = self.comboBox_numero.currentText()
+        print("Número do quarto digitado:", numero_quarto)
 
         if not nome or not cpf or not email or not phone or not endereco or not numero_quarto:
-            QMessageBox.warning(self,"Erro", "Todos os campos devem ser preenchidos!")
+            QMessageBox.warning(self, "Erro", "Todos os campos devem ser preenchidos!")
             return
-    
+
         cursor = banco.cursor()
-        comando_SQL = "SELECT id_cliente FROM clientes WHERE nome = %s  AND cpf = %s"
+        comando_SQL = "SELECT id_cliente FROM clientes WHERE nome = %s AND cpf = %s"
         cursor.execute(comando_SQL, (nome, cpf,))
         resultado = cursor.fetchone()
         if not resultado:
             QMessageBox.warning(self, "Erro", "Cliente não encontrado!")
             return
-        
+
         id_cliente = resultado[0]
 
         data_atual = QDate.currentDate()
@@ -512,27 +513,29 @@ class MainMenu(QMainWindow):
         checkout = self.dateEdit_checkout.date().toString("yyyy-MM-dd")
 
         if checkin < data_atual.toString("yyyy-MM-dd") or checkout < data_atual.toString("yyyy-MM-dd"):
-            QMessageBox.warning(self,"Erro", "selecione uma data válida")
+            QMessageBox.warning(self, "Erro", "Selecione uma data válida!")
             return
 
         valor_reserva = self.lineEdit_total.text()
         status = "Reservado"
 
-        if not nome or not cpf or not email or not phone or not endereco:
-            QMessageBox.warning(self,"Erro", "Um cliente deve ser selecionado!")
-            return
-        
         if not checkin or not checkout:
-            QMessageBox.warning(self,"Erro", "Selecione um período de estadia!")
+            QMessageBox.warning(self, "Erro", "Selecione um período de estadia!")
             return
-        
-        
-        
-        comando_SQL = "INSERT INTO reserva (Data_Checkin, Data_Checkout, Valor_Reserva, Status_reserva, ID_Cliente) VALUES (%s, %s, %s, %s, %s)"
+
+        # Inserir a reserva
+        comando_SQL = """
+            INSERT INTO reserva (Data_Checkin, Data_Checkout, Valor_Reserva, Status_reserva, ID_Cliente)
+            VALUES (%s, %s, %s, %s, %s)
+        """
         dados = (checkin, checkout, valor_reserva, status, id_cliente)
         cursor.execute(comando_SQL, dados)
-        banco.commit()
 
+       
+        comando_UPDATE_quarto = "UPDATE quartos SET Status_Quarto = %s WHERE Numero = %s"
+        cursor.execute(comando_UPDATE_quarto, ("Ocupado", numero_quarto))
+
+        banco.commit()
         QMessageBox.information(self, "Sucesso", "Reserva realizada com sucesso!")
 
     # ===========================( Financeiro )=============================================
