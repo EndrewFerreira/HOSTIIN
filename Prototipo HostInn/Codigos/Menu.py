@@ -59,6 +59,8 @@ class MainMenu(QMainWindow):
         self.editButton.clicked.connect(self.editar_clientes)
 
         self.bttn_reserva.clicked.connect(self.reserva_menu)
+        self.bttn_nova_reserva.clicked.connect(self.nova_reserva)
+        self.bttn_listar_reserva.clicked.connect(self.listar_reservas)
         self.bttn_close.clicked.connect(self.close_reserva)
         self.pushButton_buscar.clicked.connect(self.filtrar_clientes)
         self.bttn_confirm.clicked.connect(self.puxar_cliente)
@@ -82,6 +84,7 @@ class MainMenu(QMainWindow):
         self.bttn_back_2.clicked.connect(self.back_main_menu)
         self.bttn_back_3.clicked.connect(self.back_main_menu)
         self.btn_voltar.clicked.connect(self.back_main_menu)
+        self.bttn_voltar_3.clicked.connect(self.back_main_menu)
 
         self.btn_voltar_2.clicked.connect(self.back_roomlist_menu)
         self.btn_aplicar_filtros.clicked.connect(self.menu_list_all_room)
@@ -103,6 +106,13 @@ class MainMenu(QMainWindow):
         self.stackedMenu.setCurrentIndex(1)
 
     def reserva_menu(self):
+        self.stackedMenu.setCurrentIndex(5)
+
+    def listar_reservas(self):
+        self.stackedWidget.setCurrentIndex(8)
+        self.stackedWidget.show()
+
+    def nova_reserva(self):
         self.stackedWidget.setCurrentIndex(7)
         self.stackedWidget.show()
 
