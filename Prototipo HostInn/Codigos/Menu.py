@@ -634,9 +634,16 @@ class MainMenu(QMainWindow):
 
         # Buscar dados da reserva vinculada ao cliente
         cursor.execute("""
-            SELECT data_checkin, data_checkout, valor_reserva, status_reserva 
-            FROM reserva 
-            WHERE id_cliente = %s
+            SELECT 
+                r.data_checkin, 
+                r.data_checkout, 
+                r.valor_reserva, 
+                r.status_reserva,
+                q.numero
+            FROM reserva r
+            JOIN reserva_quartos rq ON r.id_reserva = rq.id_reserva
+            JOIN quartos q ON rq.id_quartos = q.id_quartos
+            WHERE r.id_cliente = %s
         """, (dados_cliente[0],))  # dados_cliente[0] deve ser o ID do cliente
 
         dados_reserva = cursor.fetchone()
