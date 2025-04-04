@@ -99,15 +99,15 @@ QWidget {
      <enum>QFrame::Raised</enum>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="stackedWidget_loginPage1_3">
      <widget class="QLabel" name="label_5">
       <property name="geometry">
        <rect>
-        <x>-80</x>
+        <x>0</x>
         <y>0</y>
-        <width>571</width>
+        <width>431</width>
         <height>51</height>
        </rect>
       </property>
@@ -1017,9 +1017,9 @@ QPushButton {
      <widget class="QLabel" name="label_6">
       <property name="geometry">
        <rect>
-        <x>-30</x>
+        <x>0</x>
         <y>0</y>
-        <width>471</width>
+        <width>431</width>
         <height>51</height>
        </rect>
       </property>
