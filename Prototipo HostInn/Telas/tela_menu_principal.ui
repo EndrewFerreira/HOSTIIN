@@ -3518,12 +3518,12 @@ Filtros</string>
          </column>
          <column>
           <property name="text">
-           <string>PREÇO</string>
+           <string>STATUS</string>
           </property>
          </column>
          <column>
           <property name="text">
-           <string>STATUS</string>
+           <string>PREÇO</string>
           </property>
          </column>
          <column>
