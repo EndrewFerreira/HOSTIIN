@@ -1,7 +1,7 @@
 from PyQt6 import uic, QtWidgets
-from PyQt6.QtCore import QDate
+from PyQt6.QtCore import QDate, Qt
 from PyQt6.QtGui import QIcon
-from PyQt6.QtWidgets import QLineEdit, QMessageBox, QMainWindow, QPushButton, QGridLayout, QDialog
+from PyQt6.QtWidgets import QLineEdit, QMessageBox, QMainWindow, QPushButton, QGridLayout, QDialog, QTableWidgetItem
 import sys, pymysql, Tela_edicao, chatbot
 
 banco = pymysql.connect(
@@ -67,7 +67,7 @@ class MainMenu(QMainWindow):
 
         self.bttn_financial.clicked.connect(self.financial_menu)
         self.bttn_movements.clicked.connect(self.movements_subMenu)
-        self.bttn_newPayment.clicked.connect(self.new_payment)
+        self.bttn_newPayment.clicked.connect(self.novo_pagamento)
         self.bttn_validate.clicked.connect(self.validate_payment)
         self.bttn_voltar.clicked.connect(self.back_confirmation)
 
@@ -545,9 +545,37 @@ class MainMenu(QMainWindow):
         self.stackedsubMenu.show()
         self.stackedWidget.show()
 
-    def new_payment(self):
+    def novo_pagamento(self):
         self.stackedWidget_2.setCurrentIndex(0)
         self.stackedWidget_2.show()
+
+        cursor = banco.cursor()
+
+        query = """
+        SELECT 
+            c.nome, 
+            c.cpf, 
+            r.data_checkin, 
+            r.data_checkout, 
+            r.valor_reserva, 
+            r.status_reserva
+        FROM reserva r
+        JOIN clientes c ON r.id_cliente = c.id_cliente
+        """
+
+        cursor.execute(query)
+        resultados = cursor.fetchall()
+
+        colunas = ["Nome", "CPF", "Check-in", "Check-out", "Valor", "Status"]
+        self.tableWidget_4.setRowCount(len(resultados))
+        self.tableWidget_4.setColumnCount(len(colunas))
+        self.tableWidget_4.setHorizontalHeaderLabels(colunas)
+
+        for linha, dados in enumerate(resultados):
+            for coluna, valor in enumerate(dados):
+                item = QTableWidgetItem(str(valor))
+                item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
+                self.tableWidget_4.setItem(linha, coluna, item)
 
     def validate_payment(self):
         self.stackedWidget_2.setCurrentIndex(1)
