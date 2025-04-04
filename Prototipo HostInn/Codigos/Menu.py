@@ -16,7 +16,7 @@ class MainMenu(QMainWindow):
         super().__init__()
         # self(self)
         # Carregar a interface gráfica
-        uic.loadUi(r"C:\Users\11054836\Desktop\PI\HOSTIIN\Prototipo HostInn\Telas\tela_menu_principal.ui", self)
+        uic.loadUi(r"C:\Users\11052806\Desktop\HostInn\HOSTIIN\Prototipo HostInn\Telas\tela_menu_principal.ui", self)
         icon_eye_closed = QIcon("Icones/visibility_off.png")
         self.setWindowTitle("HostInn")
         self.setFixedSize(801, 652)
@@ -542,11 +542,23 @@ class MainMenu(QMainWindow):
         dados = (checkin, checkout, valor_reserva, status, id_cliente)
         cursor.execute(comando_SQL, dados)
 
-        id_reserva = "SELECT ID_RESERVA FROM reserva WHERE ID_CLIENTE = %s AND DATA_CHECKIN = %s AND DATA_CHECKOUT = %s"
-        
-        # dados2 = 
-        comando_SQL2 = "INSERT INTO reserva_quartos (ID_Reserva, ID_Quartos) VALUES (%s,%s)"
-        cursor.execute(comando_SQL2)
+        cursor = banco.cursor()
+        comando_SQL_2 = "SELECT ID_RESERVA FROM reserva WHERE ID_CLIENTE = %s AND DATA_CHECKIN = %s AND DATA_CHECKOUT = %s"
+        cursor.execute(comando_SQL_2, (id_cliente, checkin, checkout))
+        resultado2 = cursor.fetchone()
+
+        id_reserva = resultado2[0]
+
+        cursor = banco.cursor()
+        comando_SQL_3 = "SELECT id_quartos FROM quartos WHERE numero = %s"
+        cursor.execute(comando_SQL_3, (numero_quarto))
+        resultado3 = cursor.fetchone()
+
+        id_quarto = resultado3[0]
+
+        dados2 =  (id_reserva,id_quarto)
+        comando_SQL_4 = "INSERT INTO reserva_quartos (ID_Reserva, ID_Quartos) VALUES (%s,%s)"
+        cursor.execute(comando_SQL_4,(dados2))
 
        
         comando_UPDATE_quarto = "UPDATE quartos SET Status_Quarto = %s WHERE Numero = %s"
