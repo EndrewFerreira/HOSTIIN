@@ -7,7 +7,7 @@ import sys, pymysql, Tela_edicao, chatbot
 banco = pymysql.connect(
     host="localhost",
     user="root",
-    passwd="",
+    passwd="#mortadela1507",
     database="bd_teste2"
 )
 
@@ -16,7 +16,7 @@ class MainMenu(QMainWindow):
         super().__init__()
         # self(self)
         # Carregar a interface gráfica
-        uic.loadUi(r"C:\Users\11052806\Desktop\HostInn\HOSTIIN\Prototipo HostInn\Telas\tela_menu_principal.ui", self)
+        uic.loadUi(r"C:\Users\ferre\Desktop\PROJETO HOSTINN\HOSTIIN\Prototipo HostInn\Telas\tela_menu_principal.ui", self)
         icon_eye_closed = QIcon("Icones/visibility_off.png")
         self.setWindowTitle("HostInn")
         self.setFixedSize(801, 652)

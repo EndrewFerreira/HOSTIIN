@@ -8,7 +8,7 @@ import sys
 banco = pymysql.connect(
     host="localhost",
     user="root",
-    passwd="",
+    passwd="#mortadela1507",
     database="bd_teste2"
 )
 
