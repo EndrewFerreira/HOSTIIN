@@ -7,7 +7,7 @@ import sys, pymysql, Tela_edicao, chatbot
 banco = pymysql.connect(
     host="localhost",
     user="root",
-    passwd="#mortadela1507",
+    passwd="",
     database="bd_teste2"
 )
 

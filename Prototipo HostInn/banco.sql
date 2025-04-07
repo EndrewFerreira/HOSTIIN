@@ -8,7 +8,9 @@ Nome varchar (150) not null,
 Usuario varchar (150) not null unique,
 permissao varchar(150) not null,
 Email varchar (150) not null unique,
-Senha varchar (150) not null
+Senha varchar (150) not null,
+CPF varchar (150) not null unique, 
+BDAY varchar (150) not null
 );
 
 create table  clientes (
