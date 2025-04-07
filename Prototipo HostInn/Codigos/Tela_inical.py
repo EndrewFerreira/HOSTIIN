@@ -1,6 +1,6 @@
 from PyQt6 import uic, QtWidgets
 from PyQt6.QtGui import QIcon,QPixmap
-from PyQt6.QtCore import Qt
+from PyQt6.QtCore import Qt, QDate
 from PyQt6.QtWidgets import QMessageBox, QLineEdit
 import pymysql, sys
 import Menu
@@ -71,6 +71,59 @@ def login():
     else:
         QMessageBox.warning(login_register, "Erro", "Usuário não encontrado!")
 
+
+def forgot_password():
+    login_register.stackedWidget.setCurrentIndex(3)
+
+# def buscar_cad():
+#     global login_register, menu
+#     cpf = login_register.lineEdit_cpf.text()
+#     bday = login_register.lineEdit_bday.text()
+
+
+#     cursor = banco.cursor()
+#     comando_SQL = "SELECT CPF, BDAY FROM usuarios WHERE CPF= %s AND BDAY = %s"
+#     cursor.execute(comando_SQL, (cpf,bday))
+#     cpf_bday = cursor.fetchall()
+
+#     result_cpf = str(cpf_bday[0])
+#     result_bday = str(cpf_bday[1])
+    
+#     if cpf == result_cpf and bday == result_bday:
+#         print("sucesso")
+def buscar_cad():
+    # Acessando os valores do CPF e BDAY na interface do usuário
+    global login_register, menu
+    cpf = login_register.lineEdit_cpf.text()
+    bday = login_register.lineEdit_bday.text()
+
+    # Criação do cursor para executar comandos SQL
+    cursor = banco.cursor()
+
+    # Comando SQL para buscar o CPF e BDAY no banco de dados
+    comando_SQL = "SELECT CPF, BDAY FROM usuarios WHERE CPF = %s AND BDAY = %s"
+    cursor.execute(comando_SQL, (cpf, bday))
+
+    # Obtendo os resultados da consulta SQL
+    cpf_bday = cursor.fetchall()
+
+    # Verificar se o resultado retornado é válido e contém os dados esperados
+    if len(cpf_bday) > 0:
+        # A consulta retornou pelo menos uma linha, agora extraímos os valores
+        result_cpf, result_bday = cpf_bday[0]  # Isso extrai diretamente CPF e BDAY da tupla retornada
+        
+        # Verificando se o CPF e BDAY fornecidos coincidem com o banco de dados
+        if cpf == result_cpf and bday == result_bday:
+            print("Sucesso")
+        else:
+            print("CPF ou data de nascimento incorretos.")
+    else:
+        print("Nenhum resultado encontrado para o CPF e data de nascimento fornecidos.")
+
+
+
+# def reset_password(): #incompleto
+
 def new_reg():
     name = login_register.lineEdit_name.text()
     user = login_register.lineEdit_user.text()
@@ -78,6 +131,9 @@ def new_reg():
     permissao = login_register.comboBox.currentText()
     passwrd = login_register.lineEdit_passwrd.text()
     passwrd_conf = login_register.lineEdit_passwrd_2.text()
+    cpf = login_register.lineEdit_2.text()
+    bday = login_register.dateEdit_2.text()
+    # bday = login_register.dateEdit_2.setDate(QDate.fromString(str(), "yyyy-MM-dd"))
 
     if not name or not user or not email or not passwrd or not passwrd_conf:
         QMessageBox.warning(login_register, "Erro", "Todos os campos devem ser preenchidos!")
@@ -105,8 +161,8 @@ def new_reg():
         QMessageBox.warning(login_register, "Erro", "As senhas não coincidem!")
         return
 
-    comando_SQL = "INSERT INTO usuarios (nome, usuario, permissao, email, senha) VALUES (%s, %s, %s, %s, %s)"
-    dados = (name, user, permissao, email, passwrd)
+    comando_SQL = "INSERT INTO usuarios (nome, usuario, permissao, email, senha, CPF, BDAY) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+    dados = (name, user, permissao, email, passwrd, cpf, bday)
     cursor.execute(comando_SQL, dados)
     banco.commit()
 
@@ -129,7 +185,11 @@ icon_eye_open = QIcon("Icones/visibility.png")
 icon_eye_closed = QIcon("Icones/visibility_off.png")
 
 #===========================( Login/ Cadastro )=============================================
+<<<<<<< HEAD
 login_register = uic.loadUi(r"C:\Users\11052806\Desktop\HostInn\HOSTIIN\Prototipo HostInn\Telas\TELA_LOGIN_CADASTRO_2.ui")
+=======
+login_register = uic.loadUi(r"C:\Users\57090816\OneDrive - SENAC PA - EDU\MAIS ATUALIZADO\HOSTIIN-1\Prototipo HostInn\Telas\TELA_LOGIN_CADASTRO_2.ui")
+>>>>>>> 6e3cfb38e6dae790bf00259f7b1bb09d2e26bb73
 login_register.setWindowTitle("HostInn")
 login_register.stackedWidget.setCurrentIndex(0)
 login_register.lineEdit_passwrd.setEchoMode(QLineEdit.EchoMode.Password)
@@ -143,6 +203,11 @@ login_register.bttn_alterindex.clicked.connect(alter_log)
 login_register.bttn_passwrdview.clicked.connect(password_view)
 login_register.bttn_passwrdview_2.clicked.connect(password_view)
 login_register.bttn_login.clicked.connect(login)
+login_register.bttn_forgotpassword.clicked.connect(forgot_password)
+login_register.bttn_search_user.clicked.connect(buscar_cad)
+login_register.bttn_alterindex_4.clicked.connect(alter_log)
+login_register.bttn_back_login.clicked.connect(alter_log)
+# login_register.bttn_reset_password.clicked.connect(reset_password)
 
 # Define os ícones iniciais dos botões de visualização de senha
 login_register.bttn_passwrdview.setIcon(icon_eye_closed)

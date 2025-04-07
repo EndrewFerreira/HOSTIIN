@@ -99,7 +99,7 @@ QWidget {
      <enum>QFrame::Raised</enum>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="stackedWidget_loginPage1_3">
      <widget class="QLabel" name="label_5">
@@ -437,6 +437,19 @@ QPushButton {
        </size>
       </property>
      </widget>
+     <widget class="QCommandLinkButton" name="bttn_forgotpassword">
+      <property name="geometry">
+       <rect>
+        <x>230</x>
+        <y>310</y>
+        <width>172</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>esqueci a senha</string>
+      </property>
+     </widget>
      <zorder>label_user_3</zorder>
      <zorder>label_passwrd_3</zorder>
      <zorder>label_5</zorder>
@@ -445,6 +458,7 @@ QPushButton {
      <zorder>bttn_alterindex_2</zorder>
      <zorder>lineEdit_user_2</zorder>
      <zorder>bttn_passwrdview</zorder>
+     <zorder>bttn_forgotpassword</zorder>
     </widget>
     <widget class="QWidget" name="page_3">
      <widget class="QLineEdit" name="lineEdit_email">
@@ -452,7 +466,7 @@ QPushButton {
        <rect>
         <x>70</x>
         <y>210</y>
-        <width>321</width>
+        <width>191</width>
         <height>30</height>
        </rect>
       </property>
@@ -1034,6 +1048,55 @@ QPushButton {
        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:18pt; color:#ffffff;&quot;&gt;NOVO CADASTRO&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
+     <widget class="QLineEdit" name="lineEdit_2">
+      <property name="geometry">
+       <rect>
+        <x>300</x>
+        <y>210</y>
+        <width>113</width>
+        <height>20</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QDateEdit" name="dateEdit_2">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>230</y>
+        <width>81</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="calendarPopup">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_12">
+      <property name="geometry">
+       <rect>
+        <x>270</x>
+        <y>230</y>
+        <width>71</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Nascimento</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_13">
+      <property name="geometry">
+       <rect>
+        <x>270</x>
+        <y>210</y>
+        <width>31</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>CPF:</string>
+      </property>
+     </widget>
      <zorder>label_email_4</zorder>
      <zorder>label_name_4</zorder>
      <zorder>lineEdit_name</zorder>
@@ -1049,6 +1112,458 @@ QPushButton {
      <zorder>bttn_alterindex</zorder>
      <zorder>bttn_passwrdview_2</zorder>
      <zorder>label_6</zorder>
+     <zorder>lineEdit_2</zorder>
+     <zorder>dateEdit_2</zorder>
+     <zorder>label_12</zorder>
+     <zorder>label_13</zorder>
+    </widget>
+    <widget class="QWidget" name="page">
+     <widget class="QLabel" name="label_11">
+      <property name="geometry">
+       <rect>
+        <x>50</x>
+        <y>30</y>
+        <width>341</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Montserrat Medium</family>
+        <pointsize>14</pointsize>
+        <italic>false</italic>
+       </font>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;REDEFINIR SENHA&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+     <widget class="QWidget" name="verticalLayoutWidget_10">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>190</y>
+        <width>330</width>
+        <height>211</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_8">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_17">
+         <item>
+          <widget class="QLabel" name="label_user_9">
+           <property name="font">
+            <font>
+             <family>MS Shell Dlg 2</family>
+             <pointsize>10</pointsize>
+             <weight>50</weight>
+             <italic>false</italic>
+             <bold>false</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>Nova senha:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="lineEdit_user_7">
+           <property name="font">
+            <font>
+             <family>MS Shell Dlg 2</family>
+             <italic>false</italic>
+            </font>
+           </property>
+           <property name="placeholderText">
+            <string>digite a nova senha</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_25">
+         <item>
+          <widget class="QLabel" name="label_passwrd_9">
+           <property name="font">
+            <font>
+             <family>MS Shell Dlg 2</family>
+             <pointsize>10</pointsize>
+             <weight>50</weight>
+             <italic>false</italic>
+             <bold>false</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>Confirmar senha:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="lineEdit_passwrd_8">
+           <property name="font">
+            <font>
+             <family>MS Shell Dlg 2</family>
+             <italic>false</italic>
+            </font>
+           </property>
+           <property name="placeholderText">
+            <string>confirme a nova senha</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_26">
+         <item>
+          <spacer name="horizontalSpacer_12">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QPushButton" name="bttn_reset_password">
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 2px solid rgba(255, 255, 255, 0.3); /* Borda branca translúcida */
+    color: #333333; /* Texto totalmente opaco */
+}
+
+QPushButton:hover {
+     background-color: #CFD8DC;
+    border-color: rgba(255, 255, 255,255); 
+}
+
+QPushButton:pressed {
+    background-color: #A0B2C8; /* Azul acinzentado */
+border-color: #003366; /* Azul escuro */
+}
+ QPushButton{border: 2px solid rgba(255, 255, 255, 200);
+    border-radius: 15px;
+    background-color: rgba(0, 0, 0, 0); /* Totalmente transparente */
+    
+    /* Espaçamento interno */
+    padding: 5px 15px;
+    
+    /* Cor do texto */
+    color: white;
+    
+    /* Melhora a renderização */
+    background-clip: padding-box;
+}
+
+/* Efeito ao focar */
+QPushButton {
+    border: 2px solid rgba(255, 255, 255, 255);
+    background-color: rgba(255, 255, 255, 20);
+}</string>
+         </property>
+         <property name="text">
+          <string>Redefinir</string>
+         </property>
+         <property name="icon">
+          <iconset>
+           <normaloff>../../../../HOSTIIN/Downloads/visibility_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png</normaloff>../../../../HOSTIIN/Downloads/visibility_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>24</width>
+           <height>24</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="bttn_back_login">
+         <property name="font">
+          <font>
+           <family>MS Shell Dlg 2</family>
+           <pointsize>10</pointsize>
+           <weight>50</weight>
+           <italic>false</italic>
+           <bold>false</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 2px solid rgba(255, 255, 255, 0.3); /* Borda branca translúcida */
+    color:#003366; /* Texto totalmente opaco */
+}
+
+QPushButton:hover {
+     background-color: #CFD8DC;
+    border-color: rgba(255, 255, 255,255); 
+}
+
+QPushButton:pressed {
+    background-color: #A0B2C8; /* Azul acinzentado */
+border-color: #003366; /* Azul escuro */
+}
+ QPushButton{border: 2px solid rgba(255, 255, 255, 200);
+    border-radius: 15px;
+    background-color: rgba(0, 0, 0, 0); /* Totalmente transparente */
+    
+    /* Espaçamento interno */
+    padding: 5px 15px;
+    
+    /* Cor do texto */
+    color: white;
+    
+    /* Melhora a renderização */
+    background-clip: padding-box;
+}
+
+/* Efeito ao focar */
+QPushButton {
+    border: 2px solid rgba(255, 255, 255, 255);
+    background-color: rgba(255, 255, 255, 20);
+}</string>
+         </property>
+         <property name="text">
+          <string>Voltar para a tela de Login</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_27">
+         <item>
+          <spacer name="horizontalSpacer_13">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="page_2">
+     <widget class="QLabel" name="label_8">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>431</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Montserrat Medium</family>
+        <pointsize>14</pointsize>
+        <italic>false</italic>
+       </font>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;ESQUECI MINHA SENHA&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+     <widget class="QWidget" name="verticalLayoutWidget_9">
+      <property name="geometry">
+       <rect>
+        <x>50</x>
+        <y>220</y>
+        <width>330</width>
+        <height>167</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_6">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_14">
+         <item>
+          <widget class="QLabel" name="label_user_7">
+           <property name="font">
+            <font>
+             <family>MS Shell Dlg 2</family>
+             <pointsize>10</pointsize>
+             <weight>50</weight>
+             <italic>false</italic>
+             <bold>false</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>CPF</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="lineEdit_cpf">
+           <property name="font">
+            <font>
+             <family>MS Shell Dlg 2</family>
+             <italic>false</italic>
+            </font>
+           </property>
+           <property name="placeholderText">
+            <string>Não use traços e nem pontos, apenas números</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_16">
+         <item>
+          <widget class="QLabel" name="label_passwrd_7">
+           <property name="font">
+            <font>
+             <family>MS Shell Dlg 2</family>
+             <pointsize>10</pointsize>
+             <weight>50</weight>
+             <italic>false</italic>
+             <bold>false</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>Data de Nascimento:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="lineEdit_bday">
+           <property name="font">
+            <font>
+             <family>MS Shell Dlg 2</family>
+             <italic>false</italic>
+            </font>
+           </property>
+           <property name="placeholderText">
+            <string>Use apenas números</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QGridLayout" name="gridLayout">
+         <item row="0" column="1">
+          <widget class="QPushButton" name="bttn_alterindex_4">
+           <property name="font">
+            <font>
+             <family>MS Shell Dlg 2</family>
+             <pointsize>10</pointsize>
+             <weight>50</weight>
+             <italic>false</italic>
+             <bold>false</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QPushButton {
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 2px solid rgba(255, 255, 255, 0.3); /* Borda branca translúcida */
+    color:#003366; /* Texto totalmente opaco */
+}
+
+QPushButton:hover {
+     background-color: #CFD8DC;
+    border-color: rgba(255, 255, 255,255); 
+}
+
+QPushButton:pressed {
+    background-color: #A0B2C8; /* Azul acinzentado */
+border-color: #003366; /* Azul escuro */
+}
+ QPushButton{border: 2px solid rgba(255, 255, 255, 200);
+    border-radius: 15px;
+    background-color: rgba(0, 0, 0, 0); /* Totalmente transparente */
+    
+    /* Espaçamento interno */
+    padding: 5px 15px;
+    
+    /* Cor do texto */
+    color: white;
+    
+    /* Melhora a renderização */
+    background-clip: padding-box;
+}
+
+/* Efeito ao focar */
+QPushButton {
+    border: 2px solid rgba(255, 255, 255, 255);
+    background-color: rgba(255, 255, 255, 20);
+}</string>
+           </property>
+           <property name="text">
+            <string>Voltar</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="2">
+          <widget class="QPushButton" name="bttn_search_user">
+           <property name="styleSheet">
+            <string notr="true">QPushButton {
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 2px solid rgba(255, 255, 255, 0.3); /* Borda branca translúcida */
+    color: #333333; /* Texto totalmente opaco */
+}
+
+QPushButton:hover {
+     background-color: #CFD8DC;
+    border-color: rgba(255, 255, 255,255); 
+}
+
+QPushButton:pressed {
+    background-color: #A0B2C8; /* Azul acinzentado */
+border-color: #003366; /* Azul escuro */
+}
+ QPushButton{border: 2px solid rgba(255, 255, 255, 200);
+    border-radius: 15px;
+    background-color: rgba(0, 0, 0, 0); /* Totalmente transparente */
+    
+    /* Espaçamento interno */
+    padding: 5px 15px;
+    
+    /* Cor do texto */
+    color: white;
+    
+    /* Melhora a renderização */
+    background-clip: padding-box;
+}
+
+/* Efeito ao focar */
+QPushButton {
+    border: 2px solid rgba(255, 255, 255, 255);
+    background-color: rgba(255, 255, 255, 20);
+}</string>
+           </property>
+           <property name="text">
+            <string>Buscar</string>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normaloff>../../../../HOSTIIN/Downloads/visibility_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png</normaloff>../../../../HOSTIIN/Downloads/visibility_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>24</width>
+             <height>24</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
     </widget>
    </widget>
    <widget class="QWidget" name="widget" native="true">
