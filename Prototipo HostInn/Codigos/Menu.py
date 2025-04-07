@@ -5,18 +5,19 @@ from PyQt6.QtWidgets import QLineEdit, QMessageBox, QMainWindow, QPushButton, QG
 import sys, pymysql, Tela_edicao, chatbot
 
 banco = pymysql.connect(
-    host="localhost",
-    user="root",
-    passwd="#mortadela1507",
-    database="bd_teste2"
+    host = "localhost",
+    user = "root",
+    password = "",
+    database = "bd_teste2"
 )
+
 
 class MainMenu(QMainWindow):
     def __init__(self):
         super().__init__()
         # self(self)
         # Carregar a interface gráfica
-        uic.loadUi(r"C:\Users\ferre\Desktop\PROJETO HOSTINN\HOSTIIN\Prototipo HostInn\Telas\tela_menu_principal.ui", self)
+        uic.loadUi(r"C:\Users\11052806\Desktop\HostInn\HOSTIIN\Prototipo HostInn\Telas\tela_menu_principal.ui", self)
         icon_eye_closed = QIcon("Icones/visibility_off.png")
         self.setWindowTitle("HostInn")
         self.setFixedSize(801, 652)
@@ -385,7 +386,7 @@ class MainMenu(QMainWindow):
         self.stackedWidget_3.setCurrentIndex(1)
         self.stackedWidget.show()
 
-    # ===========================( Reserva )=============================================
+    # ===========================( Reserva )=============================================   
     def carregar_quartos(self):
         """Preenche a comboBox com os números dos quartos disponíveis."""
         cursor = banco.cursor()
@@ -639,7 +640,8 @@ class MainMenu(QMainWindow):
                 r.data_checkout, 
                 r.valor_reserva, 
                 r.status_reserva,
-                q.numero
+                q.numero,
+                q.tipo
             FROM reserva r
             JOIN reserva_quartos rq ON r.id_reserva = rq.id_reserva
             JOIN quartos q ON rq.id_quartos = q.id_quartos
@@ -653,6 +655,8 @@ class MainMenu(QMainWindow):
             self.dateEdit.setDate(QDate.fromString(str(dados_reserva[0]), "yyyy-MM-dd")) # Checkin
             self.dateEdit_2.setDate(QDate.fromString(str(dados_reserva[1]), "yyyy-MM-dd")) # Checkout
             self.lineEdit_23.setText(f"{dados_reserva[2]:.2f}")
+            self.lineEdit_14.setText(str(dados_reserva[5]))
+            self.lineEdit_15.setText(str(dados_reserva[4]))
         else:
             QMessageBox.warning(self, "Erro", "Nenhuma reserva encontrada para este cliente.")
 
