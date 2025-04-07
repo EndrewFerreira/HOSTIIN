@@ -30,6 +30,10 @@ class MainMenu(QMainWindow):
         self.stackedWidget.hide()
         self.stackedWidget_2.hide()
         self.frame.hide()
+        self.comboBox_4.currentTextChanged.connect(self.on_tipo_pagamento_changed)
+        self.comboBox_5.currentTextChanged.connect(self.calcular_valor_parcela)
+        self.lineEdit_23.textChanged.connect(self.calcular_valor_parcela)
+
 
         self.passButton_view.setIcon(icon_eye_closed)
         # Conectando eventos
@@ -661,24 +665,62 @@ class MainMenu(QMainWindow):
             QMessageBox.warning(self, "Erro", "Nenhuma reserva encontrada para este cliente.")
 
     def validate_payment(self):
+        name = self.lineEdit_9.text().strip()      # Nome
+        cpf = self.lineEdit_10.text().strip()      # CPF
+        phone = self.lineEdit_11.text().strip()    # Telefone
+        email = self.lineEdit_12.text().strip()    # Email
+        endereco = self.lineEdit_13.text().strip() # Endereço
 
-        name = self.lineEdit_9.text()  # Nome
-        cpf = self.lineEdit_10.text() # CPF
-        phone = self.lineEdit_11.text() # Telefone
-        email = self.lineEdit_12.text() # Email
-        endereco = self.lineEdit_13.text() # Endereço
+        checkin = self.dateEdit.date()
+        checkout = self.dateEdit_2.date()
 
-        checkin = self.dateEdit.setDate(QDate.fromString(str(), "yyyy-MM-dd")) # Checkin
-        checkout = self.dateEdit_2.setDate(QDate.fromString(str(), "yyyy-MM-dd")) # Checkout
-        
-        
-
-        if not name or not cpf or not email or not phone or not endereco or not checkin or not checkout :
+        # Validação de campos vazios
+        if not name or not cpf or not email or not phone or not endereco:
             QMessageBox.warning(self, "Erro", "Todos os campos devem ser preenchidos!")
             return
 
+        # Validação de data (ex: check-out não pode ser antes do check-in)
+        if checkout <= checkin:
+            QMessageBox.warning(self, "Erro", "A data de check-out deve ser após a data de check-in!")
+            return
+
+        # Se tudo estiver certo, prossegue
         self.stackedWidget_2.setCurrentIndex(1)
         self.stackedWidget_2.show()
+        self.on_tipo_pagamento_changed()
+        self.calcular_valor_parcela()
+
+    def calcular_valor_parcela(self):
+        try:
+            parcelas_texto = self.comboBox_5.currentText().replace("x", "").strip()
+            if not parcelas_texto.isdigit():
+                raise ValueError("Parcela inválida")
+
+            num_parcelas = int(parcelas_texto)
+            total_texto = self.lineEdit_23.text().strip()
+
+            if not total_texto:
+                return  # Se estiver vazio, não tenta calcular
+
+            total = float(total_texto)
+
+            if total > 0 and num_parcelas > 0:
+                valor_individual = total / num_parcelas
+                self.lineEdit_14.setText(f"{valor_individual:.2f}")
+            else:
+                self.lineEdit_14.clear()
+        except ValueError:
+            self.lineEdit_14.clear()
+
+     
+    def on_tipo_pagamento_changed(self):
+        tipo_pagamento = self.comboBox_4.currentText().lower()
+
+        if tipo_pagamento in ["dinheiro", "débito", "pix"]:
+            self.comboBox_5.setCurrentText("1x")
+            self.comboBox_5.setEnabled(False)
+        else:
+            self.comboBox_5.setEnabled(True)
 
     def report_subMenu(self):
         self.stackedsubMenu.setCurrentIndex(1)
