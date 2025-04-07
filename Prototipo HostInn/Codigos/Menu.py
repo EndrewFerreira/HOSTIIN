@@ -5,17 +5,10 @@ from PyQt6.QtWidgets import QLineEdit, QMessageBox, QMainWindow, QPushButton, QG
 import sys, pymysql, Tela_edicao, chatbot
 
 banco = pymysql.connect(
-<<<<<<< HEAD
     host="localhost",
     user="root",
     passwd="",
     database="bd_teste2"
-=======
-    host = "localhost",
-    user = "root",
-    password = "",
-    database = "bd_teste2"
->>>>>>> d522f745aedba1cbee9ad3337066d5e99a0f65ea
 )
 
 
@@ -24,11 +17,7 @@ class MainMenu(QMainWindow):
         super().__init__()
         # self(self)
         # Carregar a interface gráfica
-<<<<<<< HEAD
         uic.loadUi(r"C:\Users\11054836\Desktop\PI\HOSTIIN\Prototipo HostInn\Telas\tela_menu_principal.ui", self)
-=======
-        uic.loadUi(r"C:\Users\11052806\Desktop\HostInn\HOSTIIN\Prototipo HostInn\Telas\tela_menu_principal.ui", self)
->>>>>>> d522f745aedba1cbee9ad3337066d5e99a0f65ea
         icon_eye_closed = QIcon("Icones/visibility_off.png")
         self.setWindowTitle("HostInn")
         self.setFixedSize(801, 652)
