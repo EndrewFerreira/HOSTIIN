@@ -7,7 +7,7 @@ import sys, pymysql, Tela_edicao, chatbot
 banco = pymysql.connect(
     host="localhost",
     user="root",
-    passwd="#mortadela1507",
+    passwd="",
     database="bd_teste2"
 )
 
@@ -16,7 +16,7 @@ class MainMenu(QMainWindow):
         super().__init__()
         # self(self)
         # Carregar a interface gráfica
-        uic.loadUi(r"C:\Users\ferre\Desktop\PROJETO HOSTINN\HOSTIIN\Prototipo HostInn\Telas\tela_menu_principal.ui", self)
+        uic.loadUi(r"C:\Users\11054836\Desktop\PI\HOSTIIN\Prototipo HostInn\Telas\tela_menu_principal.ui", self)
         icon_eye_closed = QIcon("Icones/visibility_off.png")
         self.setWindowTitle("HostInn")
         self.setFixedSize(801, 652)
@@ -50,14 +50,14 @@ class MainMenu(QMainWindow):
         self.bttn_listUser.clicked.connect(self.list_user)
         self.dellButton_2.clicked.connect(self.deletar_user)
         self.editButton_3.clicked.connect(self.editar_user)
-
+                    ########### CLIENTE ###############
         self.bttn_client.clicked.connect(self.client_menu)
         self.bttn_newClient.clicked.connect(self.new_client)
         self.Button_cadstr.clicked.connect(self.cadstr_clientes)
         self.bttn_listClient.clicked.connect(self.list_client)
         self.dellButton.clicked.connect(self.deletar_clientes)
         self.editButton.clicked.connect(self.editar_clientes)
-
+                ########### RESERVA ###############
         self.bttn_reserva.clicked.connect(self.reserva_menu)
         self.bttn_nova_reserva.clicked.connect(self.nova_reserva)
         self.bttn_listar_reserva.clicked.connect(self.listar_reservas)
@@ -65,7 +65,8 @@ class MainMenu(QMainWindow):
         self.pushButton_buscar.clicked.connect(self.filtrar_clientes)
         self.bttn_confirm.clicked.connect(self.puxar_cliente)
         self.bttn_reservar.clicked.connect(self.reservar)
-
+        self.bttn_listar_reserva.clicked.connect(self.listar_reservas)
+        self.btn_cancel.clicked.connect(self.cancelar_reserva)
 
         self.bttn_financial.clicked.connect(self.financial_menu)
         self.bttn_movements.clicked.connect(self.movements_subMenu)
@@ -85,7 +86,7 @@ class MainMenu(QMainWindow):
         self.bttn_back_3.clicked.connect(self.back_main_menu)
         self.btn_voltar.clicked.connect(self.back_main_menu)
         self.bttn_voltar_3.clicked.connect(self.back_main_menu)
-
+            ########### QUARTO ###############
         self.btn_voltar_2.clicked.connect(self.back_roomlist_menu)
         self.btn_aplicar_filtros.clicked.connect(self.menu_list_all_room)
         self.bttn_rooms.clicked.connect(self.room_menu)
@@ -111,6 +112,32 @@ class MainMenu(QMainWindow):
     def listar_reservas(self):
         self.stackedWidget.setCurrentIndex(8)
         self.stackedWidget.show()
+        cursor = banco.cursor()
+        comando_SQL = """
+            SELECT
+                r.ID_Reserva,
+                c.Nome AS Cliente,
+                q.Numero AS Numero_Quarto,
+                r.Data_Checkin,
+                r.Data_Checkout,
+                r.Valor_Reserva,
+                r.Status_reserva
+            FROM reserva r
+            JOIN clientes c ON r.ID_Cliente = c.ID_Cliente
+            JOIN reserva_quartos rq ON r.ID_Reserva = rq.ID_Reserva
+            JOIN quartos q ON rq.ID_Quartos = q.ID_Quartos
+        """
+
+        cursor.execute(comando_SQL)
+        reservas = cursor.fetchall()
+
+        self.tabela_lista_reserva.setRowCount(0)
+
+        for row_num, row_data in enumerate(reservas):
+            self.tabela_lista_reserva.insertRow(row_num)
+            for col_num, data in enumerate(row_data):
+                item = QTableWidgetItem(str(data))
+                self.tabela_lista_reserva.setItem(row_num, col_num, item)
 
     def nova_reserva(self):
         self.stackedWidget.setCurrentIndex(7)
@@ -567,6 +594,50 @@ class MainMenu(QMainWindow):
         banco.commit()
         QMessageBox.information(self, "Sucesso", "Reserva realizada com sucesso!")
 
+    def cancelar_reserva(self):
+        linha_selecionada = self.tabela_lista_reserva.currentRow()
+
+        if linha_selecionada == -1:
+            QMessageBox.warning(self, "Aviso", "Selecione uma reserva para cancelar.")
+            return
+
+        id_reserva_item = self.tabela_lista_reserva.item(linha_selecionada, 0)
+        numero_quarto_item = self.tabela_lista_reserva.item(linha_selecionada, 2)
+
+        if not id_reserva_item or not numero_quarto_item:
+            QMessageBox.warning(self, "Erro", "Não foi possível obter os dados da reserva.")
+            return
+
+        id_reserva = id_reserva_item.text()
+        numero_quarto = numero_quarto_item.text()
+
+        resposta = QMessageBox.question(
+            self,
+            "Confirmação",
+            "Tem certeza que deseja cancelar esta reserva?",
+            QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
+        )
+
+        if resposta == QMessageBox.StandardButton.Yes:
+            # continua aqui...
+
+            cursor = banco.cursor()
+
+            # Atualiza status da reserva
+            comando_update_reserva = "UPDATE reserva SET Status_reserva = %s WHERE ID_Reserva = %s"
+            cursor.execute(comando_update_reserva, ("cancelado", id_reserva))
+
+            # Atualiza status do quarto para "Disponível"
+            comando_update_quarto = "UPDATE quartos SET Status_Quarto = %s WHERE Numero = %s"
+            cursor.execute(comando_update_quarto, ("Disponível", numero_quarto))
+
+            banco.commit()
+
+            QMessageBox.information(self, "Sucesso", "Reserva cancelada com sucesso!")
+            self.listar_reservas()  # Atualiza a tabela após cancelamento
+
+        
+
     # ===========================( Financeiro )=============================================
     def movements_subMenu(self):
         self.stackedsubMenu.setCurrentIndex(0)
@@ -701,7 +772,7 @@ class MainMenu(QMainWindow):
 
         QMessageBox.information(self, "Sucesso", "Novo quarto registrado com sucesso!")
 
-    # ===========================( Visualização de Quartos Filtrados )=============================================
+    #                        Visualização de Quartos Filtrados
     def listar_quartos_filtrados(self, filtro_status):
         """Abre uma janela com um grid layout exibindo botões quadrados para os quartos com status filtrado."""
         dialog = QDialog(self)

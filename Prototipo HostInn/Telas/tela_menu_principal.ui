@@ -4765,7 +4765,7 @@ color: rgb(255, 255, 255);</string>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_19">
        <item>
-        <widget class="QTableWidget" name="tableWidget_7">
+        <widget class="QTableWidget" name="tabela_lista_reserva">
          <property name="font">
           <font>
            <family>MS Shell Dlg 2</family>
@@ -4774,6 +4774,44 @@ color: rgb(255, 255, 255);</string>
            <bold>false</bold>
           </font>
          </property>
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <column>
+          <property name="text">
+           <string>ID</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>CLIENTE</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>QUARTO</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>CHECK-IN</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>CHECK-OUT</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>VALOR</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>STATUS</string>
+          </property>
+         </column>
         </widget>
        </item>
        <item>
@@ -4824,7 +4862,7 @@ color: rgb(255, 255, 255);</string>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="dellButton_3">
+          <widget class="QPushButton" name="btn_cancel">
            <property name="font">
             <font>
              <family>MS Shell Dlg 2</family>
@@ -4835,7 +4873,7 @@ color: rgb(255, 255, 255);</string>
             </font>
            </property>
            <property name="text">
-            <string>Deletar</string>
+            <string>Cancelar reserva</string>
            </property>
           </widget>
          </item>
