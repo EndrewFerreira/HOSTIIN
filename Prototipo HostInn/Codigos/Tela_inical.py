@@ -7,13 +7,13 @@ import Menu
 
 
 
-# Conexão com o banco de dados
 banco = pymysql.connect(
     host="localhost",
     user="root",
     passwd="",
     database="bd_teste2"
 )
+
 
 def verificar_permissao():
     cursor = banco.cursor()
