@@ -14,7 +14,6 @@ banco = pymysql.connect(
     database="bd_teste2"
 )
 
-
 def verificar_permissao():
     cursor = banco.cursor()
     # Atenção: coloque os valores de string entre aspas na query
