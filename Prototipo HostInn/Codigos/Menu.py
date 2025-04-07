@@ -657,6 +657,22 @@ class MainMenu(QMainWindow):
             QMessageBox.warning(self, "Erro", "Nenhuma reserva encontrada para este cliente.")
 
     def validate_payment(self):
+
+        name = self.lineEdit_9.text()  # Nome
+        cpf = self.lineEdit_10.text() # CPF
+        phone = self.lineEdit_11.text() # Telefone
+        email = self.lineEdit_12.text() # Email
+        endereco = self.lineEdit_13.text() # Endereço
+
+        checkin = self.dateEdit.setDate(QDate.fromString(str(), "yyyy-MM-dd")) # Checkin
+        checkout = self.dateEdit_2.setDate(QDate.fromString(str(), "yyyy-MM-dd")) # Checkout
+        
+        
+
+        if not name or not cpf or not email or not phone or not endereco or not checkin or not checkout :
+            QMessageBox.warning(self, "Erro", "Todos os campos devem ser preenchidos!")
+            return
+
         self.stackedWidget_2.setCurrentIndex(1)
         self.stackedWidget_2.show()
 
