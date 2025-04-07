@@ -68,6 +68,8 @@ class MainMenu(QMainWindow):
         self.bttn_reservar.clicked.connect(self.reservar)
         self.bttn_listar_reserva.clicked.connect(self.listar_reservas)
         self.btn_cancel.clicked.connect(self.cancelar_reserva)
+        self.botao_aplicar_filtro.clicked.connect(self.aplicar_filtro_reservas)
+
 
         self.bttn_financial.clicked.connect(self.financial_menu)
         self.bttn_movements.clicked.connect(self.movements_subMenu)
@@ -636,6 +638,55 @@ class MainMenu(QMainWindow):
 
             QMessageBox.information(self, "Sucesso", "Reserva cancelada com sucesso!")
             self.listar_reservas()  # Atualiza a tabela após cancelamento
+
+    def aplicar_filtro_reservas(self):
+        filtro = self.comboBox_filtro.currentText().lower()
+        texto_busca = self.lineEdit_busca.text().lower()
+
+        # Mapeia o texto do filtro para o cabeçalho correspondente da tabela
+        mapeamento_filtros = {
+            "id": "id",
+            "nome": "cliente",
+            "cliente": "cliente",
+            "quarto": "quarto",
+            "check-in": "check-in",
+            "check-out": "check-out",
+            "valor": "valor",
+            "status": "status"
+        }
+
+        coluna_alvo = None
+        for j in range(self.tabela_lista_reserva.columnCount()):
+            header = self.tabela_lista_reserva.horizontalHeaderItem(j).text().lower()
+            if mapeamento_filtros.get(filtro) == header:
+                coluna_alvo = j
+                break
+
+        if coluna_alvo is None:
+            QMessageBox.warning(self, "Erro", "Filtro inválido!")
+            return
+
+        for i in range(self.tabela_lista_reserva.rowCount()):
+            item = self.tabela_lista_reserva.item(i, coluna_alvo)
+            if item and texto_busca in item.text().lower():
+                self.tabela_lista_reserva.setRowHidden(i, False)
+                if filtro == "nome" or filtro == "cliente":
+                    self.destacar_texto(item, texto_busca)
+            else:
+                self.tabela_lista_reserva.setRowHidden(i, True)
+
+    
+    # def destacar_texto(self, item, texto):
+    #     if texto:
+    #         texto_completo = item.text()
+    #         idx = texto_completo.lower().find(texto.lower())
+    #         if idx != -1:
+    #             # Cria destaque: fundo amarelo
+    #             item.setBackground(QtGui.QColor("yellow"))
+    #         else:
+    #             item.setBackground(QtGui.QColor("white"))
+
+
 
         
 

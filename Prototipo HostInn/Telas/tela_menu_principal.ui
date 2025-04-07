@@ -4765,6 +4765,66 @@ color: rgb(255, 255, 255);</string>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_19">
        <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_50">
+         <item>
+          <widget class="QLabel" name="label_7">
+           <property name="text">
+            <string>Filtrar por:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="comboBox_filtro_2">
+           <item>
+            <property name="text">
+             <string>ID</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>CLIENTE</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>QUARTO</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>CHECK-IN</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>CHECK-OUT</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>VALOR</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>STATUS</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="lineEdit_busca"/>
+         </item>
+         <item>
+          <widget class="QPushButton" name="botao_aplicar_filtro">
+           <property name="text">
+            <string>APLICAR</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
         <widget class="QTableWidget" name="tabela_lista_reserva">
          <property name="font">
           <font>
