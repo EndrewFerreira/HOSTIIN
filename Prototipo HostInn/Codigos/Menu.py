@@ -5,18 +5,30 @@ from PyQt6.QtWidgets import QLineEdit, QMessageBox, QMainWindow, QPushButton, QG
 import sys, pymysql, Tela_edicao, chatbot
 
 banco = pymysql.connect(
+<<<<<<< HEAD
     host="localhost",
     user="root",
     passwd="",
     database="bd_teste2"
+=======
+    host = "localhost",
+    user = "root",
+    password = "",
+    database = "bd_teste2"
+>>>>>>> d522f745aedba1cbee9ad3337066d5e99a0f65ea
 )
+
 
 class MainMenu(QMainWindow):
     def __init__(self):
         super().__init__()
         # self(self)
         # Carregar a interface gráfica
+<<<<<<< HEAD
         uic.loadUi(r"C:\Users\11054836\Desktop\PI\HOSTIIN\Prototipo HostInn\Telas\tela_menu_principal.ui", self)
+=======
+        uic.loadUi(r"C:\Users\11052806\Desktop\HostInn\HOSTIIN\Prototipo HostInn\Telas\tela_menu_principal.ui", self)
+>>>>>>> d522f745aedba1cbee9ad3337066d5e99a0f65ea
         icon_eye_closed = QIcon("Icones/visibility_off.png")
         self.setWindowTitle("HostInn")
         self.setFixedSize(801, 652)
@@ -412,7 +424,7 @@ class MainMenu(QMainWindow):
         self.stackedWidget_3.setCurrentIndex(1)
         self.stackedWidget.show()
 
-    # ===========================( Reserva )=============================================
+    # ===========================( Reserva )=============================================   
     def carregar_quartos(self):
         """Preenche a comboBox com os números dos quartos disponíveis."""
         cursor = banco.cursor()
@@ -710,7 +722,8 @@ class MainMenu(QMainWindow):
                 r.data_checkout, 
                 r.valor_reserva, 
                 r.status_reserva,
-                q.numero
+                q.numero,
+                q.tipo
             FROM reserva r
             JOIN reserva_quartos rq ON r.id_reserva = rq.id_reserva
             JOIN quartos q ON rq.id_quartos = q.id_quartos
@@ -724,10 +737,28 @@ class MainMenu(QMainWindow):
             self.dateEdit.setDate(QDate.fromString(str(dados_reserva[0]), "yyyy-MM-dd")) # Checkin
             self.dateEdit_2.setDate(QDate.fromString(str(dados_reserva[1]), "yyyy-MM-dd")) # Checkout
             self.lineEdit_23.setText(f"{dados_reserva[2]:.2f}")
+            self.lineEdit_14.setText(str(dados_reserva[5]))
+            self.lineEdit_15.setText(str(dados_reserva[4]))
         else:
             QMessageBox.warning(self, "Erro", "Nenhuma reserva encontrada para este cliente.")
 
     def validate_payment(self):
+
+        name = self.lineEdit_9.text()  # Nome
+        cpf = self.lineEdit_10.text() # CPF
+        phone = self.lineEdit_11.text() # Telefone
+        email = self.lineEdit_12.text() # Email
+        endereco = self.lineEdit_13.text() # Endereço
+
+        checkin = self.dateEdit.setDate(QDate.fromString(str(), "yyyy-MM-dd")) # Checkin
+        checkout = self.dateEdit_2.setDate(QDate.fromString(str(), "yyyy-MM-dd")) # Checkout
+        
+        
+
+        if not name or not cpf or not email or not phone or not endereco or not checkin or not checkout :
+            QMessageBox.warning(self, "Erro", "Todos os campos devem ser preenchidos!")
+            return
+
         self.stackedWidget_2.setCurrentIndex(1)
         self.stackedWidget_2.show()
 
