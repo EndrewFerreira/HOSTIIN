@@ -17,7 +17,7 @@ class MainMenu(QMainWindow):
         super().__init__()
         # self(self)
         # Carregar a interface gráfica
-        uic.loadUi(r"C:\Users\11052806\Desktop\HostInn\HOSTIIN\Prototipo HostInn\Telas\tela_menu_principal.ui", self)
+        uic.loadUi(r"C:\Users\ferre\Desktop\PI\HOSTIIN\Prototipo HostInn\Telas\tela_menu_principal.ui", self)
         icon_eye_closed = QIcon("Icones/visibility_off.png")
         self.setWindowTitle("HostInn")
         self.setFixedSize(801, 652)
@@ -642,15 +642,13 @@ class MainMenu(QMainWindow):
 
             QMessageBox.information(self, "Sucesso", "Reserva cancelada com sucesso!")
             self.listar_reservas()  # Atualiza a tabela após cancelamento
-
     def aplicar_filtro_reservas(self):
-        filtro = self.comboBox_filtro.currentText().lower()
-        texto_busca = self.lineEdit_busca.text().lower()
+        texto_busca = self.lineEdit_busca.text().strip().lower()
+        filtro_selecionado = self.comboBox_filtro.currentText().strip().lower()
 
-        # Mapeia o texto do filtro para o cabeçalho correspondente da tabela
-        mapeamento_filtros = {
+        # Mapeia os nomes do ComboBox exatamente como estão no Qt Designer
+        filtros_map = {
             "id": "id",
-            "nome": "cliente",
             "cliente": "cliente",
             "quarto": "quarto",
             "check-in": "check-in",
@@ -659,40 +657,32 @@ class MainMenu(QMainWindow):
             "status": "status"
         }
 
+        filtro = filtros_map.get(filtro_selecionado)
+
+        if not filtro:
+            QMessageBox.warning(self, "Erro", f"Filtro '{filtro_selecionado}' inválido ou não encontrado.")
+            return
+
+        # Descobrir a coluna correspondente
         coluna_alvo = None
         for j in range(self.tabela_lista_reserva.columnCount()):
-            header = self.tabela_lista_reserva.horizontalHeaderItem(j).text().lower()
-            if mapeamento_filtros.get(filtro) == header:
+            header = self.tabela_lista_reserva.horizontalHeaderItem(j).text().strip().lower()
+            if header == filtro:
                 coluna_alvo = j
                 break
 
         if coluna_alvo is None:
-            QMessageBox.warning(self, "Erro", "Filtro inválido!")
+            QMessageBox.warning(self, "Erro", f"Coluna para filtro '{filtro_selecionado}' não encontrada.")
             return
 
+        # Aplicar filtro nas linhas
         for i in range(self.tabela_lista_reserva.rowCount()):
             item = self.tabela_lista_reserva.item(i, coluna_alvo)
-            if item and texto_busca in item.text().lower():
+            if item and texto_busca in item.text().strip().lower():
                 self.tabela_lista_reserva.setRowHidden(i, False)
-                if filtro == "nome" or filtro == "cliente":
-                    self.destacar_texto(item, texto_busca)
             else:
                 self.tabela_lista_reserva.setRowHidden(i, True)
 
-    
-    # def destacar_texto(self, item, texto):
-    #     if texto:
-    #         texto_completo = item.text()
-    #         idx = texto_completo.lower().find(texto.lower())
-    #         if idx != -1:
-    #             # Cria destaque: fundo amarelo
-    #             item.setBackground(QtGui.QColor("yellow"))
-    #         else:
-    #             item.setBackground(QtGui.QColor("white"))
-
-
-
-        
 
     # ===========================( Financeiro )=============================================
     def movements_subMenu(self):

@@ -184,11 +184,7 @@ icon_eye_open = QIcon("Icones/visibility.png")
 icon_eye_closed = QIcon("Icones/visibility_off.png")
 
 #===========================( Login/ Cadastro )=============================================
-<<<<<<< HEAD
-login_register = uic.loadUi(r"C:\Users\11052806\Desktop\HostInn\HOSTIIN\Prototipo HostInn\Telas\TELA_LOGIN_CADASTRO_2.ui")
-=======
-login_register = uic.loadUi(r"C:\Users\57090816\OneDrive - SENAC PA - EDU\MAIS ATUALIZADO\HOSTIIN-1\Prototipo HostInn\Telas\TELA_LOGIN_CADASTRO_2.ui")
->>>>>>> 6e3cfb38e6dae790bf00259f7b1bb09d2e26bb73
+login_register = uic.loadUi(r"C:\Users\ferre\Desktop\PI\HOSTIIN\Prototipo HostInn\Telas\TELA_LOGIN_CADASTRO_2.ui")
 login_register.setWindowTitle("HostInn")
 login_register.stackedWidget.setCurrentIndex(0)
 login_register.lineEdit_passwrd.setEchoMode(QLineEdit.EchoMode.Password)
