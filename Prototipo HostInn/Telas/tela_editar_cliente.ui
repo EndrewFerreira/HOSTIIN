@@ -1,0 +1,587 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>919</width>
+    <height>730</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QWidget {
+    background: qradialgradient(
+        cx: 0.5, cy: 0.2, radius: 0.8,
+        fx: 0.5, fy: 0.2,
+        stop: 0 #7FA3A6,  /* Brilho no topo (mais suave) */
+        stop: 0.4 #4E7580, /* Azul intermediário mais escuro */
+        stop: 0.7 #27425A, /* Azul mais escuro na transição */
+        stop: 1 #0A1A30   /* Azul bem escuro na parte inferior */
+    );
+}
+</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>330</x>
+      <y>120</y>
+      <width>241</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QWidget {
+    background-color: rgba(255, 255, 255, 90); /* 20% de opacidade */
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 100);
+    backdrop-filter: blur(10px);
+    /* Sombra inicial sutil nas laterais */
+    box-shadow: 0 0 5px rgba(255, 255, 255, 50);
+    /* Transição suave para sombra e fundo */
+    transition: box-shadow 0.5s ease, background-color 0.5s ease, border 0.5s ease;
+}
+
+QWidget:hover {
+    background-color: rgba(255, 255, 255, 110); /* Aumenta o brilho */
+    border: 1px solid rgba(255, 255, 255, 130);
+    /* Sombra mais intensa nas laterais, simulando brilho em movimento */
+    box-shadow: 10px 0 15px rgba(255, 255, 255, 100), 
+                -10px 0 15px rgba(255, 255, 255, 100);
+}</string>
+    </property>
+    <property name="text">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:20pt; color:#ffffff;&quot;&gt;EDITAR	CLIENTE&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+   </widget>
+   <widget class="QWidget" name="widget" native="true">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>180</y>
+      <width>901</width>
+      <height>331</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QWidge {
+    background-color: rgba(245, 245, 245, 70);
+    border-radius: 12px;
+    border: 2px solid rgba(255, 255, 255, 150);
+    backdrop-filter: blur(15px);
+    padding: 5px;
+}
+QWidget {
+    background-color: rgba(255, 255, 255, 50); /* 50 = 20% de opacidade */
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 100);
+    
+    /* Efeito de desfoque (requer código adicional - ver explicação abaixo) */
+    backdrop-filter: blur(10px);
+}</string>
+    </property>
+    <widget class="QLabel" name="label_16">
+     <property name="geometry">
+      <rect>
+       <x>390</x>
+       <y>10</y>
+       <width>501</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Roboto</family>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(255, 255, 255);</string>
+     </property>
+     <property name="text">
+      <string>Nome</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="editButton_3">
+     <property name="geometry">
+      <rect>
+       <x>232</x>
+       <y>530</y>
+       <width>91</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Roboto</family>
+       <pointsize>10</pointsize>
+       <weight>50</weight>
+       <italic>true</italic>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Editar</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_19">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>220</y>
+       <width>881</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Roboto</family>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(255, 255, 255);</string>
+     </property>
+     <property name="text">
+      <string>E-mail</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_21">
+     <property name="geometry">
+      <rect>
+       <x>420</x>
+       <y>80</y>
+       <width>471</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Roboto</family>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(255, 255, 255);</string>
+     </property>
+     <property name="text">
+      <string>Telefone</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_23">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>150</y>
+       <width>881</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Roboto</family>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(255, 255, 255);</string>
+     </property>
+     <property name="text">
+      <string>Endereço</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="cancelButton_3">
+     <property name="geometry">
+      <rect>
+       <x>332</x>
+       <y>530</y>
+       <width>91</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Roboto</family>
+       <pointsize>10</pointsize>
+       <weight>50</weight>
+       <italic>true</italic>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Cancelar</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_26">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>80</y>
+       <width>401</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Roboto</family>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(255, 255, 255);</string>
+     </property>
+     <property name="text">
+      <string>CPF</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit">
+     <property name="geometry">
+      <rect>
+       <x>40</x>
+       <y>20</y>
+       <width>321</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLineEdit {
+    /* Borda e fundo */
+    border: 2px solid rgba(255, 255, 255, 200);
+    border-radius: 15px;
+    background-color: rgba(0, 0, 0, 0); /* Totalmente transparente */
+    
+    /* Espaçamento interno */
+    padding: 5px 15px;
+    
+    /* Cor do texto */
+    color: white;
+    
+    /* Melhora a renderização */
+    background-clip: padding-box;
+}
+
+/* Efeito ao focar */
+QLineEdit:focus {
+    border: 2px solid rgba(255, 255, 255, 255);
+    background-color: rgba(255, 255, 255, 60);
+}</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_5">
+     <property name="geometry">
+      <rect>
+       <x>50</x>
+       <y>90</y>
+       <width>351</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLineEdit {
+    /* Borda e fundo */
+    border: 2px solid rgba(255, 255, 255, 200);
+    border-radius: 15px;
+    background-color: rgba(0, 0, 0, 0); /* Totalmente transparente */
+    
+    /* Espaçamento interno */
+    padding: 5px 15px;
+    
+    /* Cor do texto */
+    color: white;
+    
+    /* Melhora a renderização */
+    background-clip: padding-box;
+}
+
+/* Efeito ao focar */
+QLineEdit:focus {
+    border: 2px solid rgba(255, 255, 255, 255);
+    background-color: rgba(255, 255, 255, 60);
+}</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_6">
+     <property name="geometry">
+      <rect>
+       <x>440</x>
+       <y>20</y>
+       <width>421</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLineEdit {
+    /* Borda e fundo */
+    border: 2px solid rgba(255, 255, 255, 200);
+    border-radius: 15px;
+    background-color: rgba(0, 0, 0, 0); /* Totalmente transparente */
+    
+    /* Espaçamento interno */
+    padding: 5px 15px;
+    
+    /* Cor do texto */
+    color: white;
+    
+    /* Melhora a renderização */
+    background-clip: padding-box;
+}
+
+/* Efeito ao focar */
+QLineEdit:focus {
+    border: 2px solid rgba(255, 255, 255, 255);
+    background-color: rgba(255, 255, 255, 60);
+}</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_2">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>160</y>
+       <width>771</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLineEdit {
+    /* Borda e fundo */
+    border: 2px solid rgba(255, 255, 255, 200);
+    border-radius: 15px;
+    background-color: rgba(0, 0, 0, 0); /* Totalmente transparente */
+    
+    /* Espaçamento interno */
+    padding: 5px 15px;
+    
+    /* Cor do texto */
+    color: white;
+    
+    /* Melhora a renderização */
+    background-clip: padding-box;
+}
+
+/* Efeito ao focar */
+QLineEdit:focus {
+    border: 2px solid rgba(255, 255, 255, 255);
+    background-color: rgba(255, 255, 255, 20);
+}</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_7">
+     <property name="geometry">
+      <rect>
+       <x>500</x>
+       <y>90</y>
+       <width>361</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLineEdit {
+    /* Borda e fundo */
+    border: 2px solid rgba(255, 255, 255, 200);
+    border-radius: 15px;
+    background-color: rgba(0, 0, 0, 0); /* Totalmente transparente */
+    
+    /* Espaçamento interno */
+    padding: 5px 15px;
+    
+    /* Cor do texto */
+    color: white;
+    
+    /* Melhora a renderização */
+    background-clip: padding-box;
+}
+
+/* Efeito ao focar */
+QLineEdit:focus {
+    border: 2px solid rgba(255, 255, 255, 255);
+    background-color: rgba(255, 255, 255, 60);
+}</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_8">
+     <property name="geometry">
+      <rect>
+       <x>70</x>
+       <y>230</y>
+       <width>791</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLineEdit {
+    /* Borda e fundo */
+    border: 2px solid rgba(255, 255, 255, 200);
+    border-radius: 15px;
+    background-color: rgba(0, 0, 0, 0); /* Totalmente transparente */
+    
+    /* Espaçamento interno */
+    padding: 5px 15px;
+    
+    /* Cor do texto */
+    color: white;
+    
+    /* Melhora a renderização */
+    background-clip: padding-box;
+}
+
+/* Efeito ao focar */
+QLineEdit:focus {
+    border: 2px solid rgba(255, 255, 255, 255);
+    background-color: rgba(255, 255, 255, 20);
+}</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton">
+     <property name="geometry">
+      <rect>
+       <x>270</x>
+       <y>280</y>
+       <width>151</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 5px solid rgba(255, 255, 255, 0.3); /* Borda branca translúcida */
+    color: #333333; /* Texto totalmente opaco */
+}
+
+QPushButton:hover {
+    background-color: rgba(207, 216, 220, 100);
+    border-color:rgba(255, 255, 255,255);
+    
+}
+
+QPushButton:pressed {
+    background-color: #A0B2C8; /* Azul acinzentado */
+border-color: #003366; /* Azul escuro */
+color: #003366;
+}
+ QPushButton{border: 2px solid rgba(255, 255, 255, 200);
+    border-radius: 15px;
+    background-color: rgba(0, 0, 0, 0); /* Totalmente transparente */
+    
+    /* Espaçamento interno */
+    padding: 5px 15px;
+    
+    /* Cor do texto */
+    color: white;
+    
+    /* Melhora a renderização */
+    background-clip: padding-box;
+}
+
+/* Efeito ao focar */
+QPushButton {
+    border: 2px solid rgba(255, 255, 255, 255);
+    background-color: rgba(255, 255, 255, 20);
+}</string>
+     </property>
+     <property name="text">
+      <string>EDITAR</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_27">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>361</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Roboto</family>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(255, 255, 255);</string>
+     </property>
+     <property name="text">
+      <string>ID</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_2">
+     <property name="geometry">
+      <rect>
+       <x>460</x>
+       <y>280</y>
+       <width>151</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 5px solid rgba(255, 255, 255, 0.3); /* Borda branca translúcida */
+    color: #333333; /* Texto totalmente opaco */
+}
+
+QPushButton:hover {
+    background-color: rgba(207, 216, 220, 100);
+    border-color:rgba(255, 255, 255,255);
+    
+}
+
+QPushButton:pressed {
+    background-color: #A0B2C8; /* Azul acinzentado */
+border-color: #003366; /* Azul escuro */
+color: #003366;
+}
+ QPushButton{border: 2px solid rgba(255, 255, 255, 200);
+    border-radius: 15px;
+    background-color: rgba(0, 0, 0, 0); /* Totalmente transparente */
+    
+    /* Espaçamento interno */
+    padding: 5px 15px;
+    
+    /* Cor do texto */
+    color: white;
+    
+    /* Melhora a renderização */
+    background-clip: padding-box;
+}
+
+/* Efeito ao focar */
+QPushButton {
+    border: 2px solid rgba(255, 255, 255, 255);
+    background-color: rgba(255, 255, 255, 20);
+}</string>
+     </property>
+     <property name="text">
+      <string>CANCELAR</string>
+     </property>
+    </widget>
+    <zorder>label_27</zorder>
+    <zorder>label_16</zorder>
+    <zorder>editButton_3</zorder>
+    <zorder>label_19</zorder>
+    <zorder>label_21</zorder>
+    <zorder>label_23</zorder>
+    <zorder>cancelButton_3</zorder>
+    <zorder>label_26</zorder>
+    <zorder>lineEdit_5</zorder>
+    <zorder>lineEdit_6</zorder>
+    <zorder>lineEdit_2</zorder>
+    <zorder>lineEdit_7</zorder>
+    <zorder>lineEdit_8</zorder>
+    <zorder>pushButton</zorder>
+    <zorder>pushButton_2</zorder>
+    <zorder>lineEdit</zorder>
+   </widget>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

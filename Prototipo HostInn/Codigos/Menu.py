@@ -48,6 +48,7 @@ class MainMenu(QMainWindow):
 
         # ===========================( Conexões de Botões )=============================================
         # Menu principal
+        ##################### USUÁRIO ###################################
         self.bttn_user.clicked.connect(self.user_menu)
         self.bttn_newUser.clicked.connect(self.new_user)
         self.passButton_view.clicked.connect(self.password_view)
@@ -55,14 +56,14 @@ class MainMenu(QMainWindow):
         self.bttn_listUser.clicked.connect(self.list_user)
         self.dellButton_2.clicked.connect(self.deletar_user)
         self.editButton_3.clicked.connect(self.editar_user)
-                    ########### CLIENTE ###############
+        ##################### CLIENTE ###################################
         self.bttn_client.clicked.connect(self.client_menu)
         self.bttn_newClient.clicked.connect(self.new_client)
         self.Button_cadstr.clicked.connect(self.cadstr_clientes)
         self.bttn_listClient.clicked.connect(self.list_client)
         self.dellButton.clicked.connect(self.deletar_clientes)
         self.editButton.clicked.connect(self.editar_clientes)
-                ########### RESERVA ###############
+        ##################### RESERVA ###################################
         self.bttn_reserva.clicked.connect(self.reserva_menu)
         self.bttn_nova_reserva.clicked.connect(self.nova_reserva)
         self.bttn_listar_reserva.clicked.connect(self.listar_reservas)
@@ -73,15 +74,14 @@ class MainMenu(QMainWindow):
         self.bttn_listar_reserva.clicked.connect(self.listar_reservas)
         self.btn_cancel.clicked.connect(self.cancelar_reserva)
         self.botao_aplicar_filtro.clicked.connect(self.aplicar_filtro_reservas)
-
-
+        ####################### FINANCEIRO ##############################
         self.bttn_financial.clicked.connect(self.financial_menu)
         self.bttn_movements.clicked.connect(self.movements_subMenu)
         self.bttn_newPayment.clicked.connect(self.novo_pagamento)
         self.bttn_validate.clicked.connect(self.validate_payment)
         self.bttn_voltar.clicked.connect(self.back_confirmation)
         self.bttn_confirm_2.clicked.connect(self.confirma_busca_financeiro)
-
+        
         self.bttn_report.clicked.connect(self.report_subMenu)
         self.bttn_dashBoard.clicked.connect(self.dashboard)
         self.bttn_cashFlow.clicked.connect(self.financial_list)
@@ -93,7 +93,7 @@ class MainMenu(QMainWindow):
         self.bttn_back_3.clicked.connect(self.back_main_menu)
         self.btn_voltar.clicked.connect(self.back_main_menu)
         self.bttn_voltar_3.clicked.connect(self.back_main_menu)
-            ########### QUARTO ###############
+        ##################### QUARTO ###################################
         self.btn_voltar_2.clicked.connect(self.back_roomlist_menu)
         self.btn_aplicar_filtros.clicked.connect(self.menu_list_all_room)
         self.bttn_rooms.clicked.connect(self.room_menu)
@@ -101,7 +101,6 @@ class MainMenu(QMainWindow):
         self.btn_listar_quartos.clicked.connect(self.menu_list_room)
         self.btn_tabelaq.clicked.connect(self.menu_list_all_room)
         self.btn_cadastrar_quarto.clicked.connect(self.cadastar_novo_quarto)
-        
         self.btn_disponiveis.clicked.connect(self.listar_quartos_disponivel)
         self.btn_ocupados.clicked.connect(self.listar_quartos_ocupado)
         self.btn_manutencao.clicked.connect(self.listar_quartos_manutencao)
@@ -222,7 +221,15 @@ class MainMenu(QMainWindow):
 
         # Preenchendo a tabela com os dados filtrados
         for i, linha in enumerate(dados_lidos):
-            for j, valor in enumerate(linha[1:]):  # Pulando a primeira coluna
+            dados_formatados = [
+        linha[1],  # Numero
+        linha[2],  # Tipo
+        linha[4],  # Status_Quarto (vem antes de Valor_Tipo na interface, por isso foi ajustado)
+        linha[3],  # Valor_Tipo
+        linha[5],  # Capacidade
+        linha[6]   # Descrição
+    ]
+            for j, valor in enumerate(dados_formatados):  # Pulando a primeira coluna
                 self.tableWidget_2.setItem(i, j, QtWidgets.QTableWidgetItem(str(valor)))
 
     # ===========================( Cliente )=============================================
@@ -642,15 +649,14 @@ class MainMenu(QMainWindow):
 
             QMessageBox.information(self, "Sucesso", "Reserva cancelada com sucesso!")
             self.listar_reservas()  # Atualiza a tabela após cancelamento
-
+            
     def aplicar_filtro_reservas(self):
-        filtro = self.comboBox_filtro.currentText().lower()
-        texto_busca = self.lineEdit_busca.text().lower()
+        texto_busca = self.lineEdit_busca.text().strip().lower()
+        filtro_selecionado = self.comboBox_filtro_2.currentText().strip().lower()
 
-        # Mapeia o texto do filtro para o cabeçalho correspondente da tabela
-        mapeamento_filtros = {
+        # Mapeia os nomes do ComboBox exatamente como estão no Qt Designer
+        filtros_map = {
             "id": "id",
-            "nome": "cliente",
             "cliente": "cliente",
             "quarto": "quarto",
             "check-in": "check-in",
@@ -659,40 +665,32 @@ class MainMenu(QMainWindow):
             "status": "status"
         }
 
+        filtro = filtros_map.get(filtro_selecionado)
+
+        if not filtro:
+            QMessageBox.warning(self, "Erro", f"Filtro '{filtro_selecionado}' inválido ou não encontrado.")
+            return
+
+        # Descobrir a coluna correspondente
         coluna_alvo = None
         for j in range(self.tabela_lista_reserva.columnCount()):
-            header = self.tabela_lista_reserva.horizontalHeaderItem(j).text().lower()
-            if mapeamento_filtros.get(filtro) == header:
+            header = self.tabela_lista_reserva.horizontalHeaderItem(j).text().strip().lower()
+            if header == filtro:
                 coluna_alvo = j
                 break
 
         if coluna_alvo is None:
-            QMessageBox.warning(self, "Erro", "Filtro inválido!")
+            QMessageBox.warning(self, "Erro", f"Coluna para filtro '{filtro_selecionado}' não encontrada.")
             return
 
+        # Aplicar filtro nas linhas
         for i in range(self.tabela_lista_reserva.rowCount()):
             item = self.tabela_lista_reserva.item(i, coluna_alvo)
-            if item and texto_busca in item.text().lower():
+            if item and texto_busca in item.text().strip().lower():
                 self.tabela_lista_reserva.setRowHidden(i, False)
-                if filtro == "nome" or filtro == "cliente":
-                    self.destacar_texto(item, texto_busca)
             else:
                 self.tabela_lista_reserva.setRowHidden(i, True)
 
-    
-    # def destacar_texto(self, item, texto):
-    #     if texto:
-    #         texto_completo = item.text()
-    #         idx = texto_completo.lower().find(texto.lower())
-    #         if idx != -1:
-    #             # Cria destaque: fundo amarelo
-    #             item.setBackground(QtGui.QColor("yellow"))
-    #         else:
-    #             item.setBackground(QtGui.QColor("white"))
-
-
-
-        
 
     # ===========================( Financeiro )=============================================
     def movements_subMenu(self):
