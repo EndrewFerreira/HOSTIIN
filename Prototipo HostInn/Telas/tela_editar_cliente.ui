@@ -273,7 +273,7 @@ QLineEdit:focus {
 }</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="line_cpf_edit">
+    <widget class="QLineEdit" name="lineEdit_5">
      <property name="geometry">
       <rect>
        <x>50</x>
@@ -306,7 +306,7 @@ QLineEdit:focus {
 }</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="line_nome_edit">
+    <widget class="QLineEdit" name="lineEdit_6">
      <property name="geometry">
       <rect>
        <x>440</x>
@@ -339,7 +339,7 @@ QLineEdit:focus {
 }</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="line_end_edit">
+    <widget class="QLineEdit" name="lineEdit_2">
      <property name="geometry">
       <rect>
        <x>90</x>
@@ -372,7 +372,7 @@ QLineEdit:focus {
 }</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="line_tel_edit">
+    <widget class="QLineEdit" name="lineEdit_7">
      <property name="geometry">
       <rect>
        <x>500</x>
@@ -405,7 +405,7 @@ QLineEdit:focus {
 }</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="line_email_edit">
+    <widget class="QLineEdit" name="lineEdit_8">
      <property name="geometry">
       <rect>
        <x>70</x>
@@ -438,7 +438,7 @@ QLineEdit:focus {
 }</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="btn_salvar_edit_cliente">
+    <widget class="QPushButton" name="pushButton">
      <property name="geometry">
       <rect>
        <x>270</x>
@@ -486,7 +486,7 @@ QPushButton {
 }</string>
      </property>
      <property name="text">
-      <string>SALVAR</string>
+      <string>EDITAR</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_27">
@@ -570,12 +570,12 @@ QPushButton {
     <zorder>label_23</zorder>
     <zorder>cancelButton_3</zorder>
     <zorder>label_26</zorder>
-    <zorder>line_cpf_edit</zorder>
-    <zorder>line_nome_edit</zorder>
-    <zorder>line_end_edit</zorder>
-    <zorder>line_tel_edit</zorder>
-    <zorder>line_email_edit</zorder>
-    <zorder>btn_salvar_edit_cliente</zorder>
+    <zorder>lineEdit_5</zorder>
+    <zorder>lineEdit_6</zorder>
+    <zorder>lineEdit_2</zorder>
+    <zorder>lineEdit_7</zorder>
+    <zorder>lineEdit_8</zorder>
+    <zorder>pushButton</zorder>
     <zorder>pushButton_2</zorder>
     <zorder>lineEdit</zorder>
    </widget>

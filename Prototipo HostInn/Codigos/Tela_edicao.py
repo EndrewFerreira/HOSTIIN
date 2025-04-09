@@ -15,7 +15,7 @@ banco = pymysql.connect(
 class EditWindow(QMainWindow):
     def __init__(self, user_data):  # Agora aceita o argumento user_data
         super().__init__()
-        uic.loadUi(r"C:\Users\11054836\Desktop\PI\HOSTIIN\Prototipo HostInn\Telas\tela_editar_2.ui", self)
+        uic.loadUi(r"C:\Users\11054836\Desktop\PI\HOSTIIN\Prototipo HostInn\Telas\tela_editar.ui", self)
 
         # Inicializa os ícones
         self.icon_eye_open = QIcon("Icones/visibility.png")
