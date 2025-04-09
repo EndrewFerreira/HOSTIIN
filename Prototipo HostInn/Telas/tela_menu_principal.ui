@@ -956,7 +956,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>6</number>
     </property>
     <widget class="QWidget" name="page">
      <widget class="QWidget" name="verticalLayoutWidget_9">
@@ -3781,7 +3781,7 @@ Filtros</string>
           <x>0</x>
           <y>0</y>
           <width>651</width>
-          <height>80</height>
+          <height>125</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_12">
@@ -3914,11 +3914,29 @@ color: rgb(255, 255, 255);</string>
           </layout>
          </item>
          <item>
+          <widget class="QPushButton" name="btn_verifcacaoqt">
+           <property name="font">
+            <font>
+             <family>MS Shell Dlg 2</family>
+             <pointsize>13</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="toolTip">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+           <property name="text">
+            <string>VERIFICAR DISPONIBILIADE POR DATA</string>
+           </property>
+          </widget>
+         </item>
+         <item>
           <widget class="QPushButton" name="btn_tabelaq">
            <property name="font">
             <font>
-             <family>Montserrat ExtraBold</family>
-             <pointsize>10</pointsize>
+             <family>MS Shell Dlg 2</family>
+             <pointsize>13</pointsize>
              <weight>75</weight>
              <bold>true</bold>
             </font>

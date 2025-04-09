@@ -101,7 +101,6 @@ class MainMenu(QMainWindow):
         self.btn_listar_quartos.clicked.connect(self.menu_list_room)
         self.btn_tabelaq.clicked.connect(self.menu_list_all_room)
         self.btn_cadastrar_quarto.clicked.connect(self.cadastar_novo_quarto)
-        
         self.btn_disponiveis.clicked.connect(self.listar_quartos_disponivel)
         self.btn_ocupados.clicked.connect(self.listar_quartos_ocupado)
         self.btn_manutencao.clicked.connect(self.listar_quartos_manutencao)
@@ -222,7 +221,15 @@ class MainMenu(QMainWindow):
 
         # Preenchendo a tabela com os dados filtrados
         for i, linha in enumerate(dados_lidos):
-            for j, valor in enumerate(linha[1:]):  # Pulando a primeira coluna
+            dados_formatados = [
+        linha[1],  # Numero
+        linha[2],  # Tipo
+        linha[4],  # Status_Quarto (vem antes de Valor_Tipo na interface, por isso foi ajustado)
+        linha[3],  # Valor_Tipo
+        linha[5],  # Capacidade
+        linha[6]   # Descrição
+    ]
+            for j, valor in enumerate(dados_formatados):  # Pulando a primeira coluna
                 self.tableWidget_2.setItem(i, j, QtWidgets.QTableWidgetItem(str(valor)))
 
     # ===========================( Cliente )=============================================
