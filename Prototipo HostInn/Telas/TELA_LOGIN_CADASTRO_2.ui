@@ -99,7 +99,7 @@ QWidget {
      <enum>QFrame::Raised</enum>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="stackedWidget_loginPage1_3">
      <widget class="QLabel" name="label_5">

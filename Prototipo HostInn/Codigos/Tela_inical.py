@@ -75,29 +75,11 @@ def login():
 def forgot_password():
     login_register.stackedWidget.setCurrentIndex(3)
 
-# def buscar_cad():
-#     global login_register, menu
-#     cpf = login_register.lineEdit_cpf.text()
-#     bday = login_register.lineEdit_bday.text()
-
-
-#     cursor = banco.cursor()
-#     comando_SQL = "SELECT CPF, BDAY FROM usuarios WHERE CPF= %s AND BDAY = %s"
-#     cursor.execute(comando_SQL, (cpf,bday))
-#     cpf_bday = cursor.fetchall()
-
-#     result_cpf = str(cpf_bday[0])
-#     result_bday = str(cpf_bday[1])
-    
-#     if cpf == result_cpf and bday == result_bday:
-#         print("sucesso")
 def buscar_cad():
     # Acessando os valores do CPF e BDAY na interface do usuário
     global login_register, menu
     cpf = login_register.lineEdit_cpf.text()
     bday = login_register.lineEdit_bday.text()
-
-    # Criação do cursor para executar comandos SQL
     cursor = banco.cursor()
 
     # Comando SQL para buscar o CPF e BDAY no banco de dados
@@ -114,11 +96,13 @@ def buscar_cad():
         
         # Verificando se o CPF e BDAY fornecidos coincidem com o banco de dados
         if cpf == result_cpf and bday == result_bday:
-            print("Sucesso")
+            QMessageBox.information(login_register, "Recuperação de senha", "Dados encontrados, prossiga!")
+            login_register.stackedWidget.setCurrentIndex(2)
+
         else:
             print("CPF ou data de nascimento incorretos.")
     else:
-        print("Nenhum resultado encontrado para o CPF e data de nascimento fornecidos.")
+        QMessageBox.information(login_register, "Recuperação de senha", "Dados incorretos ou inexistentes")
 
 
 
