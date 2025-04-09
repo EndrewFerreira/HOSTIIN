@@ -17,7 +17,7 @@ class MainMenu(QMainWindow):
         super().__init__()
         # self(self)
         # Carregar a interface gráfica
-        uic.loadUi(r"C:\Users\ferre\Desktop\PI\HOSTIIN\Prototipo HostInn\Telas\tela_menu_principal.ui", self)
+        uic.loadUi(r"C:\Users\11054836\Desktop\PI\HOSTIIN\Prototipo HostInn\Telas\tela_menu_principal.ui", self)
         icon_eye_closed = QIcon("Icones/visibility_off.png")
         self.setWindowTitle("HostInn")
         self.setFixedSize(801, 652)
@@ -48,6 +48,7 @@ class MainMenu(QMainWindow):
 
         # ===========================( Conexões de Botões )=============================================
         # Menu principal
+        ##################### USUÁRIO ###################################
         self.bttn_user.clicked.connect(self.user_menu)
         self.bttn_newUser.clicked.connect(self.new_user)
         self.passButton_view.clicked.connect(self.password_view)
@@ -55,14 +56,14 @@ class MainMenu(QMainWindow):
         self.bttn_listUser.clicked.connect(self.list_user)
         self.dellButton_2.clicked.connect(self.deletar_user)
         self.editButton_3.clicked.connect(self.editar_user)
-                    ########### CLIENTE ###############
+        ##################### CLIENTE ###################################
         self.bttn_client.clicked.connect(self.client_menu)
         self.bttn_newClient.clicked.connect(self.new_client)
         self.Button_cadstr.clicked.connect(self.cadstr_clientes)
         self.bttn_listClient.clicked.connect(self.list_client)
         self.dellButton.clicked.connect(self.deletar_clientes)
         self.editButton.clicked.connect(self.editar_clientes)
-                ########### RESERVA ###############
+        ##################### RESERVA ###################################
         self.bttn_reserva.clicked.connect(self.reserva_menu)
         self.bttn_nova_reserva.clicked.connect(self.nova_reserva)
         self.bttn_listar_reserva.clicked.connect(self.listar_reservas)
@@ -73,15 +74,14 @@ class MainMenu(QMainWindow):
         self.bttn_listar_reserva.clicked.connect(self.listar_reservas)
         self.btn_cancel.clicked.connect(self.cancelar_reserva)
         self.botao_aplicar_filtro.clicked.connect(self.aplicar_filtro_reservas)
-
-
+        ####################### FINANCEIRO ##############################
         self.bttn_financial.clicked.connect(self.financial_menu)
         self.bttn_movements.clicked.connect(self.movements_subMenu)
         self.bttn_newPayment.clicked.connect(self.novo_pagamento)
         self.bttn_validate.clicked.connect(self.validate_payment)
         self.bttn_voltar.clicked.connect(self.back_confirmation)
         self.bttn_confirm_2.clicked.connect(self.confirma_busca_financeiro)
-
+        
         self.bttn_report.clicked.connect(self.report_subMenu)
         self.bttn_dashBoard.clicked.connect(self.dashboard)
         self.bttn_cashFlow.clicked.connect(self.financial_list)
@@ -93,7 +93,7 @@ class MainMenu(QMainWindow):
         self.bttn_back_3.clicked.connect(self.back_main_menu)
         self.btn_voltar.clicked.connect(self.back_main_menu)
         self.bttn_voltar_3.clicked.connect(self.back_main_menu)
-            ########### QUARTO ###############
+        ##################### QUARTO ###################################
         self.btn_voltar_2.clicked.connect(self.back_roomlist_menu)
         self.btn_aplicar_filtros.clicked.connect(self.menu_list_all_room)
         self.bttn_rooms.clicked.connect(self.room_menu)
@@ -642,9 +642,10 @@ class MainMenu(QMainWindow):
 
             QMessageBox.information(self, "Sucesso", "Reserva cancelada com sucesso!")
             self.listar_reservas()  # Atualiza a tabela após cancelamento
+            
     def aplicar_filtro_reservas(self):
         texto_busca = self.lineEdit_busca.text().strip().lower()
-        filtro_selecionado = self.comboBox_filtro.currentText().strip().lower()
+        filtro_selecionado = self.comboBox_filtro_2.currentText().strip().lower()
 
         # Mapeia os nomes do ComboBox exatamente como estão no Qt Designer
         filtros_map = {

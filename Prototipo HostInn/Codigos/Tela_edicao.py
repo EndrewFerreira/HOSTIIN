@@ -15,7 +15,7 @@ banco = pymysql.connect(
 class EditWindow(QMainWindow):
     def __init__(self, user_data):  # Agora aceita o argumento user_data
         super().__init__()
-        uic.loadUi("Telas/tela_editar.ui", self)
+        uic.loadUi(r"C:\Users\11054836\Desktop\PI\HOSTIIN\Prototipo HostInn\Telas\tela_editar_2.ui", self)
 
         # Inicializa os ícones
         self.icon_eye_open = QIcon("Icones/visibility.png")
@@ -112,3 +112,14 @@ class EditWindow(QMainWindow):
 
         QMessageBox.information(self, "Sucesso", "Dados atualizados com sucesso!")
         self.close()  # Fecha a tela após a edição
+
+if __name__ == "__main__":
+    app = QtWidgets.QApplication(sys.argv)
+
+    # Exemplo de dados simulados para teste (ID, Nome, Usuário, Email, Senha)
+    user_data = (1, "João Silva", "joaos", "joao@email.com", "1234")
+
+    window = EditWindow(user_data)
+    window.show()
+
+    sys.exit(app.exec())
