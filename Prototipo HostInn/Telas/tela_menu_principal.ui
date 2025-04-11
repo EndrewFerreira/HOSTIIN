@@ -956,7 +956,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>6</number>
+     <number>4</number>
     </property>
     <widget class="QWidget" name="page">
      <widget class="QWidget" name="verticalLayoutWidget_9">
@@ -2098,7 +2098,11 @@
               </widget>
              </item>
              <item row="2" column="2">
-              <widget class="QDateEdit" name="dateEdit_3"/>
+              <widget class="QDateEdit" name="dateEdit_3">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+              </widget>
              </item>
              <item row="0" column="0">
               <widget class="QLabel" name="label_29">
@@ -2115,9 +2119,9 @@
               </widget>
              </item>
              <item row="5" column="1">
-              <widget class="QLineEdit" name="lineEdit_19">
+              <widget class="QLineEdit" name="lineEdit_id_trans">
                <property name="placeholderText">
-                <string>Informe o valor total da reserva...</string>
+                <string>Informe o ID da transação...</string>
                </property>
               </widget>
              </item>
@@ -2162,14 +2166,17 @@
               </widget>
              </item>
              <item row="4" column="1">
-              <widget class="QLineEdit" name="lineEdit_22">
+              <widget class="QLineEdit" name="lineEdit_nsu">
                <property name="placeholderText">
-                <string>Informe o valor entregue pelo cliente...</string>
+                <string>Informe o NSU...</string>
                </property>
               </widget>
              </item>
              <item row="2" column="1">
               <widget class="QLineEdit" name="lineEdit_24">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
                <property name="placeholderText">
                 <string>Informe o valor entregue pelo cliente...</string>
                </property>

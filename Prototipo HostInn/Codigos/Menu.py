@@ -1,5 +1,5 @@
 from PyQt6 import uic, QtWidgets
-from PyQt6.QtCore import QDate, Qt
+from PyQt6.QtCore import QDate, Qt, QLocale
 from PyQt6.QtGui import QIcon
 from PyQt6.QtWidgets import QLineEdit, QMessageBox, QMainWindow, QPushButton, QGridLayout, QDialog, QTableWidgetItem
 import sys, pymysql, Tela_edicao, chatbot
@@ -17,11 +17,11 @@ class MainMenu(QMainWindow):
         super().__init__()
         # self(self)
         # Carregar a interface gráfica
-        uic.loadUi(r"C:\Users\11054836\Desktop\PI\HOSTIIN\Prototipo HostInn\Telas\tela_menu_principal.ui", self)
+        uic.loadUi(r"C:\Users\11052806\Desktop\HostInn\HOSTIIN\Prototipo HostInn\Telas\tela_menu_principal.ui", self)
         icon_eye_closed = QIcon("Icones/visibility_off.png")
         self.setWindowTitle("HostInn")
         self.setFixedSize(801, 652)
-        
+       
 
         # Configuração inicial dos widgets
         self.lineEdit_passwrd.setEchoMode(QLineEdit.EchoMode.Password)
@@ -161,6 +161,9 @@ class MainMenu(QMainWindow):
             for j, valor in enumerate(linha[1:]):  # Pulando a primeira coluna
                 self.tableWidget_6.setItem(i, j, QtWidgets.QTableWidgetItem(str(valor)))
 
+        self.dateEdit_checkin.setDate(QDate.currentDate())
+        self.dateEdit_checkout.setDate(QDate.currentDate())
+
 
     def close_reserva(self):
         self.stackedWidget.hide()
@@ -236,6 +239,10 @@ class MainMenu(QMainWindow):
     def new_client(self):
         self.stackedWidget.setCurrentIndex(1)
         self.stackedWidget.show()
+        self.lineEdit_cpf.setInputMask("000.000.000-00;_")
+        self.lineEdit_phone.setInputMask("(00) 0 0000-0000;_")
+
+
 
     def cadstr_clientes(self):
         name = self.lineEdit_name.text()
@@ -307,6 +314,8 @@ class MainMenu(QMainWindow):
     def new_user(self):
         self.stackedWidget.setCurrentIndex(3)
         self.stackedWidget.show()
+        self.lineEdit_cpf.setInputMask("000.000.000-00;_")
+
 
     def cadstr_user(self):
         name = self.lineEdit_name_2.text()
@@ -794,6 +803,9 @@ class MainMenu(QMainWindow):
         checkin = self.dateEdit.date()
         checkout = self.dateEdit_2.date()
 
+        self.dateEdit_3.setDate(QDate.currentDate())
+        self.dateEdit_4.setDate(QDate.currentDate())
+
         # Validação de campos vazios
         if not name or not cpf or not email or not phone or not endereco:
             QMessageBox.warning(self, "Erro", "Todos os campos devem ser preenchidos!")
@@ -807,8 +819,11 @@ class MainMenu(QMainWindow):
         # Se tudo estiver certo, prossegue
         self.stackedWidget_2.setCurrentIndex(1)
         self.stackedWidget_2.show()
-        self.on_tipo_pagamento_changed()
-        self.calcular_valor_parcela()
+        # self.formatar_valor(self.lineEdit_24)
+        self.formatar_valor(self.lineEdit_23)
+        self.formatar_valor(self.lineEdit_21)
+        self.formatar_valor(self.lineEdit_20)
+       
 
     def calcular_valor_parcela(self):
         try:
@@ -818,6 +833,7 @@ class MainMenu(QMainWindow):
 
             num_parcelas = int(parcelas_texto)
             total_texto = self.lineEdit_23.text().strip()
+            #print(f"{num_parcelas}")
 
             if not total_texto:
                 return  # Se estiver vazio, não tenta calcular
@@ -826,13 +842,16 @@ class MainMenu(QMainWindow):
 
             if total > 0 and num_parcelas > 0:
                 valor_individual = total / num_parcelas
-                self.lineEdit_14.setText(f"{valor_individual:.2f}")
+                self.lineEdit_24.setText(f"{valor_individual:.2f}")
+                # self.formatar_valor(self.lineEdit_24)
             else:
-                self.lineEdit_14.clear()
+                self.lineEdit_24.clear()
         except ValueError:
-            self.lineEdit_14.clear()
+            self.lineEdit_24.clear()
+        
+        self.on_tipo_pagamento_changed()
+             
 
-     
     def on_tipo_pagamento_changed(self):
         tipo_pagamento = self.comboBox_4.currentText().lower()
 
@@ -842,6 +861,24 @@ class MainMenu(QMainWindow):
         else:
             self.comboBox_5.setEnabled(True)
 
+        self.lineEdit_nsu.setEnabled(False)
+        self.lineEdit_id_trans.setEnabled(False)
+
+        # Depois, habilita conforme o tipo de pagamento
+        if tipo_pagamento in ["crédito", "débito"]:
+            self.lineEdit_nsu.setEnabled(True)
+
+
+    def formatar_valor(self, line_edit: QLineEdit):
+        texto = line_edit.text().replace("R$", "").replace(",", ".").strip()
+        try:
+            valor = float(texto)
+            texto_formatado = f"R$ {valor:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+            line_edit.setText(texto_formatado)
+        except ValueError:
+            pass
+
+    
     def report_subMenu(self):
         self.stackedsubMenu.setCurrentIndex(1)
         self.stackedWidget.setCurrentIndex(4)
