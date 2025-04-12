@@ -45,7 +45,7 @@
         <x>0</x>
         <y>10</y>
         <width>121</width>
-        <height>301</height>
+        <height>325</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout">
@@ -231,8 +231,8 @@
        <rect>
         <x>0</x>
         <y>10</y>
-        <width>121</width>
-        <height>222</height>
+        <width>127</width>
+        <height>223</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -369,8 +369,8 @@
        <rect>
         <x>0</x>
         <y>10</y>
-        <width>121</width>
-        <height>222</height>
+        <width>129</width>
+        <height>223</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -507,8 +507,8 @@
        <rect>
         <x>0</x>
         <y>10</y>
-        <width>121</width>
-        <height>222</height>
+        <width>134</width>
+        <height>223</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_7">
@@ -646,7 +646,7 @@
         <x>0</x>
         <y>10</y>
         <width>121</width>
-        <height>222</height>
+        <height>223</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_23">
@@ -783,8 +783,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>121</width>
-        <height>222</height>
+        <width>133</width>
+        <height>223</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_24">
@@ -956,7 +956,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>4</number>
+     <number>6</number>
     </property>
     <widget class="QWidget" name="page">
      <widget class="QWidget" name="verticalLayoutWidget_9">
@@ -2758,7 +2758,7 @@
           <x>0</x>
           <y>0</y>
           <width>621</width>
-          <height>543</height>
+          <height>661</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_8">
@@ -3396,8 +3396,8 @@ Pagamento</string>
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>453</width>
-         <height>91</height>
+         <width>532</width>
+         <height>94</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="gridLayout_4">
@@ -3788,7 +3788,7 @@ Filtros</string>
           <x>0</x>
           <y>0</y>
           <width>651</width>
-          <height>125</height>
+          <height>131</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_12">
@@ -3934,7 +3934,7 @@ color: rgb(255, 255, 255);</string>
             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
            <property name="text">
-            <string>VERIFICAR DISPONIBILIADE POR DATA</string>
+            <string>VERIFICAR DISPONIBILIDADE POR DATA</string>
            </property>
           </widget>
          </item>

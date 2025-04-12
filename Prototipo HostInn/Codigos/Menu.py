@@ -1,8 +1,17 @@
 from PyQt6 import uic, QtWidgets
 from PyQt6.QtCore import QDate, Qt, QLocale
 from PyQt6.QtGui import QIcon
+from PyQt6.QtCore import QDate
 from PyQt6.QtWidgets import QLineEdit, QMessageBox, QMainWindow, QPushButton, QGridLayout, QDialog, QTableWidgetItem
 import sys, pymysql, Tela_edicao, chatbot
+from PyQt6.QtWidgets import (
+    QDialog, QLabel, QPushButton, QVBoxLayout, QHBoxLayout,
+    QDateEdit, QGridLayout, QMessageBox
+)
+
+
+
+
 
 banco = pymysql.connect(
     host="localhost",
@@ -17,7 +26,7 @@ class MainMenu(QMainWindow):
         super().__init__()
         # self(self)
         # Carregar a interface gráfica
-        uic.loadUi(r"C:\Users\11052806\Desktop\HostInn\HOSTIIN\Prototipo HostInn\Telas\tela_menu_principal.ui", self)
+        uic.loadUi(r"C:\Users\ferre\Desktop\PI\HOSTIIN\Prototipo HostInn\Telas\tela_menu_principal.ui", self)
         icon_eye_closed = QIcon("Icones/visibility_off.png")
         self.setWindowTitle("HostInn")
         self.setFixedSize(801, 652)
@@ -48,6 +57,7 @@ class MainMenu(QMainWindow):
 
         # ===========================( Conexões de Botões )=============================================
         # Menu principal
+
         ##################### USUÁRIO ###################################
         self.bttn_user.clicked.connect(self.user_menu)
         self.bttn_newUser.clicked.connect(self.new_user)
@@ -104,6 +114,8 @@ class MainMenu(QMainWindow):
         self.btn_disponiveis.clicked.connect(self.listar_quartos_disponivel)
         self.btn_ocupados.clicked.connect(self.listar_quartos_ocupado)
         self.btn_manutencao.clicked.connect(self.listar_quartos_manutencao)
+        self.btn_verifcacaoqt.clicked.connect(self.abrir_janela_verificacao_quartos)
+
 
     # ===========================( Funções de Navegação )=============================================
     def user_menu(self):
@@ -971,6 +983,77 @@ class MainMenu(QMainWindow):
         global Chatbot
         Chatbot = chatbot.ChatBotWindow()
         Chatbot.show()
+
+    def abrir_janela_verificacao_quartos(self):
+        dialog = QDialog()
+        dialog.setWindowTitle("Verificar Disponibilidade dos Quartos")
+        dialog.setFixedSize(500, 450)
+
+        checkin = QDateEdit()
+        checkin.setCalendarPopup(True)
+        checkin.setDate(QDate.currentDate())
+
+        checkout = QDateEdit()
+        checkout.setCalendarPopup(True)
+        checkout.setDate(QDate.currentDate().addDays(1))
+
+        btn_verificar = QPushButton("Verificar")
+
+        layout_datas = QHBoxLayout()
+        layout_datas.addWidget(QLabel("Check-in:"))
+        layout_datas.addWidget(checkin)
+        layout_datas.addWidget(QLabel("Check-out:"))
+        layout_datas.addWidget(checkout)
+
+        layout_quartos = QGridLayout()
+        botoes_quartos = []
+
+        # Buscar quartos do banco
+        cursor = banco.cursor()
+        cursor.execute("SELECT ID_Quartos, Numero FROM quartos")
+        quartos = cursor.fetchall()  # Ex: [(1, 101), (2, 102), ...]
+
+        for i, (id_quarto, numero) in enumerate(quartos):
+            btn = QPushButton(f"Quarto {numero}")
+            btn.setFixedSize(100, 50)
+            botoes_quartos.append((btn, id_quarto))
+            row = i // 4
+            col = i % 4
+            layout_quartos.addWidget(btn, row, col)
+
+        layout_principal = QVBoxLayout()
+        layout_principal.addLayout(layout_datas)
+        layout_principal.addWidget(btn_verificar)
+        layout_principal.addLayout(layout_quartos)
+
+        dialog.setLayout(layout_principal)
+
+        def verificar():
+            data_checkin = checkin.date().toString("yyyy-MM-dd")
+            data_checkout = checkout.date().toString("yyyy-MM-dd")
+
+            if checkin.date() >= checkout.date():
+                QMessageBox.warning(dialog, "Erro", "Check-out deve ser após o check-in.")
+                return
+
+            for btn, id_quarto in botoes_quartos:
+                comando = """
+                    SELECT 1 FROM reserva r
+                    JOIN reserva_quartos rq ON r.ID_Reserva = rq.ID_Reserva
+                    WHERE rq.ID_Quartos = %s
+                    AND r.Data_Checkin < %s AND r.Data_Checkout > %s
+                """
+                cursor.execute(comando, (id_quarto, data_checkout, data_checkin))
+                resultado = cursor.fetchone()
+
+                if resultado:
+                    btn.setStyleSheet("background-color: red; color: white;")
+                else:
+                    btn.setStyleSheet("background-color: green; color: white;")
+
+        btn_verificar.clicked.connect(verificar)
+        dialog.exec()
+
 
 
 
