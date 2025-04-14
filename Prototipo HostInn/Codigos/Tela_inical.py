@@ -93,7 +93,7 @@ def buscar_cad():
     QMessageBox.information(login_register, "Recuperação de senha", "Dados encontrados. Redefina sua senha.")
     login_register.stackedWidget.setCurrentIndex(2)  
 
-def reset_password():
+def reset_password(): #mano bora ver se agora vai
     cpf = login_register.lineEdit_cpf.text()
     bday = login_register.lineEdit_bday.text()
     nova_senha = login_register.lineEdit_user_7.text()
