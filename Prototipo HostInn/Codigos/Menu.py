@@ -1,5 +1,5 @@
 from PyQt6 import uic, QtWidgets
-from PyQt6.QtCore import QDate, Qt, QLocale
+from PyQt6.QtCore import QDate, Qt
 from PyQt6.QtGui import QIcon
 from PyQt6.QtCore import QDate
 from PyQt6.QtWidgets import QLineEdit, QMessageBox, QMainWindow, QPushButton, QGridLayout, QDialog, QTableWidgetItem
@@ -26,11 +26,14 @@ class MainMenu(QMainWindow):
         super().__init__()
         # self(self)
         # Carregar a interface gráfica
-        uic.loadUi(r"C:\Users\11054836\Desktop\PI\HOSTIIN\Prototipo HostInn\Telas\tela_menu_principal.ui", self)
+        uic.loadUi(r"C:\Users\11052806\Desktop\HostInn\HOSTIIN\Prototipo HostInn\Telas\tela_menu_principal.ui", self)
         icon_eye_closed = QIcon("Icones/visibility_off.png")
         self.setWindowTitle("HostInn")
         self.setFixedSize(801, 652)
-       
+
+        self.lineEdit_21.textChanged.connect(self.calcular)
+        self.comboBox_4.currentTextChanged.connect(self.atualizar_valor_pagamento)
+        self.lineEdit_23.textChanged.connect(self.atualizar_valor_pagamento)     
 
         # Configuração inicial dos widgets
         self.lineEdit_passwrd.setEchoMode(QLineEdit.EchoMode.Password)
@@ -54,7 +57,7 @@ class MainMenu(QMainWindow):
 
         # Carregando os quartos disponíveis na comboBox
         self.carregar_quartos()
-
+        
         # ===========================( Conexões de Botões )=============================================
         # Menu principal
 
@@ -848,42 +851,76 @@ class MainMenu(QMainWindow):
 
             num_parcelas = int(parcelas_texto)
             total_texto = self.lineEdit_23.text().strip()
-            #print(f"{num_parcelas}")
 
             if not total_texto:
                 return  # Se estiver vazio, não tenta calcular
+
+            # Remove "R$", espaços, pontos de milhar e troca vírgula por ponto
+            total_texto = total_texto.replace("R$", "").replace(".", "").replace(",", ".").strip()
 
             total = float(total_texto)
 
             if total > 0 and num_parcelas > 0:
                 valor_individual = total / num_parcelas
                 self.lineEdit_24.setText(f"{valor_individual:.2f}")
-                # self.formatar_valor(self.lineEdit_24)
             else:
                 self.lineEdit_24.clear()
         except ValueError:
             self.lineEdit_24.clear()
         
         self.on_tipo_pagamento_changed()
-             
+        self.atualizar_valor_pagamento()
+
+
+    def calcular(self):
+        texto1 = self.lineEdit_21.text()
+        texto2 = self.lineEdit_23.text()
+
+        try:
+            # Limpeza dos textos (remove R$, espaços, pontos e vírgulas)
+            valor1 = float(texto1.replace("R$", "").replace(".", "").replace(",", ".").strip() or 0)
+            valor2 = float(texto2.replace("R$", "").replace(".", "").replace(",", ".").strip() or 0)
+
+            resultado = valor1 - valor2
+
+            # Formata o resultado no estilo brasileiro
+            resultado_formatado = f"R$ {resultado:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+            self.lineEdit_20.setText(f"Resultado: {resultado_formatado}")
+        except ValueError:
+            self.lineEdit_20.setText("Resultado: erro de valor")    
+
 
     def on_tipo_pagamento_changed(self):
-        tipo_pagamento = self.comboBox_4.currentText().lower()
+        tipo_pagamento = self.comboBox_4.currentText().strip().lower()
 
+        # Combobox de parcelas
         if tipo_pagamento in ["dinheiro", "débito", "pix"]:
             self.comboBox_5.setCurrentText("1x")
             self.comboBox_5.setEnabled(False)
         else:
             self.comboBox_5.setEnabled(True)
 
-        self.lineEdit_nsu.setEnabled(False)
-        self.lineEdit_id_trans.setEnabled(False)
-
-        # Depois, habilita conforme o tipo de pagamento
+        # Campos NSU e ID Transação
         if tipo_pagamento in ["crédito", "débito"]:
             self.lineEdit_nsu.setEnabled(True)
+            self.lineEdit_id_trans.setEnabled(False)
+        else:
+            self.lineEdit_nsu.setEnabled(False)
+            self.lineEdit_id_trans.setEnabled(False)
 
+        # Campo lineEdit_21 (algo relacionado a PIX talvez?)
+        if tipo_pagamento in ["crédito", "débito", "pix"]:
+            self.lineEdit_21.setEnabled(False)
+        else:
+            self.lineEdit_21.setEnabled(True)
 
+        # Campo de data
+        if tipo_pagamento in ["crédito", "débito", "dinheiro"]:
+            self.dateEdit_4.setEnabled(False)
+        else:
+            self.dateEdit_4.setEnabled(True)
+
+        
     def formatar_valor(self, line_edit: QLineEdit):
         texto = line_edit.text().replace("R$", "").replace(",", ".").strip()
         try:
@@ -892,6 +929,38 @@ class MainMenu(QMainWindow):
             line_edit.setText(texto_formatado)
         except ValueError:
             pass
+
+    def atualizar_valor_pagamento(self):
+        tipo_pagamento = self.comboBox.currentText().strip().lower()
+
+        print("Tipo:", tipo_pagamento)
+        print("Valor original:", self.lineEdit_23.text())
+
+        if tipo_pagamento == "":
+            print("ComboBox ainda vazia, não atualizando.")
+            return
+
+        if tipo_pagamento in ["pix", "crédito", "débito"]:
+            texto = self.lineEdit_23.text()
+
+            try:
+                valor = float(
+                    texto.replace("R$", "")
+                        .replace(".", "")
+                        .replace(",", ".")
+                        .strip()
+                )
+
+                valor_formatado = f"R$ {valor:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+                print("Valor formatado:", valor_formatado)
+
+                self.lineEdit_21.setText(valor_formatado)
+            except ValueError:
+                print("Erro ao converter valor")
+                self.lineEdit_21.setText("Deu pau")
+        else:
+            print("Tipo de pagamento diferente, limpando valor.")
+            self.lineEdit_21.clear()
 
     
     def report_subMenu(self):
