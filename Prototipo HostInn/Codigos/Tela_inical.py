@@ -74,37 +74,52 @@ def forgot_password():
     login_register.stackedWidget.setCurrentIndex(3)
 
 def buscar_cad():
-    # Acessando os valores do CPF e BDAY na interface do usuário
-    global login_register, menu
     cpf = login_register.lineEdit_cpf.text()
     bday = login_register.lineEdit_bday.text()
-    cursor = banco.cursor()
 
-    # Comando SQL para buscar o CPF e BDAY no banco de dados
+    if not cpf or not bday:
+        QMessageBox.warning(login_register, "Erro", "Preencha CPF e data de nascimento.")
+        return
+
+    cursor = banco.cursor()
     comando_SQL = "SELECT CPF, BDAY FROM usuarios WHERE CPF = %s AND BDAY = %s"
     cursor.execute(comando_SQL, (cpf, bday))
+    resultado = cursor.fetchone()
 
-    # Obtendo os resultados da consulta SQL
-    cpf_bday = cursor.fetchall()
+    if not resultado:
+        QMessageBox.warning(login_register, "Erro", "Dados incorretos ou inexistentes.")
+        return
 
-    # Verificar se o resultado retornado é válido e contém os dados esperados
-    if len(cpf_bday) > 0:
-        # A consulta retornou pelo menos uma linha, agora extraímos os valores
-        result_cpf, result_bday = cpf_bday[0]  # Isso extrai diretamente CPF e BDAY da tupla retornada
-        
-        # Verificando se o CPF e BDAY fornecidos coincidem com o banco de dados
-        if cpf == result_cpf and bday == result_bday:
-            QMessageBox.information(login_register, "Recuperação de senha", "Dados encontrados, prossiga!")
-            login_register.stackedWidget.setCurrentIndex(2)
+    QMessageBox.information(login_register, "Recuperação de senha", "Dados encontrados. Redefina sua senha.")
+    login_register.stackedWidget.setCurrentIndex(2)  
 
-        else:
-            print("CPF ou data de nascimento incorretos.")
-    else:
-        QMessageBox.information(login_register, "Recuperação de senha", "Dados incorretos ou inexistentes")
+def reset_password(): #mano bora ver se agora vai
+    cpf = login_register.lineEdit_cpf.text()
+    bday = login_register.lineEdit_bday.text()
+    nova_senha = login_register.lineEdit_user_7.text()
+    confirmar_senha = login_register.lineEdit_passwrd_8.text()
 
+    if not nova_senha or not confirmar_senha:
+        QMessageBox.warning(login_register, "Erro", "Preencha os campos de nova senha.")
+        return
 
+    if nova_senha != confirmar_senha:
+        QMessageBox.warning(login_register, "Erro", "As senhas não coincidem.")
+        return
 
-# def reset_password(): #incompleto
+    cursor = banco.cursor()
+    comando_update = "UPDATE usuarios SET Senha = %s WHERE CPF = %s AND BDAY = %s"
+    cursor.execute(comando_update, (nova_senha, cpf, bday))
+    banco.commit()
+
+    QMessageBox.information(login_register, "Sucesso", "Senha redefinida com sucesso!")
+    login_register.stackedWidget.setCurrentIndex(0)
+
+    # Limpa os campos
+    login_register.lineEdit_cpf.setText("")
+    login_register.lineEdit_bday.setText("")
+    login_register.lineEdit_user_7.setText("")
+    login_register.lineEdit_passwrd_8.setText("")
 
 def new_reg():
     name = login_register.lineEdit_name.text()
@@ -167,7 +182,11 @@ icon_eye_open = QIcon(r"C:\Users\11052806\Desktop\HostInn\HOSTIIN\Prototipo Host
 icon_eye_closed = QIcon(r"C:\Users\11052806\Desktop\HostInn\HOSTIIN\Prototipo HostInn\Icones\visibility_off.png")
 
 #===========================( Login/ Cadastro )=============================================
+<<<<<<< HEAD
 login_register = uic.loadUi(r"C:\Users\11052806\Desktop\HostInn\HOSTIIN\Prototipo HostInn\Telas\TELA_LOGIN_CADASTRO_2.ui")
+=======
+login_register = uic.loadUi(r"C:\Users\57090816\OneDrive - SENAC PA - EDU\MAIS ATUALIZADO\14.04\HOSTIIN\Prototipo HostInn\Telas\TELA_LOGIN_CADASTRO_2.ui")
+>>>>>>> 1ed3b261397e310db002f5115cd89c0a9f73024a
 login_register.setWindowTitle("HostInn")
 login_register.lineEdit_2.setInputMask("000.000.000-00;_")
 login_register.stackedWidget.setCurrentIndex(0)
@@ -186,7 +205,7 @@ login_register.bttn_forgotpassword.clicked.connect(forgot_password)
 login_register.bttn_search_user.clicked.connect(buscar_cad)
 login_register.bttn_alterindex_4.clicked.connect(alter_log)
 login_register.bttn_back_login.clicked.connect(alter_log)
-# login_register.bttn_reset_password.clicked.connect(reset_password)
+login_register.bttn_reset_password.clicked.connect(reset_password)
 
 # Define os ícones iniciais dos botões de visualização de senha
 login_register.bttn_passwrdview.setIcon(icon_eye_closed)

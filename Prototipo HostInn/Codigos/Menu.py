@@ -9,17 +9,12 @@ from PyQt6.QtWidgets import (
     QDateEdit, QGridLayout, QMessageBox
 )
 
-
-
-
-
 banco = pymysql.connect(
     host="localhost",
     user="root",
     passwd="",
     database="bd_teste2"
 )
-
 
 class MainMenu(QMainWindow):
     def __init__(self):
@@ -253,7 +248,7 @@ class MainMenu(QMainWindow):
             for j, valor in enumerate(dados_formatados):  # Pulando a primeira coluna
                 self.tableWidget_2.setItem(i, j, QtWidgets.QTableWidgetItem(str(valor)))
 
-    # ===========================( Cliente )=============================================
+    # ===========================( CLIENTE )=============================================
     def new_client(self):
         self.stackedWidget.setCurrentIndex(1)
         self.stackedWidget.show()
@@ -329,7 +324,7 @@ class MainMenu(QMainWindow):
         self.tela_editar.puxar_cliente(cliente)
         self.tela_editar.show()
 
-    # ===========================( Usuário )=============================================
+    # ===========================( USUÁRIO )=============================================
     def new_user(self):
         self.stackedWidget.setCurrentIndex(3)
         self.stackedWidget.show()
@@ -453,7 +448,7 @@ class MainMenu(QMainWindow):
 
    
 
-    # ===========================( Reserva )=============================================   
+    # ===========================( RESERVA )=============================================   
     def carregar_quartos(self):
         """Preenche a comboBox com os números dos quartos disponíveis."""
         cursor = banco.cursor()
@@ -719,7 +714,7 @@ class MainMenu(QMainWindow):
                 self.tabela_lista_reserva.setRowHidden(i, True)
 
 
-    # ===========================( Financeiro )=============================================
+    # ===========================( FINANCEIRO )=============================================
     def movements_subMenu(self):
         self.stackedsubMenu.setCurrentIndex(0)
         self.stackedWidget.setCurrentIndex(4)
@@ -980,7 +975,7 @@ class MainMenu(QMainWindow):
     def back_confirmation(self):
         self.stackedWidget_2.setCurrentIndex(0)
 
-    # ===========================( Quarto )=============================================
+    # ===========================( QUARTO )=============================================
     def cadastar_novo_quarto(self):
         numero_quarto = self.linha_numero_quarto.text()
         tipo_quarto = self.combo_tipo.currentText()

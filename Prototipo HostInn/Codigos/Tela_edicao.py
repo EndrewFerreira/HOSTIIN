@@ -51,14 +51,15 @@ class EditWindow(QMainWindow):
 
     def puxar_cliente(self, user_data):
         self.stackedWidget.setCurrentIndex(0)  # Página de edição de cliente
-        self.lineEdit_name_2.setText(user_data[1])
+        self.linenovonome.setText(user_data[1])
         self.lineEdit_cpf.setText(user_data[2])
-        self.edicaocliente_email.setText(user_data[3])
+        self.linenovoemail.setText(user_data[3])
         self.lineEdit_phone.setText(user_data[4])
         self.lineEdit_endereco.setText(user_data[5])
         self.user_id = user_data[0]
 
-        self.editButton.clicked.connect(self.atualizar_cliente_dados)
+        self.btn_salvar_edit_cliente.clicked.connect(self.atualizar_cliente_dados)
+        self.btn_salvar_edit_cliente.setFocus()
 
     def password_view(self):
         if self.lineEdit_passwrd.echoMode() == QLineEdit.EchoMode.Password:
@@ -71,18 +72,12 @@ class EditWindow(QMainWindow):
             self.passButton_view.setIcon(self.icon_eye_closed)
 
     def atualizar_user_dados(self):
-        novo_nome = self.lineEdit_name_2.text()
+        novo_nome = self.lnedituser_nome.text()
         novo_usuario = self.lineEdit_user.text()
         novo_email = self.lineEdit_email_2.text()
         novo_senha = self.lineEdit_passwrd.text()
         conf_novo_senha = self.lineEdit_passwrd_2.text()
-
-        # novo_nome = self.lineEdit_name_2.text()
-        # novo_usuario = self.lineEdit_user.text()
-        # novo_email = self.lineEdit_email_2.text()
-        # novo_senha = self.lineEdit_passwrd.text()
-        # conf_novo_senha = self.lineEdit_passwrd_2.text()
-                
+    
 
         if novo_senha != conf_novo_senha:
             QMessageBox.warning(self, "Erro", "As senhas não coincidem!")
@@ -94,13 +89,14 @@ class EditWindow(QMainWindow):
         banco.commit()
 
         QMessageBox.information(self, "Sucesso", "Dados do usuário atualizados com sucesso!")
+        
         self.close()
 
     def atualizar_cliente_dados(self):
-        novo_nome = self.lineEdit_name.text()
+        novo_nome = self.lineEdit_novo_nome.text()
         novo_cpf = self.lineEdit_cpf.text()
-        novo_email = self.lineEdit_email.text()
-        novo_telefone = self.lineEdit_phone.text()
+        novo_email = self.edicaocliente_email.text()
+        novo_telefone = self.lineedit_newphone_cliente.text()
         novo_endereco = self.lineEdit_endereco.text()
 
         cursor = banco.cursor()
