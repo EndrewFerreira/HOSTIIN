@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="page">
      <widget class="QWidget" name="verticalLayoutWidget">
@@ -89,7 +89,7 @@
           <widget class="QLineEdit" name="lineEdit_cpf"/>
          </item>
          <item>
-          <widget class="QLineEdit" name="lineEdit_name_2"/>
+          <widget class="QLineEdit" name="linenovonome"/>
          </item>
         </layout>
        </item>
@@ -139,7 +139,7 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_2">
          <item>
-          <widget class="QLineEdit" name="edicaocliente_email"/>
+          <widget class="QLineEdit" name="linenovoemail"/>
          </item>
          <item>
           <widget class="QLineEdit" name="lineEdit_phone"/>
@@ -151,7 +151,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QPushButton" name="editButton">
+     <widget class="QPushButton" name="btn_salvar_edit_cliente">
       <property name="geometry">
        <rect>
         <x>0</x>
@@ -238,7 +238,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="lnedituser_nome">
+          <widget class="QLineEdit" name="lineEdit_name_3">
            <property name="placeholderText">
             <string>Informe seu Nome completo...</string>
            </property>
@@ -284,7 +284,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="lineEdit_email_2">
+          <widget class="QLineEdit" name="lineEdit_email_3">
            <property name="placeholderText">
             <string>Informe seu E-mail...</string>
            </property>
@@ -392,7 +392,7 @@
             </font>
            </property>
            <property name="text">
-            <string>SALVAR</string>
+            <string>Editar</string>
            </property>
           </widget>
          </item>
@@ -408,7 +408,7 @@
             </font>
            </property>
            <property name="text">
-            <string>CANCELAR</string>
+            <string>Cancelar</string>
            </property>
           </widget>
          </item>
