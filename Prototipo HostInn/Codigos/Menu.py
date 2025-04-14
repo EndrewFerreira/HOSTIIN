@@ -26,7 +26,7 @@ class MainMenu(QMainWindow):
         super().__init__()
         # self(self)
         # Carregar a interface gráfica
-        uic.loadUi(r"C:\Users\ferre\Desktop\PI\HOSTIIN\Prototipo HostInn\Telas\tela_menu_principal.ui", self)
+        uic.loadUi(r"C:\Users\11054836\Desktop\PI\HOSTIIN\Prototipo HostInn\Telas\tela_menu_principal.ui", self)
         icon_eye_closed = QIcon("Icones/visibility_off.png")
         self.setWindowTitle("HostInn")
         self.setFixedSize(801, 652)
@@ -91,7 +91,6 @@ class MainMenu(QMainWindow):
         self.bttn_validate.clicked.connect(self.validate_payment)
         self.bttn_voltar.clicked.connect(self.back_confirmation)
         self.bttn_confirm_2.clicked.connect(self.confirma_busca_financeiro)
-        
         self.bttn_report.clicked.connect(self.report_subMenu)
         self.bttn_dashBoard.clicked.connect(self.dashboard)
         self.bttn_cashFlow.clicked.connect(self.financial_list)
@@ -191,6 +190,10 @@ class MainMenu(QMainWindow):
         self.stackedWidget.hide()
         self.stackedWidget_2.hide()
         self.stackedsubMenu.hide()
+    def new_room(self):
+        self.stackedWidget.setCurrentIndex(6)
+        self.stackedWidget_3.setCurrentIndex(1)
+        self.stackedWidget.show()
 
     def back_roomlist_menu(self):
         self.stackedWidget.setCurrentIndex(6)
@@ -311,15 +314,16 @@ class MainMenu(QMainWindow):
     def editar_clientes(self):
         linha = self.tableWidget.currentRow()
         if linha == -1:
-            QMessageBox.warning(self, "Erro", "Selecione um usuário para editar.")
+            QMessageBox.warning(self, "Erro", "Selecione um cliente para editar.")
             return
 
         cursor = banco.cursor()
         cursor.execute("SELECT * FROM clientes")
         dados_lidos = cursor.fetchall()
-        user = dados_lidos[linha]
+        cliente = dados_lidos[linha]
 
-        self.tela_editar = Tela_edicao.EditWindow(user)
+        self.tela_editar = Tela_edicao.EditWindow()
+        self.tela_editar.puxar_cliente(cliente)
         self.tela_editar.show()
 
     # ===========================( Usuário )=============================================
@@ -439,13 +443,12 @@ class MainMenu(QMainWindow):
         dados_lidos = cursor.fetchall()
         user = dados_lidos[linha]
 
-        self.tela_editar = Tela_edicao.EditWindow(user)
+        self.tela_editar = Tela_edicao.EditWindow()         # <- sem passar user
+        self.tela_editar.puxar_user(user)                   # <- passa aqui
         self.tela_editar.show()
 
-    def new_room(self):
-        self.stackedWidget.setCurrentIndex(6)
-        self.stackedWidget_3.setCurrentIndex(1)
-        self.stackedWidget.show()
+
+   
 
     # ===========================( Reserva )=============================================   
     def carregar_quartos(self):
