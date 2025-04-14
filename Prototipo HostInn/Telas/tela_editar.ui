@@ -139,7 +139,7 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_2">
          <item>
-          <widget class="QLineEdit" name="lineEdit_email_2"/>
+          <widget class="QLineEdit" name="edicaocliente_email"/>
          </item>
          <item>
           <widget class="QLineEdit" name="lineEdit_phone"/>
@@ -238,7 +238,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="lineEdit_name_3">
+          <widget class="QLineEdit" name="lnedituser_nome">
            <property name="placeholderText">
             <string>Informe seu Nome completo...</string>
            </property>
@@ -284,7 +284,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="lineEdit_email_3">
+          <widget class="QLineEdit" name="lineEdit_email_2">
            <property name="placeholderText">
             <string>Informe seu E-mail...</string>
            </property>
@@ -392,7 +392,7 @@
             </font>
            </property>
            <property name="text">
-            <string>Editar</string>
+            <string>SALVAR</string>
            </property>
           </widget>
          </item>
@@ -408,7 +408,7 @@
             </font>
            </property>
            <property name="text">
-            <string>Cancelar</string>
+            <string>CANCELAR</string>
            </property>
           </widget>
          </item>
