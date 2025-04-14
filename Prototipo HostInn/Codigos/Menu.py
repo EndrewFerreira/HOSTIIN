@@ -926,7 +926,7 @@ class MainMenu(QMainWindow):
             pass
 
     def atualizar_valor_pagamento(self):
-        tipo_pagamento = self.comboBox.currentText().strip().lower()
+        tipo_pagamento = self.comboBox_4.currentText().strip().lower()
 
         print("Tipo:", tipo_pagamento)
         print("Valor original:", self.lineEdit_23.text())
