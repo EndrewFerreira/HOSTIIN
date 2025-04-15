@@ -1,7 +1,9 @@
 from PyQt6 import uic, QtWidgets
 from PyQt6.QtGui import QIcon
 from PyQt6.QtWidgets import QLineEdit, QMainWindow, QMessageBox
+from PyQt6.QtCore import pyqtSignal
 import pymysql
+from PyQt6.QtWidgets import QApplication
 import sys
 
 # Conexão com o banco de dados
@@ -13,9 +15,11 @@ banco = pymysql.connect(
 )
 
 class EditWindow(QMainWindow):
-    def __init__(self):
+    def __init__(self, atualizar_callback=None):
         super().__init__()
-        uic.loadUi(r"C:\Users\11054836\Desktop\PI\HOSTIIN\Prototipo HostInn\Telas\tela_editar.ui", self)
+        uic.loadUi(r"C:\Users\ferre\Desktop\PI\HOSTIIN\Prototipo HostInn\Telas\tela_editar.ui", self)
+
+        self.atualizar_callback = atualizar_callback
 
         # Inicializa os ícones
         self.icon_eye_open = QIcon("Icones/visibility.png")
@@ -34,7 +38,6 @@ class EditWindow(QMainWindow):
 
     def puxar_user(self, user_data):
         self.stackedWidget.setCurrentIndex(1)
-
         self.lnedituser_nome.setText(user_data[1])     # Nome
         self.lineEdit_user.setText(user_data[2])       # Usuario
         self.lineEdit_email_2.setText(user_data[4])    # Email
@@ -46,15 +49,12 @@ class EditWindow(QMainWindow):
         self.editButton_2.clicked.connect(self.atualizar_user_dados)
         self.editButton_2.setFocus()
 
-
-
-
     def puxar_cliente(self, user_data):
         self.stackedWidget.setCurrentIndex(0)  # Página de edição de cliente
         self.linenovonome.setText(user_data[1])
         self.lineEdit_cpf.setText(user_data[2])
         self.linenovoemail.setText(user_data[3])
-        self.lineEdit_phone.setText(user_data[4])
+        self.line_newphone_cliente.setText(user_data[4])
         self.lineEdit_endereco.setText(user_data[5])
         self.user_id = user_data[0]
 
@@ -77,7 +77,6 @@ class EditWindow(QMainWindow):
         novo_email = self.lineEdit_email_2.text()
         novo_senha = self.lineEdit_passwrd.text()
         conf_novo_senha = self.lineEdit_passwrd_2.text()
-    
 
         if novo_senha != conf_novo_senha:
             QMessageBox.warning(self, "Erro", "As senhas não coincidem!")
@@ -89,14 +88,15 @@ class EditWindow(QMainWindow):
         banco.commit()
 
         QMessageBox.information(self, "Sucesso", "Dados do usuário atualizados com sucesso!")
-        
+        if self.atualizar_callback:
+            self.atualizar_callback()
         self.close()
 
     def atualizar_cliente_dados(self):
-        novo_nome = self.lineEdit_novo_nome.text()
+        novo_nome = self.linenovonome.text()
         novo_cpf = self.lineEdit_cpf.text()
-        novo_email = self.edicaocliente_email.text()
-        novo_telefone = self.lineedit_newphone_cliente.text()
+        novo_email = self.linenovoemail.text()
+        novo_telefone = self.line_newphone_cliente.text()
         novo_endereco = self.lineEdit_endereco.text()
 
         cursor = banco.cursor()
@@ -109,4 +109,9 @@ class EditWindow(QMainWindow):
         banco.commit()
 
         QMessageBox.information(self, "Sucesso", "Dados do cliente atualizados com sucesso!")
+
+        if self.atualizar_callback:
+            self.atualizar_callback()
+            QApplication.processEvents()  # Força a atualização da GUI
+
         self.close()

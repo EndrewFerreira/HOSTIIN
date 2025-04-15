@@ -142,7 +142,7 @@
           <widget class="QLineEdit" name="linenovoemail"/>
          </item>
          <item>
-          <widget class="QLineEdit" name="lineEdit_phone"/>
+          <widget class="QLineEdit" name="line_newphone_cliente"/>
          </item>
          <item>
           <widget class="QLineEdit" name="lineEdit_endereco"/>
