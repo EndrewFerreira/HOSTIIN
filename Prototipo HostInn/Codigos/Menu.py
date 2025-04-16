@@ -2,6 +2,7 @@ from PyQt6 import uic, QtWidgets
 from PyQt6.QtCore import QDate, Qt
 from PyQt6.QtGui import QIcon
 from PyQt6.QtCore import QDate
+import re
 from PyQt6.QtWidgets import QLineEdit, QMessageBox, QMainWindow, QPushButton, QGridLayout, QDialog, QTableWidgetItem
 import sys, pymysql, Tela_edicao, chatbot
 from PyQt6.QtWidgets import (
@@ -89,6 +90,8 @@ class MainMenu(QMainWindow):
         self.bttn_validate.clicked.connect(self.validate_payment)
         self.bttn_voltar.clicked.connect(self.back_confirmation)
         self.bttn_confirm_2.clicked.connect(self.confirma_busca_financeiro)
+        self.bttn_validate.clicked.connect(self.gerar_codigo)
+        self.bttn_confirm_3.clicked.connect(self.salvar_pagamento)
         self.bttn_report.clicked.connect(self.report_subMenu)
         self.bttn_dashBoard.clicked.connect(self.dashboard)
         self.bttn_cashFlow.clicked.connect(self.financial_list)
@@ -957,7 +960,177 @@ class MainMenu(QMainWindow):
             print("Tipo de pagamento diferente, limpando valor.")
             self.lineEdit_21.clear()
 
-    
+    def gerar_codigo_unico(self, tabela, coluna):
+        import random
+        import string
+        global banco
+
+        def gerar_codigo_formatado():
+            return ''.join(random.choices(string.digits, k=8))
+
+        try:
+            with banco.cursor() as cursor:
+                while True:
+                    codigo = gerar_codigo_formatado()
+                    consulta = f"SELECT COUNT(*) FROM {tabela} WHERE {coluna} = %s"
+                    cursor.execute(consulta, (codigo,))
+                    resultado = cursor.fetchone()
+
+                    if resultado[0] == 0:
+                        return codigo
+        except Exception as e:
+            self.mostrar_erro(f"Erro ao gerar código único: {e}")
+            return None
+                
+    def gerar_codigo(self):
+        codigo = self.gerar_codigo_unico('financeiro', 'ID_Pagamento')
+        self.lineEdit_18.setText(codigo)
+
+    def salvar_pagamento(self):
+        global banco
+
+        id_pagamento = self.lineEdit_18.text()
+        data = self.dateEdit_3.date().toString("yyyy-MM-dd")
+        quant_parcelas = self.comboBox_5.currentText()
+        tipo_pagamento = self.comboBox_4.currentText()
+        bandeira_cart = self.comboBox_6.currentText()
+        status = "Pago"
+        cliente = self.lineEdit_9.text()
+        checkin = self.dateEdit.date().toString("yyyy-MM-dd")
+        checkout = self.dateEdit_2.date().toString("yyyy-MM-dd")
+
+
+        # Buscar dados do cliente
+        cursor = banco.cursor()
+        cursor.execute("SELECT * FROM clientes WHERE nome = %s", (cliente,))
+        dados_cliente = cursor.fetchone()
+
+        id_cliente = dados_cliente[0] if dados_cliente else None
+
+        # Buscar dados da reserva
+        cursor = banco.cursor()
+        cursor.execute(
+            "SELECT * FROM reserva WHERE Data_Checkin = %s AND Data_Checkout = %s",
+            (checkin, checkout)
+        )
+        dados_reserva = cursor.fetchone()
+
+        id_reserva = dados_reserva[0] if dados_reserva else None
+
+
+        tipo = tipo_pagamento.lower()
+
+        # Código do pagamento (NSU ou ID transação)
+        if tipo in ["débito", "debito", "crédito", "credito"]:
+            codigo_pagamento = self.lineEdit_nsu.text()
+            if not codigo_pagamento:
+                self.mostrar_erro("Por favor, preencha o NSU para pagamento com débito/crédito.")
+                return
+        elif tipo == "pix":
+            codigo_pagamento = self.lineEdit_id_transacao.text()
+            if not codigo_pagamento:
+                self.mostrar_erro("Por favor, preencha o ID da transação para pagamento via Pix.")
+                return
+        else:
+            codigo_pagamento = ""
+
+        # Valores
+        recebido_texto = self.lineEdit_21.text()
+        devolvido_texto = self.lineEdit_20.text()
+
+        # Se for dinheiro, os valores devem ser obrigatórios
+        if tipo == "dinheiro":
+            if not id_pagamento or not recebido_texto or not devolvido_texto or not tipo_pagamento:
+                self.mostrar_erro("Todos os campos obrigatórios devem ser preenchidos!")
+                return
+
+        # Tenta remover a formatação
+        try:
+            recebido_valor = self.remover_formatacao_moeda(recebido_texto)
+            devolvido_valor = self.remover_formatacao_moeda(devolvido_texto)
+        except Exception as e:
+            self.mostrar_erro(f"Erro ao formatar valores: {e}")
+            return
+
+        print(f"Recebido: {recebido_valor}, Devolvido: {devolvido_valor}")  # DEBUG
+
+        try:
+            with banco.cursor() as cursor:
+                sql = """
+                    INSERT INTO financeiro (
+                        ID_Pagamento,
+                        Data_Pagamento,
+                        Valor_Recebido,
+                        Valor_Devolvido,
+                        Tipo_Pagamento,
+                        Quant_parcelas,
+                        Bandeira_Cartao,
+                        codigo_pagamento,
+                        Status_Pagamento,
+                        ID_Cliente,
+                        ID_Reserva
+                    ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                """
+                valores = (
+                    id_pagamento,
+                    data,
+                    recebido_valor,
+                    devolvido_valor,
+                    tipo_pagamento,
+                    quant_parcelas,
+                    bandeira_cart,
+                    codigo_pagamento,
+                    status,
+                    id_cliente,
+                    id_reserva
+                )
+                cursor.execute(sql, valores)
+                banco.commit()
+                self.mostrar_sucesso("Pagamento salvo com sucesso!")
+        except Exception as e:
+            self.mostrar_erro(f"Erro ao salvar no banco: {e}")
+
+
+    def remover_formatacao_moeda(self, valor):
+        if not valor:
+            return 0.0
+
+        print(f"Valor original: {valor}")  # debug
+
+        # Encontra o primeiro padrão de número monetário na string (ex: R$ 1.500,50 ou 1500,50)
+        match = re.search(r'[\d\.,]+', valor)
+        if not match:
+            return 0.0
+
+        numero_str = match.group(0)
+
+        # Remove separador de milhar (.) e troca vírgula por ponto
+        numero_str = numero_str.replace(".", "").replace(",", ".")
+
+        print(f"Valor formatado: {numero_str}")  # debug
+
+        try:
+            return float(numero_str)
+        except ValueError:
+            return 0.0
+
+    # Exibe mensagens de erro
+    def mostrar_erro(self, mensagem):
+        msg = QMessageBox()
+        msg.setIcon(QMessageBox.Icon.Critical)
+        msg.setWindowTitle("Erro")
+        msg.setText(mensagem)
+        msg.exec()
+
+    # Exibe mensagens de sucesso
+    def mostrar_sucesso(self, mensagem):
+        msg = QMessageBox()
+        msg.setIcon(QMessageBox.Icon.Information)
+        msg.setWindowTitle("Sucesso")
+        msg.setText(mensagem)
+        msg.exec()
+
+
     def report_subMenu(self):
         self.stackedsubMenu.setCurrentIndex(1)
         self.stackedWidget.setCurrentIndex(4)
