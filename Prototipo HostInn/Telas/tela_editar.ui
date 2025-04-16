@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>651</width>
-    <height>312</height>
+    <height>307</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -89,7 +89,7 @@
           <widget class="QLineEdit" name="lineEdit_cpf"/>
          </item>
          <item>
-          <widget class="QLineEdit" name="linenovonome"/>
+          <widget class="QLineEdit" name="lineEdit_nome_cliente"/>
          </item>
         </layout>
        </item>
@@ -142,7 +142,7 @@
           <widget class="QLineEdit" name="linenovoemail"/>
          </item>
          <item>
-          <widget class="QLineEdit" name="line_newphone_cliente"/>
+          <widget class="QLineEdit" name="linha_novophone"/>
          </item>
          <item>
           <widget class="QLineEdit" name="lineEdit_endereco"/>
@@ -170,7 +170,7 @@
        </font>
       </property>
       <property name="text">
-       <string>Editar</string>
+       <string>SALVAR</string>
       </property>
      </widget>
      <widget class="QPushButton" name="cancelButton">
@@ -238,7 +238,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="lineEdit_name_3">
+          <widget class="QLineEdit" name="lnedituser_nome">
            <property name="placeholderText">
             <string>Informe seu Nome completo...</string>
            </property>
@@ -392,7 +392,7 @@
             </font>
            </property>
            <property name="text">
-            <string>Editar</string>
+            <string>SALVAR</string>
            </property>
           </widget>
          </item>

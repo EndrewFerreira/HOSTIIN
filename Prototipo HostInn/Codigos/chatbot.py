@@ -113,7 +113,7 @@ class ChatBotWindow(QMainWindow):
         self.avatar_label.setAlignment(Qt.AlignCenter)
         self.avatar_label.setStyleSheet("border-radius: 75px; background-color: #3d3d3d;")
         
-        pixmap = QPixmap("Icones\curupira.png")
+        pixmap = QPixmap(R"C:\Users\11054836\Desktop\PI\HOSTIIN\Prototipo HostInn\Icones\curupira.png")
         if pixmap.isNull():
             QMessageBox.warning(self, "Erro", "Imagem curupira.png não encontrada!")
             self.avatar_label.setText("Imagem não carregada")

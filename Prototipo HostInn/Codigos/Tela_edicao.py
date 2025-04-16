@@ -17,7 +17,7 @@ banco = pymysql.connect(
 class EditWindow(QMainWindow):
     def __init__(self, atualizar_callback=None):
         super().__init__()
-        uic.loadUi(r"C:\Users\ferre\Desktop\PI\HOSTIIN\Prototipo HostInn\Telas\tela_editar.ui", self)
+        uic.loadUi(r"C:\Users\11054836\Desktop\PI\HOSTIIN\Prototipo HostInn\Telas\tela_editar.ui", self)
 
         self.atualizar_callback = atualizar_callback
 
@@ -40,7 +40,7 @@ class EditWindow(QMainWindow):
         self.stackedWidget.setCurrentIndex(1)
         self.lnedituser_nome.setText(user_data[1])     # Nome
         self.lineEdit_user.setText(user_data[2])       # Usuario
-        self.lineEdit_email_2.setText(user_data[4])    # Email
+        self.lineEdit_email_3.setText(user_data[4])    # Email
         self.lineEdit_passwrd.setText(user_data[5])    # Senha
         self.lineEdit_passwrd_2.setText(user_data[5])  # Confirmar senha
         print("Dados recebidos do usuário:", user_data)
@@ -51,10 +51,10 @@ class EditWindow(QMainWindow):
 
     def puxar_cliente(self, user_data):
         self.stackedWidget.setCurrentIndex(0)  # Página de edição de cliente
-        self.linenovonome.setText(user_data[1])
+        self.lineEdit_nome_cliente.setText(user_data[1])
         self.lineEdit_cpf.setText(user_data[2])
-        self.linenovoemail.setText(user_data[3])
-        self.line_newphone_cliente.setText(user_data[4])
+        self.lineEdit_email_3.setText(user_data[3])
+        self.linha_novophone.setText(user_data[4])
         self.lineEdit_endereco.setText(user_data[5])
         self.user_id = user_data[0]
 
@@ -74,7 +74,7 @@ class EditWindow(QMainWindow):
     def atualizar_user_dados(self):
         novo_nome = self.lnedituser_nome.text()
         novo_usuario = self.lineEdit_user.text()
-        novo_email = self.lineEdit_email_2.text()
+        novo_email = self.lineEdit_email_3.text()
         novo_senha = self.lineEdit_passwrd.text()
         conf_novo_senha = self.lineEdit_passwrd_2.text()
 
@@ -90,13 +90,16 @@ class EditWindow(QMainWindow):
         QMessageBox.information(self, "Sucesso", "Dados do usuário atualizados com sucesso!")
         if self.atualizar_callback:
             self.atualizar_callback()
+            QApplication.processEvents()  # Força a atualização da GUI
         self.close()
 
+
+           
     def atualizar_cliente_dados(self):
-        novo_nome = self.linenovonome.text()
+        novo_nome = self.lineEdit_nome_cliente.text()
         novo_cpf = self.lineEdit_cpf.text()
         novo_email = self.linenovoemail.text()
-        novo_telefone = self.line_newphone_cliente.text()
+        novo_telefone = self.linha_novophone.text()
         novo_endereco = self.lineEdit_endereco.text()
 
         cursor = banco.cursor()
