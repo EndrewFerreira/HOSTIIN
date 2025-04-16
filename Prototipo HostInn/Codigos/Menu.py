@@ -22,7 +22,7 @@ class MainMenu(QMainWindow):
         super().__init__()
         # self(self)
         # Carregar a interface gráfica
-        uic.loadUi(r"C:\Users\11052806\Desktop\HostInn\HOSTIIN\Prototipo HostInn\Telas\tela_menu_principal.ui", self)
+        uic.loadUi(r"C:\Users\11054836\Desktop\PI\HOSTIIN\Prototipo HostInn\Telas\tela_menu_principal.ui", self)
         icon_eye_closed = QIcon("Icones/visibility_off.png")
         self.setWindowTitle("HostInn")
         self.setFixedSize(801, 652)
@@ -281,20 +281,23 @@ class MainMenu(QMainWindow):
         self.lineEdit_endereco.setText("")
 
     def list_client(self):
-        self.stackedWidget.setCurrentIndex(0)
+        self.stackedWidget.setCurrentIndex(0)  # ou o índice correto da tela de clientes
         self.stackedWidget.show()
-
         cursor = banco.cursor()
         cursor.execute("SELECT * FROM clientes")
         dados_lidos = cursor.fetchall()
+        self.tableWidget.clearContents()  # Limpa os dados antigos
+        print("⚡ Atualizando tabela de clientes!")
 
-        # Definir número de linhas e colunas (menos 1 coluna)
         self.tableWidget.setRowCount(len(dados_lidos))
         self.tableWidget.setColumnCount(5)  # Ajustado para ignorar a primeira coluna
 
         for i, linha in enumerate(dados_lidos):
-            for j, valor in enumerate(linha[1:]):  # Pulando a primeira coluna
+            for j, valor in enumerate(linha[1:]):  # Pulando o ID
                 self.tableWidget.setItem(i, j, QtWidgets.QTableWidgetItem(str(valor)))
+        self.tableWidget.repaint()  # Força um repaint da tabela
+
+
 
     def deletar_clientes(self):
         linha = self.tableWidget.currentRow()
@@ -323,9 +326,12 @@ class MainMenu(QMainWindow):
         dados_lidos = cursor.fetchall()
         cliente = dados_lidos[linha]
 
-        self.tela_editar = Tela_edicao.EditWindow()
+        # Passando a função de atualização como callback
+        self.tela_editar = Tela_edicao.EditWindow(atualizar_callback=self.list_client)
         self.tela_editar.puxar_cliente(cliente)
         self.tela_editar.show()
+
+
 
     # ===========================( USUÁRIO )=============================================
     def new_user(self):
