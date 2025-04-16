@@ -166,6 +166,15 @@ def new_reg():
     QMessageBox.information(login_register, "Sucesso", "Cadastro realizado com sucesso!")
 
     login_register.stackedWidget.setCurrentIndex(0)
+    cursor = banco.cursor()
+    # Atenção: coloque os valores de string entre aspas na query
+    comando_SQL = "SELECT COUNT(Permissao) FROM usuarios WHERE Permissao = 'Administrador'"
+    cursor.execute(comando_SQL)
+    resultado = cursor.fetchone()
+
+    # Se o resultado existir e o count for maior que 0, esconde o botão
+    if resultado and resultado[0] > 0:
+        login_register.bttn_alterindex_2.hide()
 
     # Limpa os campos após o cadastro
     login_register.lineEdit_name.setText("")
@@ -182,7 +191,7 @@ icon_eye_open = QIcon(r"C:\Users\11052806\Desktop\HostInn\HOSTIIN\Prototipo Host
 icon_eye_closed = QIcon(r"C:\Users\11052806\Desktop\HostInn\HOSTIIN\Prototipo HostInn\Icones\visibility_off.png")
 
 #===========================( Login/ Cadastro )=============================================
-login_register = uic.loadUi(r"C:\Users\11054836\Desktop\PI\HOSTIIN\Prototipo HostInn\Telas\TELA_LOGIN_CADASTRO_2.ui")
+login_register = uic.loadUi(r"C:\Users\11052806\Desktop\HostInn\HOSTIIN\Prototipo HostInn\Telas\TELA_LOGIN_CADASTRO_2.ui")
 login_register.setWindowTitle("HostInn")
 login_register.lineEdit_2.setInputMask("000.000.000-00;_")
 login_register.stackedWidget.setCurrentIndex(0)
