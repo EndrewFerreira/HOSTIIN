@@ -1578,7 +1578,7 @@
        </rect>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="page_13">
        <widget class="QWidget" name="verticalLayoutWidget_6">
@@ -1627,6 +1627,9 @@
           <layout class="QHBoxLayout" name="horizontalLayout_27">
            <item>
             <widget class="QTableWidget" name="tableWidget_4">
+             <property name="enabled">
+              <bool>true</bool>
+             </property>
              <column>
               <property name="text">
                <string>Nome</string>
@@ -2317,7 +2320,7 @@
             </spacer>
            </item>
            <item>
-            <widget class="QPushButton" name="editButton_7">
+            <widget class="QPushButton" name="bttn_confirm_3">
              <property name="font">
               <font>
                <pointsize>10</pointsize>
@@ -3262,7 +3265,7 @@ color: rgb(255, 255, 255);</string>
        </rect>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="page_55">
        <widget class="QWidget" name="horizontalLayoutWidget_6">
@@ -3288,7 +3291,15 @@ Pagamento</string>
              </property>
             </widget>
            </item>
-           <item row="0" column="4">
+           <item row="0" column="2">
+            <widget class="QPushButton" name="pushButton_30">
+             <property name="text">
+              <string>Cadastro 
+ de Despesa</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="3">
             <spacer name="horizontalSpacer_14">
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
@@ -3303,22 +3314,6 @@ Pagamento</string>
               </size>
              </property>
             </spacer>
-           </item>
-           <item row="0" column="2">
-            <widget class="QPushButton" name="bttn_cashFlow">
-             <property name="text">
-              <string>Fluxo 
- de caixa</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="3">
-            <widget class="QPushButton" name="pushButton_30">
-             <property name="text">
-              <string>Cadastro 
- de Despesa</string>
-             </property>
-            </widget>
            </item>
           </layout>
          </item>
@@ -3346,15 +3341,7 @@ Pagamento</string>
              </property>
             </widget>
            </item>
-           <item row="0" column="1">
-            <widget class="QPushButton" name="pushButton_24">
-             <property name="text">
-              <string>Exportar 
- Excel</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="2">
+           <item row="0" column="3">
             <spacer name="horizontalSpacer_13">
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
@@ -3369,6 +3356,22 @@ Pagamento</string>
               </size>
              </property>
             </spacer>
+           </item>
+           <item row="0" column="2">
+            <widget class="QPushButton" name="pushButton_24">
+             <property name="text">
+              <string>Exportar 
+ </string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QPushButton" name="bttn_cashFlow">
+             <property name="text">
+              <string>Fluxo 
+ de caixa</string>
+             </property>
+            </widget>
            </item>
           </layout>
          </item>
