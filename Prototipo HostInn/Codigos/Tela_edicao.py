@@ -118,3 +118,49 @@ class EditWindow(QMainWindow):
             QApplication.processEvents()  # Força a atualização da GUI
 
         self.close()
+
+    def puxar_quarto(self, dados_quarto):
+        self.stackedWidget.setCurrentIndex(2)  # Página de edição de quartos (ajuste o índice conforme necessário)
+
+        self.line_novonumero.setText(str(dados_quarto[1]))         # Número do quarto
+        self.combo_novotipo.setCurrentText(dados_quarto[2])            # Tipo do quarto
+        self.combo_novostts.setCurrentText(dados_quarto[3])          # Status (Disponível, Ocupado, etc.)
+        self.line_novopreco.setText(str(dados_quarto[4]))          # Valor
+        self.line_novacap.setText(dados_quarto[5])          # Capacidade
+        self.line_novadesc.setText(dados_quarto[6])
+      # Descrição
+
+        self.quarto_id = dados_quarto[0]  # Armazena o ID do quarto para atualização
+
+        self.btn_salvar_edit_quarto.clicked.connect(self.atualizar_quarto_dados)
+        self.btn_salvar_edit_quarto.setFocus()
+
+
+
+    def atualizar_quarto_dados(self):
+        numero = self.line_novonumero.text()
+        tipo = self.combo_novotipo.currentText()
+        status = self.combo_novostts.currentText()
+        valor = self.line_novopreco.text()
+        capacidade = self.line_novacap.text()
+        descricao = self.line_novadesc.text()
+
+
+        cursor = banco.cursor()
+        comando_SQL = """
+            UPDATE quartos
+            SET Numero=%s, Tipo=%s, Status_Quarto=%s, Valor_Tipo=%s, Capacidade_Quarto=%s, Descricao=%s
+            WHERE ID_Quartos=%s
+        """
+        cursor.execute(comando_SQL, (numero, tipo, status, valor, capacidade, descricao, self.quarto_id))
+        banco.commit()
+
+        QMessageBox.information(self, "Sucesso", "Dados do quarto atualizados com sucesso!")
+
+        if self.atualizar_callback:
+            self.atualizar_callback()
+            QApplication.processEvents()
+
+        self.close()
+
+

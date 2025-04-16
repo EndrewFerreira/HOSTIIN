@@ -956,7 +956,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>6</number>
+     <number>5</number>
     </property>
     <widget class="QWidget" name="page">
      <widget class="QWidget" name="verticalLayoutWidget_9">
@@ -3734,7 +3734,7 @@ Filtros</string>
           </spacer>
          </item>
          <item>
-          <widget class="QPushButton" name="btn_editar">
+          <widget class="QPushButton" name="btn_editar_quarto">
            <property name="font">
             <font>
              <pointsize>10</pointsize>
@@ -3779,7 +3779,7 @@ Filtros</string>
        </rect>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="page_19">
        <widget class="QWidget" name="verticalLayoutWidget_17">

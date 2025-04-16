@@ -112,6 +112,7 @@ class MainMenu(QMainWindow):
         self.btn_ocupados.clicked.connect(self.listar_quartos_ocupado)
         self.btn_manutencao.clicked.connect(self.listar_quartos_manutencao)
         self.btn_verifcacaoqt.clicked.connect(self.abrir_janela_verificacao_quartos)
+        self.btn_editar_quarto.clicked.connect(self.editar_quarto)
 
 
     # ===========================( Funções de Navegação )=============================================
@@ -1004,6 +1005,9 @@ class MainMenu(QMainWindow):
         self.linha_desc.clear()
 
         QMessageBox.information(self, "Sucesso", "Novo quarto registrado com sucesso!")
+        self.carregar_quartos()  # ← atualiza a comboBox com os quartos disponíveis
+        # self.stackedWidget.setCurrentIndex(7)  # ← vai para a tela de reserva (troque o número se for diferente)
+
 
     #                        Visualização de Quartos Filtrados
     def listar_quartos_filtrados(self, filtro_status):
@@ -1126,6 +1130,23 @@ class MainMenu(QMainWindow):
 
         btn_verificar.clicked.connect(verificar)
         dialog.exec()
+    
+    def editar_quarto(self):
+        linha = self.tableWidget_2.currentRow()
+        if linha == -1:
+            QMessageBox.warning(self, "Erro", "Selecione um quarto para editar.")
+            return
+
+        cursor = banco.cursor()
+        cursor.execute("SELECT * FROM quartos")
+        dados = cursor.fetchall()
+        quarto = dados[linha]
+
+        self.tela_editar = Tela_edicao.EditWindow(atualizar_callback=self.menu_list_all_room)
+        self.tela_editar.puxar_quarto(quarto)
+        self.tela_editar.show()
+
+
 
 
 
