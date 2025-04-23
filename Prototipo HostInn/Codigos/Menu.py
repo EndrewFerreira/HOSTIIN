@@ -4,7 +4,8 @@ from PyQt6.QtGui import QIcon
 from PyQt6.QtCore import QDate
 import re
 from PyQt6.QtWidgets import QLineEdit, QMessageBox, QMainWindow, QPushButton, QGridLayout, QDialog, QTableWidgetItem
-import sys, pymysql, Tela_edicao, chatbot
+import sys, pymysql, Tela_edicao
+from chatbot import ChatBotWindow 
 from PyQt6.QtWidgets import (
     QDialog, QLabel, QPushButton, QVBoxLayout, QHBoxLayout,
     QDateEdit, QGridLayout, QMessageBox
@@ -22,7 +23,7 @@ class MainMenu(QMainWindow):
         super().__init__()
         # self(self)
         # Carregar a interface gráfica
-        uic.loadUi(r"C:\Users\11052806\Desktop\HostInn\HOSTIIN\Prototipo HostInn\Telas\tela_menu_principal.ui", self)
+        uic.loadUi(r"C:\Users\11052806\Desktop\HostInn\HOSTIIN\Prototipo HostInn\Telas\TELA_PRINCIPAL_HOSTIIN.ui", self)
         icon_eye_closed = QIcon("Icones/visibility_off.png")
         self.setWindowTitle("HostInn")
         self.setFixedSize(801, 652)
@@ -116,6 +117,8 @@ class MainMenu(QMainWindow):
         self.btn_manutencao.clicked.connect(self.listar_quartos_manutencao)
         self.btn_verifcacaoqt.clicked.connect(self.abrir_janela_verificacao_quartos)
         self.btn_editar_quarto.clicked.connect(self.editar_quarto)
+
+        self.toolButton_2.clicked.connect(self.sair)
 
 
     # ===========================( Funções de Navegação )=============================================
@@ -1296,9 +1299,13 @@ class MainMenu(QMainWindow):
         self.listar_quartos_filtrados("Em manutenção")
 
     def chatbot(self):
-        global Chatbot
-        Chatbot = chatbot.ChatBotWindow()
-        Chatbot.show()
+        if not hasattr(self, 'chatbot_window'):
+            self.chatbot_window = ChatBotWindow(self)
+        
+        # Sempre traz a janela para frente
+        self.chatbot_window.show()
+        self.chatbot_window.raise_()
+        self.chatbot_window.activateWindow()
 
     def abrir_janela_verificacao_quartos(self):
         dialog = QDialog()
@@ -1385,6 +1392,10 @@ class MainMenu(QMainWindow):
         self.tela_editar.puxar_quarto(quarto)
         self.tela_editar.show()
 
+    def sair(self):
+        QMessageBox.warning(self, "Erro", "Você tem certeza que deseja sair?")
+        #QMessageBox.warning(self, "Error", "Olha lá hein!")
+        self.close()
 
 
 

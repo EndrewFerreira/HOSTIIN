@@ -1,12 +1,12 @@
 import sys
 import mysql.connector
 import re
-from PySide6.QtWidgets import (
+from PyQt6.QtWidgets import (
     QApplication, QMainWindow, QTextEdit, QLineEdit, QPushButton,
-    QVBoxLayout, QWidget, QHBoxLayout, QLabel, QMessageBox
+    QVBoxLayout, QWidget, QHBoxLayout, QLabel, QMessageBox, QDialog
 )
-from PySide6.QtGui import QPixmap, QFont
-from PySide6.QtCore import Qt, QThread, Signal, QObject
+from PyQt6.QtGui import QPixmap, QFont
+from PyQt6.QtCore import Qt, QThread, pyqtSignal, QObject
 
 # Configurações do banco de dados
 DB_CONFIG = {
@@ -17,8 +17,8 @@ DB_CONFIG = {
 }
 
 class DatabaseWorker(QObject):
-    finished = Signal(str)
-    error = Signal(str)
+    finished = pyqtSignal(str)
+    error = pyqtSignal(str)
 
     def __init__(self):
         super().__init__()
@@ -111,21 +111,38 @@ class DatabaseWorker(QObject):
                 pass
 
 class ChatBotWindow(QMainWindow):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setAttribute(Qt.WidgetAttribute.WA_DeleteOnClose, False)
+        
+        # Inicializa variáveis importantes primeiro
+        self.client_cpf = None
+        self.thread = None
+        self.worker = None
+        
         self.setWindowTitle("HostInn - Assistente Virtual")
-        self.setWindowFlag(Qt.WindowMaximizeButtonHint, False)
+        self.setWindowFlag(Qt.WindowType.WindowMaximizeButtonHint, False)
         self.setMinimumSize(800, 600)
         self.setMaximumSize(800, 600)
         
-        # Variáveis de instância
-        self.client_cpf = None
-        
-        # Configuração da UI
+        # Configura a UI primeiro
         self._setup_ui()
         
-        # Configuração do worker thread
+        # Depois configura a thread
         self._setup_thread()
+        
+        self.setStyleSheet(self._get_stylesheet())
+
+    def _setup_thread(self):
+        """Configura a thread para operações de banco de dados"""
+        self.thread = QThread()
+        self.worker = DatabaseWorker()
+        self.worker.moveToThread(self.thread)
+        
+        # Conecta os sinais
+        self.thread.started.connect(self.worker.run)
+        self.worker.finished.connect(self._handle_thread_response)
+        self.worker.error.connect(self._handle_thread_error)
         
         # Aplicar stylesheet
         self.setStyleSheet(self._get_stylesheet())
@@ -143,13 +160,13 @@ class ChatBotWindow(QMainWindow):
         """Configura a área do avatar"""
         self.avatar_label = QLabel()
         self.avatar_label.setFixedSize(150, 150)
-        self.avatar_label.setAlignment(Qt.AlignCenter)
+        self.avatar_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.avatar_label.setStyleSheet("border-radius: 75px; background-color: #3d3d3d;")
         
         try:
             pixmap = QPixmap("curupira.png")  # Ajuste o caminho
             if not pixmap.isNull():
-                pixmap = pixmap.scaled(150, 150, Qt.KeepAspectRatio, Qt.SmoothTransformation)
+                pixmap = pixmap.scaled(150, 150, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation)
                 self.avatar_label.setPixmap(pixmap)
             else:
                 self.avatar_label.setText("Avatar")
@@ -162,7 +179,7 @@ class ChatBotWindow(QMainWindow):
         self.chat_area = QTextEdit()
         self.chat_area.setFont(QFont("Segoe UI", 11))
         self.chat_area.setReadOnly(True)
-        self.chat_area.setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
+        self.chat_area.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAsNeeded)
 
     def _setup_input_field(self):
         """Configura o campo de entrada"""
@@ -171,7 +188,7 @@ class ChatBotWindow(QMainWindow):
         self.input_field.setFont(QFont("Segoe UI", 11))
         
         self.send_button = QPushButton("Enviar")
-        self.send_button.setFont(QFont("Segoe UI", 10, QFont.Bold))
+        self.send_button.setFont(QFont("Segoe UI", 10, QFont.Weight.Bold))
         self.send_button.setStyleSheet("""
             QPushButton {
                 background-color: #4CAF50;
@@ -186,7 +203,7 @@ class ChatBotWindow(QMainWindow):
     def _setup_help_button(self):
         """Configura o botão de ajuda"""
         self.help_button = QPushButton("Como posso ajudar?")
-        self.help_button.setFont(QFont("Segoe UI", 10, QFont.Bold))
+        self.help_button.setFont(QFont("Segoe UI", 10, QFont.Weight.Bold))
         self.help_button.setObjectName("help_button")
 
     def _setup_layouts(self):
@@ -198,8 +215,8 @@ class ChatBotWindow(QMainWindow):
 
         # Layout esquerdo
         left_layout = QVBoxLayout()
-        left_layout.addWidget(self.avatar_label, alignment=Qt.AlignHCenter)
-        left_layout.addWidget(self.help_button, alignment=Qt.AlignHCenter)
+        left_layout.addWidget(self.avatar_label, alignment=Qt.AlignmentFlag.AlignHCenter)
+        left_layout.addWidget(self.help_button, alignment=Qt.AlignmentFlag.AlignHCenter)
         left_layout.addStretch()
         left_layout.setContentsMargins(20, 20, 20, 20)
 
@@ -460,8 +477,8 @@ class ChatBotWindow(QMainWindow):
             self.thread.wait()
         event.accept()
 
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    window = ChatBotWindow()
-    window.show()
-    sys.exit(app.exec())
+# if __name__ == "__main__":
+#     app = QApplication(sys.argv)
+#     window = ChatBotWindow()
+#     window.show()
+#     sys.exit(app.exec())
