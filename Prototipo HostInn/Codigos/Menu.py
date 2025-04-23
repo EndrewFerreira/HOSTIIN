@@ -1301,7 +1301,6 @@ class MainMenu(QMainWindow):
     def listar_quartos_manutencao(self):
         self.listar_quartos_filtrados("Em manutenção")
 
-<<<<<<< HEAD
     def open_chatbot(self):
         """Abre (ou levanta) a janela do chatbot e mantém a referência viva."""
         if self.chatbot_window is None:
@@ -1309,16 +1308,6 @@ class MainMenu(QMainWindow):
         self.chatbot_window.show()
         self.chatbot_window.raise_()         # traz a janela para frente
         self.chatbot_window.activateWindow() # dá foco para ela
-=======
-    def chatbot(self):
-        if not hasattr(self, 'chatbot_window'):
-            self.chatbot_window = ChatBotWindow(self)
-        
-        # Sempre traz a janela para frente
-        self.chatbot_window.show()
-        self.chatbot_window.raise_()
-        self.chatbot_window.activateWindow()
->>>>>>> 43cf6f707aa0f9587a67cb3bdbdcdd27098ff1b6
 
     def abrir_janela_verificacao_quartos(self):
         dialog = QDialog()
