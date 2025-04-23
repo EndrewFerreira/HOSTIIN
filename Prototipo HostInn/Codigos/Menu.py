@@ -2,6 +2,7 @@ from PyQt6 import uic, QtWidgets
 from PyQt6.QtCore import QDate, Qt
 from PyQt6.QtGui import QIcon
 from PyQt6.QtCore import QDate
+from chatbot import ChatBotWindow
 import re
 from PyQt6.QtWidgets import QLineEdit, QMessageBox, QMainWindow, QPushButton, QGridLayout, QDialog, QTableWidgetItem
 import sys, pymysql, Tela_edicao, chatbot
@@ -20,10 +21,22 @@ banco = pymysql.connect(
 class MainMenu(QMainWindow):
     def __init__(self):
         super().__init__()
-        # self(self)
-        # Carregar a interface gráfica
-        uic.loadUi(r"C:\Users\11054836\Desktop\PI\HOSTIIN\Prototipo HostInn\Telas\tela_menu_principal.ui", self)
+        # 1) Carrega o .ui e injeta todos os widgets como atributos de self
+        uic.loadUi(
+            r"C:\Users\11054836\Desktop\PI\HOSTIIN\Prototipo HostInn\Telas\tela_menu_principal.ui",
+            self
+        )
+
+        # 2) Guarda a instância do chatbot aqui
+        self.chatbot_window = None
+
+        # 3) Conecta o botão já carregado pelo loadUi
+        #    Certifique-se de que, no Qt Designer, o objectName do botão seja exatamente "bttn_chatbot"
+        
+
+        # Ícone, título e tamanho da janela
         icon_eye_closed = QIcon("Icones/visibility_off.png")
+        self.setWindowIcon(icon_eye_closed)
         self.setWindowTitle("HostInn")
         self.setFixedSize(801, 652)
 
@@ -96,7 +109,8 @@ class MainMenu(QMainWindow):
         self.bttn_dashBoard.clicked.connect(self.dashboard)
         self.bttn_cashFlow.clicked.connect(self.financial_list)
 
-        self.bttn_chatbot.clicked.connect(self.chatbot)
+        # self.bttn_chatbot.clicked.connect(self.chatbot)
+        self.bttn_chatbot.clicked.connect(self.open_chatbot)
 
         self.bttn_back.clicked.connect(self.back_main_menu)
         self.bttn_back_2.clicked.connect(self.back_main_menu)
@@ -1295,10 +1309,13 @@ class MainMenu(QMainWindow):
     def listar_quartos_manutencao(self):
         self.listar_quartos_filtrados("Em manutenção")
 
-    def chatbot(self):
-        global Chatbot
-        Chatbot = chatbot.ChatBotWindow()
-        Chatbot.show()
+    def open_chatbot(self):
+        """Abre (ou levanta) a janela do chatbot e mantém a referência viva."""
+        if self.chatbot_window is None:
+            self.chatbot_window = ChatBotWindow()
+        self.chatbot_window.show()
+        self.chatbot_window.raise_()         # traz a janela para frente
+        self.chatbot_window.activateWindow() # dá foco para ela
 
     def abrir_janela_verificacao_quartos(self):
         dialog = QDialog()
