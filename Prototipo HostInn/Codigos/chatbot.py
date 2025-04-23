@@ -329,12 +329,16 @@ class ChatBotWindow(QMainWindow):
         """Exibe a mensagem do usuário no chat"""
         # Remove CPF da mensagem exibida
         message_display = re.sub(r'\d{3}\.?\d{3}\.?\d{3}-?\d{2}', '', message).strip()
+        
+        # Substitui \n por <br> ANTES de usar na f-string
+        message_html = message_display.replace('\n', '<br>')
+        
         formatted = f"""
         <div style='margin:15px 0; padding:12px; 
                     background:#3d3d3d; border-radius:15px; max-width:70%; 
                     float:right; clear:both;'>
             <span style='color:white; font-weight:bold;'>Você:</span><br>
-            {message_display.replace('\n', '<br>')}
+            {message_html}  <!-- Aqui não há mais \n -->
         </div>
         """
         self.chat_area.insertHtml(formatted)
