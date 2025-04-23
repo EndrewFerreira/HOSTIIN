@@ -28,7 +28,7 @@ class MainMenu(QMainWindow):
         icon_eye_closed = QIcon("Icones/visibility_off.png")
         self.setWindowIcon(icon_eye_closed)
         self.setWindowTitle("HostInn")
-        self.setFixedSize(801, 652)
+        # self.setFixedSize(801, 652)
 
         self.lineEdit_21.textChanged.connect(self.calcular)
         self.comboBox_4.currentTextChanged.connect(self.atualizar_valor_pagamento)
