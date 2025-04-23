@@ -2,7 +2,6 @@ from PyQt6 import uic, QtWidgets
 from PyQt6.QtCore import QDate, Qt
 from PyQt6.QtGui import QIcon
 from PyQt6.QtCore import QDate
-from chatbot import ChatBotWindow
 import re
 from PyQt6.QtWidgets import QLineEdit, QMessageBox, QMainWindow, QPushButton, QGridLayout, QDialog, QTableWidgetItem
 import sys, pymysql, Tela_edicao
@@ -24,11 +23,18 @@ class MainMenu(QMainWindow):
         super().__init__()
         # self(self)
         # Carregar a interface gráfica
+<<<<<<< HEAD
+        uic.loadUi(r"C:\Users\11052806\Desktop\HostInn\HOSTIIN\Prototipo HostInn\Telas\tela_menu_principal.ui", self)
+=======
         uic.loadUi(r"C:\Users\11054836\Desktop\PI\HOSTIIN\Prototipo HostInn\Telas\TELA_PRINCIPAL_HOSTIIN.ui", self)
+>>>>>>> 1a8650ce3e671fa48e85d612f12aa22a11b4218b
         icon_eye_closed = QIcon("Icones/visibility_off.png")
-        self.setWindowIcon(icon_eye_closed)
         self.setWindowTitle("HostInn")
+<<<<<<< HEAD
         # self.setFixedSize(801, 652)
+=======
+        #self.setFixedSize(801, 652)
+>>>>>>> 4f1856e0396a6a2d661e7d3df0909add2522287b
 
         self.lineEdit_21.textChanged.connect(self.calcular)
         self.comboBox_4.currentTextChanged.connect(self.atualizar_valor_pagamento)
@@ -99,8 +105,7 @@ class MainMenu(QMainWindow):
         self.bttn_dashBoard.clicked.connect(self.dashboard)
         self.bttn_cashFlow.clicked.connect(self.financial_list)
 
-        # self.bttn_chatbot.clicked.connect(self.chatbot)
-        self.bttn_chatbot.clicked.connect(self.open_chatbot)
+        self.bttn_chatbot.clicked.connect(self.chatbot)
 
         self.bttn_back.clicked.connect(self.back_main_menu)
         self.bttn_back_2.clicked.connect(self.back_main_menu)
@@ -121,7 +126,7 @@ class MainMenu(QMainWindow):
         self.btn_verifcacaoqt.clicked.connect(self.abrir_janela_verificacao_quartos)
         self.btn_editar_quarto.clicked.connect(self.editar_quarto)
 
-        self.toolButton_2.clicked.connect(self.sair)
+        #self.toolButton_2.clicked.connect(self.sair)
 
 
     # ===========================( Funções de Navegação )=============================================
@@ -294,7 +299,7 @@ class MainMenu(QMainWindow):
         cursor.execute("SELECT * FROM clientes")
         dados_lidos = cursor.fetchall()
         self.tableWidget.clearContents()  # Limpa os dados antigos
-        print("⚡ Atualizando tabela de clientes!")
+        # print("⚡ Atualizando tabela de clientes!")
 
         self.tableWidget.setRowCount(len(dados_lidos))
         self.tableWidget.setColumnCount(5)  # Ajustado para ignorar a primeira coluna
@@ -588,7 +593,7 @@ class MainMenu(QMainWindow):
         phone = self.lineEdit_phone_2.text()
         endereco = self.lineEdit_endereco_2.text()
         numero_quarto = self.comboBox_numero.currentText()
-        print("Número do quarto digitado:", numero_quarto)
+        # print("Número do quarto digitado:", numero_quarto)
 
         if not nome or not cpf or not email or not phone or not endereco or not numero_quarto:
             QMessageBox.warning(self, "Erro", "Todos os campos devem ser preenchidos!")
@@ -902,9 +907,9 @@ class MainMenu(QMainWindow):
 
             # Formata o resultado no estilo brasileiro
             resultado_formatado = f"R$ {resultado:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
-            self.lineEdit_20.setText(f"Resultado: {resultado_formatado}")
+            self.lineEdit_20.setText(f"{resultado_formatado}")
         except ValueError:
-            self.lineEdit_20.setText("Resultado: erro de valor")    
+            self.lineEdit_20.setText("erro de valor")    
 
 
     def on_tipo_pagamento_changed(self):
@@ -950,11 +955,11 @@ class MainMenu(QMainWindow):
     def atualizar_valor_pagamento(self):
         tipo_pagamento = self.comboBox_4.currentText().strip().lower()
 
-        print("Tipo:", tipo_pagamento)
-        print("Valor original:", self.lineEdit_23.text())
+        # print("Tipo:", tipo_pagamento)
+        # print("Valor original:", self.lineEdit_23.text())
 
         if tipo_pagamento == "":
-            print("ComboBox ainda vazia, não atualizando.")
+            # print("ComboBox ainda vazia, não atualizando.")
             return
 
         if tipo_pagamento in ["pix", "crédito", "débito"]:
@@ -969,14 +974,14 @@ class MainMenu(QMainWindow):
                 )
 
                 valor_formatado = f"R$ {valor:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
-                print("Valor formatado:", valor_formatado)
+                # print("Valor formatado:", valor_formatado)
 
                 self.lineEdit_21.setText(valor_formatado)
             except ValueError:
-                print("Erro ao converter valor")
+                # print("Erro ao converter valor")
                 self.lineEdit_21.setText("Deu pau")
         else:
-            print("Tipo de pagamento diferente, limpando valor.")
+            # print("Tipo de pagamento diferente, limpando valor.")
             self.lineEdit_21.clear()
 
     def gerar_codigo_unico(self, tabela, coluna):
@@ -1071,7 +1076,7 @@ class MainMenu(QMainWindow):
             self.mostrar_erro(f"Erro ao formatar valores: {e}")
             return
 
-        print(f"Recebido: {recebido_valor}, Devolvido: {devolvido_valor}")  # DEBUG
+        # print(f"Recebido: {recebido_valor}, Devolvido: {devolvido_valor}")  # DEBUG
 
         try:
             with banco.cursor() as cursor:
@@ -1116,7 +1121,7 @@ class MainMenu(QMainWindow):
         if not valor:
             return 0.0
 
-        print(f"Valor original: {valor}")  # debug
+        # print(f"Valor original: {valor}")  # debug
 
         # Encontra o primeiro padrão de número monetário na string (ex: R$ 1.500,50 ou 1500,50)
         match = re.search(r'[\d\.,]+', valor)
@@ -1128,7 +1133,7 @@ class MainMenu(QMainWindow):
         # Remove separador de milhar (.) e troca vírgula por ponto
         numero_str = numero_str.replace(".", "").replace(",", ".")
 
-        print(f"Valor formatado: {numero_str}")  # debug
+        # print(f"Valor formatado: {numero_str}")  # debug
 
         try:
             return float(numero_str)
@@ -1301,13 +1306,14 @@ class MainMenu(QMainWindow):
     def listar_quartos_manutencao(self):
         self.listar_quartos_filtrados("Em manutenção")
 
-    def open_chatbot(self):
-        """Abre (ou levanta) a janela do chatbot e mantém a referência viva."""
-        if self.chatbot_window is None:
-            self.chatbot_window = ChatBotWindow()
+    def chatbot(self):
+        if not hasattr(self, 'chatbot_window'):
+            self.chatbot_window = ChatBotWindow(self)
+        
+        # Sempre traz a janela para frente
         self.chatbot_window.show()
-        self.chatbot_window.raise_()         # traz a janela para frente
-        self.chatbot_window.activateWindow() # dá foco para ela
+        self.chatbot_window.raise_()
+        self.chatbot_window.activateWindow()
 
     def abrir_janela_verificacao_quartos(self):
         dialog = QDialog()
@@ -1395,37 +1401,8 @@ class MainMenu(QMainWindow):
         self.tela_editar.show()
 
     def sair(self):
-        msg = QMessageBox
         QMessageBox.warning(self, "Erro", "Você tem certeza que deseja sair?")
         #QMessageBox.warning(self, "Error", "Olha lá hein!")
-        # Aplica estilo baseado na interface da imagem
-        msg.setStyleSheet("""
-            QMessageBox {
-                background-color: qlineargradient(
-                    x1:0, y1:0, x2:0, y2:1,
-                    stop:0 #2f3e50, stop:1 #1e2a38
-                );
-                color: white;
-                font-family: 'Segoe UI';
-                font-size: 14px;
-                border: 1px solid #3c5a73;
-                border-radius: 10px;
-            }
-            QPushButton {
-                background-color: transparent;
-                color: white;
-                border: 2px solid #5dade2;
-                border-radius: 10px;
-                padding: 5px 15px;
-            }
-            QPushButton:hover {
-                background-color: #5dade2;
-                color: #0b1d2e;
-            }
-        """)
-
-        msg.exec_()
-
         self.close()
 
 
