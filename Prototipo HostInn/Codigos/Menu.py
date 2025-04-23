@@ -23,18 +23,10 @@ class MainMenu(QMainWindow):
         super().__init__()
         # self(self)
         # Carregar a interface gráfica
-<<<<<<< HEAD
-        uic.loadUi(r"C:\Users\11052806\Desktop\HostInn\HOSTIIN\Prototipo HostInn\Telas\tela_menu_principal.ui", self)
-=======
-        uic.loadUi(r"C:\Users\11054836\Desktop\PI\HOSTIIN\Prototipo HostInn\Telas\TELA_PRINCIPAL_HOSTIIN.ui", self)
->>>>>>> 1a8650ce3e671fa48e85d612f12aa22a11b4218b
+        uic.loadUi(r"C:\Users\11054836\Desktop\PI\HOSTIIN\Prototipo HostInn\Telas\tela_menu_principal.ui", self)
         icon_eye_closed = QIcon("Icones/visibility_off.png")
         self.setWindowTitle("HostInn")
-<<<<<<< HEAD
         # self.setFixedSize(801, 652)
-=======
-        #self.setFixedSize(801, 652)
->>>>>>> 4f1856e0396a6a2d661e7d3df0909add2522287b
 
         self.lineEdit_21.textChanged.connect(self.calcular)
         self.comboBox_4.currentTextChanged.connect(self.atualizar_valor_pagamento)
@@ -125,6 +117,8 @@ class MainMenu(QMainWindow):
         self.btn_manutencao.clicked.connect(self.listar_quartos_manutencao)
         self.btn_verifcacaoqt.clicked.connect(self.abrir_janela_verificacao_quartos)
         self.btn_editar_quarto.clicked.connect(self.editar_quarto)
+        self.btn_deletar.clicked.connect(self.deletar_quarto)
+
 
         #self.toolButton_2.clicked.connect(self.sair)
 
@@ -1399,6 +1393,39 @@ class MainMenu(QMainWindow):
         self.tela_editar = Tela_edicao.EditWindow(atualizar_callback=self.menu_list_all_room)
         self.tela_editar.puxar_quarto(quarto)
         self.tela_editar.show()
+
+    def deletar_quarto(self):
+        linha = self.tableWidget_2.currentRow()
+        if linha == -1:
+            QMessageBox.warning(self, "Atenção", "Selecione um quarto para deletar.")
+            return
+
+        confirmacao = QMessageBox.question(
+            self,
+            "Confirmar exclusão",
+            "Tem certeza que deseja excluir este quarto?",
+            QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
+        )
+
+        if confirmacao == QMessageBox.StandardButton.Yes:
+            cursor = banco.cursor()
+            cursor.execute("SELECT ID_Quartos FROM quartos")
+            quartos = cursor.fetchall()
+
+            id_quarto = quartos[linha][0]
+
+            cursor.execute("DELETE FROM quartos WHERE ID_Quartos = %s", (id_quarto,))
+            banco.commit()
+
+            QMessageBox.information(self, "Sucesso", "Quarto deletado com sucesso!")
+
+            # Evita acionar eventos da tabela
+            self.tableWidget_2.blockSignals(True)
+            self.menu_list_all_room()
+            self.tableWidget_2.blockSignals(False)
+
+            self.tableWidget_2.clearSelection()
+
 
     def sair(self):
         QMessageBox.warning(self, "Erro", "Você tem certeza que deseja sair?")

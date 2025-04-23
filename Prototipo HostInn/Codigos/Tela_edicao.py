@@ -123,10 +123,10 @@ class EditWindow(QMainWindow):
         self.stackedWidget.setCurrentIndex(2)  # Página de edição de quartos (ajuste o índice conforme necessário)
 
         self.line_novonumero.setText(str(dados_quarto[1]))         # Número do quarto
-        self.combo_novotipo.setCurrentText(dados_quarto[2])            # Tipo do quarto
-        self.combo_novostts.setCurrentText(dados_quarto[3])          # Status (Disponível, Ocupado, etc.)
+        self.combo_novotipo.setCurrentText(dados_quarto[2])        # Tipo do quarto
+        self.combo_novostts.setCurrentText(dados_quarto[3])        # Status (Disponível, Ocupado, etc.)
         self.line_novopreco.setText(str(dados_quarto[4]))          # Valor
-        self.line_novacap.setText(dados_quarto[5])          # Capacidade
+        self.line_novacap.setText(dados_quarto[5])                 # Capacidade
         self.line_novadesc.setText(dados_quarto[6])
       # Descrição
 
