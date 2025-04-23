@@ -2,6 +2,7 @@ from PyQt6 import uic, QtWidgets
 from PyQt6.QtCore import QDate, Qt
 from PyQt6.QtGui import QIcon
 from PyQt6.QtCore import QDate
+from chatbot import ChatBotWindow
 import re
 from PyQt6.QtWidgets import QLineEdit, QMessageBox, QMainWindow, QPushButton, QGridLayout, QDialog, QTableWidgetItem
 import sys, pymysql, Tela_edicao
@@ -25,6 +26,7 @@ class MainMenu(QMainWindow):
         # Carregar a interface gráfica
         uic.loadUi(r"C:\Users\11052806\Desktop\HostInn\HOSTIIN\Prototipo HostInn\Telas\TELA_PRINCIPAL_HOSTIIN.ui", self)
         icon_eye_closed = QIcon("Icones/visibility_off.png")
+        self.setWindowIcon(icon_eye_closed)
         self.setWindowTitle("HostInn")
         self.setFixedSize(801, 652)
 
@@ -97,7 +99,8 @@ class MainMenu(QMainWindow):
         self.bttn_dashBoard.clicked.connect(self.dashboard)
         self.bttn_cashFlow.clicked.connect(self.financial_list)
 
-        self.bttn_chatbot.clicked.connect(self.chatbot)
+        # self.bttn_chatbot.clicked.connect(self.chatbot)
+        self.bttn_chatbot.clicked.connect(self.open_chatbot)
 
         self.bttn_back.clicked.connect(self.back_main_menu)
         self.bttn_back_2.clicked.connect(self.back_main_menu)
@@ -1298,14 +1301,13 @@ class MainMenu(QMainWindow):
     def listar_quartos_manutencao(self):
         self.listar_quartos_filtrados("Em manutenção")
 
-    def chatbot(self):
-        if not hasattr(self, 'chatbot_window'):
-            self.chatbot_window = ChatBotWindow(self)
-        
-        # Sempre traz a janela para frente
+    def open_chatbot(self):
+        """Abre (ou levanta) a janela do chatbot e mantém a referência viva."""
+        if self.chatbot_window is None:
+            self.chatbot_window = ChatBotWindow()
         self.chatbot_window.show()
-        self.chatbot_window.raise_()
-        self.chatbot_window.activateWindow()
+        self.chatbot_window.raise_()         # traz a janela para frente
+        self.chatbot_window.activateWindow() # dá foco para ela
 
     def abrir_janela_verificacao_quartos(self):
         dialog = QDialog()
