@@ -1393,8 +1393,37 @@ class MainMenu(QMainWindow):
         self.tela_editar.show()
 
     def sair(self):
+        msg = QMessageBox
         QMessageBox.warning(self, "Erro", "Você tem certeza que deseja sair?")
         #QMessageBox.warning(self, "Error", "Olha lá hein!")
+        # Aplica estilo baseado na interface da imagem
+        msg.setStyleSheet("""
+            QMessageBox {
+                background-color: qlineargradient(
+                    x1:0, y1:0, x2:0, y2:1,
+                    stop:0 #2f3e50, stop:1 #1e2a38
+                );
+                color: white;
+                font-family: 'Segoe UI';
+                font-size: 14px;
+                border: 1px solid #3c5a73;
+                border-radius: 10px;
+            }
+            QPushButton {
+                background-color: transparent;
+                color: white;
+                border: 2px solid #5dade2;
+                border-radius: 10px;
+                padding: 5px 15px;
+            }
+            QPushButton:hover {
+                background-color: #5dade2;
+                color: #0b1d2e;
+            }
+        """)
+
+        msg.exec_()
+
         self.close()
 
 
