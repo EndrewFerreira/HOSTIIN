@@ -956,7 +956,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>5</number>
+     <number>4</number>
     </property>
     <widget class="QWidget" name="page">
      <widget class="QWidget" name="verticalLayoutWidget_9">
@@ -1450,6 +1450,39 @@
         <layout class="QHBoxLayout" name="horizontalLayout_10"/>
        </item>
        <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_51">
+         <item>
+          <widget class="QLabel" name="label_email_4">
+           <property name="font">
+            <font>
+             <pointsize>10</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>CPF</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="lineEdit_CPF">
+           <property name="placeholderText">
+            <string>Informe seu CPF...</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_8">
+           <property name="text">
+            <string>Data de Nascimento</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QDateEdit" name="dateEdit_7"/>
+         </item>
+        </layout>
+       </item>
+       <item>
         <layout class="QHBoxLayout" name="horizontalLayout_11">
          <item>
           <widget class="QLabel" name="label_passwrd">
@@ -1493,6 +1526,9 @@
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
+           <property name="sizeType">
+            <enum>QSizePolicy::Expanding</enum>
+           </property>
            <property name="sizeHint" stdset="0">
             <size>
              <width>40</width>
@@ -1515,7 +1551,23 @@
           </widget>
          </item>
          <item>
-          <widget class="QComboBox" name="comboBox"/>
+          <widget class="QComboBox" name="comboBox">
+           <item>
+            <property name="text">
+             <string>Administrador</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Gerente</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Recepcionista</string>
+            </property>
+           </item>
+          </widget>
          </item>
         </layout>
        </item>
@@ -1578,7 +1630,7 @@
        </rect>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>4</number>
       </property>
       <widget class="QWidget" name="page_13">
        <widget class="QWidget" name="verticalLayoutWidget_6">
@@ -3162,32 +3214,17 @@ color: rgb(255, 255, 255);</string>
           <widget class="QTableWidget" name="tableWidget_3">
            <column>
             <property name="text">
-             <string>ID</string>
+             <string>Nome</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Nº do Quarto</string>
             </property>
            </column>
            <column>
             <property name="text">
              <string>Data</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>Tipo de pagamento</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>nº do Quarto</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>Nome do cliente</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>Valor total</string>
             </property>
            </column>
            <column>
@@ -3198,6 +3235,16 @@ color: rgb(255, 255, 255);</string>
            <column>
             <property name="text">
              <string>Valor devolvido</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Tipo</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Status</string>
             </property>
            </column>
           </widget>

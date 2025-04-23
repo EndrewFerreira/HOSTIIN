@@ -22,7 +22,7 @@ class MainMenu(QMainWindow):
         super().__init__()
         # self(self)
         # Carregar a interface gráfica
-        uic.loadUi(r"C:\Users\11052806\Desktop\HostInn\HOSTIIN\Prototipo HostInn\Telas\tela_menu_principal.ui", self)
+        uic.loadUi(r"C:\Users\micae\OneDrive\Área de Trabalho\HostInn\HOSTIIN\Prototipo HostInn\Telas\tela_menu_principal.ui", self)
         icon_eye_closed = QIcon("Icones/visibility_off.png")
         self.setWindowTitle("HostInn")
         self.setFixedSize(801, 652)
@@ -273,7 +273,7 @@ class MainMenu(QMainWindow):
         dados = (str(name), str(cpf), str(email), str(telefone), str(endereco))
         cursor.execute(comando_SQL, dados)
         banco.commit()
-        QMessageBox.warning(self, "Sucesso", "Cadastro realizado com Sucesso!")
+        QMessageBox.information(self, "Sucesso", "Cadastro realizado com Sucesso!")
 
         self.lineEdit_name.setText("")
         self.lineEdit_cpf.setText("")
@@ -338,7 +338,8 @@ class MainMenu(QMainWindow):
     def new_user(self):
         self.stackedWidget.setCurrentIndex(3)
         self.stackedWidget.show()
-        self.lineEdit_cpf.setInputMask("000.000.000-00;_")
+        self.lineEdit_CPF.setInputMask("000.000.000-00;_")
+
 
 
     def cadstr_user(self):
@@ -347,8 +348,12 @@ class MainMenu(QMainWindow):
         email = self.lineEdit_email_2.text()
         passwrd = self.lineEdit_passwrd.text()
         passwrd_conf = self.lineEdit_passwrd_2.text()
+        permissao = self.comboBox.currentText()
+        cpf = self.lineEdit_CPF.text()
+        bday = self.dateEdit_7.text()
 
-        if not name or not user or not email or not passwrd or not passwrd_conf:
+
+        if not name or not user or not email or not passwrd or not passwrd_conf or not permissao or not bday or not cpf:
             QMessageBox.warning(self, "Erro", "Todos os campos devem ser preenchidos!")
             return
 
@@ -374,8 +379,8 @@ class MainMenu(QMainWindow):
             QMessageBox.warning(self, "Erro", "As senhas não coincidem!")
             return
 
-        comando_SQL = "INSERT INTO usuarios (nome, usuario, email, senha) VALUES (%s, %s, %s, %s)"
-        dados = (str(name), str(user), str(email), str(passwrd))
+        comando_SQL = "INSERT INTO usuarios (nome, usuario, permissao, email, senha, cpf, bday) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+        dados = (str(name), str(user), str(permissao), str(email), str(passwrd), str(cpf), str(bday))
         cursor.execute(comando_SQL, dados)
         banco.commit()
 
@@ -385,7 +390,8 @@ class MainMenu(QMainWindow):
         self.lineEdit_user.setText("")
         self.lineEdit_email_2.setText("")
         self.lineEdit_passwrd.setText("")
-        self.lineEdit_passwrd_confirm.setText("")
+        self.lineEdit_passwrd_2.setText("")
+        self.comboBox.setCurrentIndex(0)
 
     def password_view(self):
         icon_eye_open = QIcon("Icones/visibility.png")
@@ -1097,6 +1103,8 @@ class MainMenu(QMainWindow):
         except Exception as e:
             self.mostrar_erro(f"Erro ao salvar no banco: {e}")
 
+        self.stackedWidget_2.setCurrentIndex(0)
+
 
     def remover_formatacao_moeda(self, valor):
         if not valor:
@@ -1151,6 +1159,64 @@ class MainMenu(QMainWindow):
     def financial_list(self):
         self.stackedWidget_2.setCurrentIndex(4)
         self.stackedWidget_2.show()
+
+        cursor = banco.cursor()
+        
+        # Query modificada para incluir todas as relações
+        cursor.execute("""
+            SELECT 
+                c.Nome AS Nome_Cliente,
+                f.ID_Pagamento,
+                GROUP_CONCAT(DISTINCT q.Numero SEPARATOR ', ') AS Quartos,
+                f.Data_Pagamento,
+                f.Valor_Recebido,
+                f.Valor_Devolvido,
+                f.Tipo_Pagamento,
+                f.Status_Pagamento
+            FROM financeiro f
+            LEFT JOIN clientes c ON f.ID_cliente = c.ID_Cliente
+            LEFT JOIN reserva r ON f.ID_Reserva = r.ID_Reserva
+            LEFT JOIN reserva_quartos rq ON r.ID_Reserva = rq.ID_Reserva
+            LEFT JOIN quartos q ON rq.ID_Quartos = q.ID_Quartos
+            GROUP BY f.ID_Pagamento
+            ORDER BY f.Data_Pagamento DESC
+        """)
+        
+        dados_lidos = cursor.fetchall()
+
+        # Definir cabeçalhos das colunas
+        headers = [
+            "Nome Cliente",
+            "ID Pagamento",
+            "Nº Quarto(s)",
+            "Data",
+            "Valor Recebido",
+            "Valor Devolvido",
+            "Tipo Pagamento",
+            "Status"
+        ]
+        
+        # Configurar a tabela
+        self.tableWidget_3.setRowCount(len(dados_lidos))
+        self.tableWidget_3.setColumnCount(len(headers))
+        self.tableWidget_3.setHorizontalHeaderLabels(headers)
+
+        # Preencher a tabela
+        for i, linha in enumerate(dados_lidos):
+            for j, valor in enumerate(linha):
+                # Formatar valores monetários
+                if j in [4, 5]:  # Colunas de Valor_Recebido e Valor_Devolvido
+                    valor = f"R$ {float(valor):.2f}".replace('.', ',') if valor else "R$ 0,00"
+                
+                # Formatar data
+                elif j == 3 and valor:  # Coluna Data_Pagamento
+                    valor = valor.strftime("%d/%m/%Y") if hasattr(valor, 'strftime') else valor
+                
+                item = QtWidgets.QTableWidgetItem(str(valor) if valor is not None else "")
+                self.tableWidget_3.setItem(i, j, item)
+        
+        # Ajustar largura das colunas
+        self.tableWidget_3.resizeColumnsToContents()
 
     def back_confirmation(self):
         self.stackedWidget_2.setCurrentIndex(0)
