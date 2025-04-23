@@ -54,8 +54,11 @@ create table financeiro (
 ID_Pagamento int not null unique auto_increment primary key,
 Data_Pagamento date not null,
 Valor_Recebido float not null,
+Valor_Devolvido float not null,
 Tipo_Pagamento varchar (150) not null,
+Quant_parcelas varchar (150) not null,
 Bandeira_cartao varchar (150) not null,
+codigo_pagamento varchar (150) not null,
 Status_Pagamento varchar (150) not null,
 
 ID_cliente int,

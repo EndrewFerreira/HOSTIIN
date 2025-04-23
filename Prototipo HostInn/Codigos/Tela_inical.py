@@ -187,11 +187,11 @@ def new_reg():
 app = QtWidgets.QApplication(sys.argv)
 
 # Defina os ícones (ajuste os caminhos para os seus arquivos PNG)
-icon_eye_open = QIcon(r"C:\Users\11052806\Desktop\HostInn\HOSTIIN\Prototipo HostInn\Icones\visibility.png")
-icon_eye_closed = QIcon(r"C:\Users\11052806\Desktop\HostInn\HOSTIIN\Prototipo HostInn\Icones\visibility_off.png")
+icon_eye_open = QIcon(r"C:\Users\micae\OneDrive\Área de Trabalho\HostInn\HOSTIIN\Prototipo HostInn\Icones\visibility.png")
+icon_eye_closed = QIcon(r"C:\Users\micae\OneDrive\Área de Trabalho\HostInn\HOSTIIN\Prototipo HostInn\Icones\visibility_off.png")
 
 #===========================( Login/ Cadastro )=============================================
-login_register = uic.loadUi(r"C:\Users\11052806\Desktop\HostInn\HOSTIIN\Prototipo HostInn\Telas\TELA_LOGIN_CADASTRO_2.ui")
+login_register = uic.loadUi(r"C:\Users\micae\OneDrive\Área de Trabalho\HostInn\HOSTIIN\Prototipo HostInn\Telas\TELA_LOGIN_CADASTRO_2.ui")
 login_register.setWindowTitle("HostInn")
 login_register.lineEdit_2.setInputMask("000.000.000-00;_")
 login_register.stackedWidget.setCurrentIndex(0)
