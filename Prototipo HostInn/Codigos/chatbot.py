@@ -3,10 +3,10 @@ import mysql.connector
 import re
 from PyQt6.QtWidgets import (
     QApplication, QMainWindow, QTextEdit, QLineEdit, QPushButton,
-    QVBoxLayout, QWidget, QHBoxLayout, QLabel
+    QVBoxLayout, QWidget, QHBoxLayout, QLabel, QMessageBox, QDialog
 )
 from PyQt6.QtGui import QPixmap, QFont
-from PyQt6.QtCore import Qt, QThread, QObject, pyqtSignal
+from PyQt6.QtCore import Qt, QThread, pyqtSignal, QObject
 
 # Configurações do banco de dados
 DB_CONFIG = {
@@ -18,7 +18,7 @@ DB_CONFIG = {
 
 class DatabaseWorker(QObject):
     finished = pyqtSignal(str)
-    error    = pyqtSignal(str)
+    error = pyqtSignal(str)
 
     def __init__(self):
         super().__init__()
@@ -111,12 +111,40 @@ class DatabaseWorker(QObject):
                 pass
 
 class ChatBotWindow(QMainWindow):
-    def __init__(self):
-        super().__init__()
-        self.setWindowTitle("HostInn - Assistente Virtual")
-        self.setFixedSize(800, 600)
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setAttribute(Qt.WidgetAttribute.WA_DeleteOnClose, False)
+        
+        # Inicializa variáveis importantes primeiro
         self.client_cpf = None
+        self.thread = None
+        self.worker = None
+        
+        self.setWindowTitle("HostInn - Assistente Virtual")
+        self.setWindowFlag(Qt.WindowType.WindowMaximizeButtonHint, False)
+        self.setMinimumSize(800, 600)
+        self.setMaximumSize(800, 600)
+        
+        # Configura a UI primeiro
         self._setup_ui()
+        
+        # Depois configura a thread
+        self._setup_thread()
+        
+        self.setStyleSheet(self._get_stylesheet())
+
+    def _setup_thread(self):
+        """Configura a thread para operações de banco de dados"""
+        self.thread = QThread()
+        self.worker = DatabaseWorker()
+        self.worker.moveToThread(self.thread)
+        
+        # Conecta os sinais
+        self.thread.started.connect(self.worker.run)
+        self.worker.finished.connect(self._handle_thread_response)
+        self.worker.error.connect(self._handle_thread_error)
+        
+        # Aplicar stylesheet
         self.setStyleSheet(self._get_stylesheet())
 
     def _setup_ui(self):
@@ -124,17 +152,18 @@ class ChatBotWindow(QMainWindow):
         self.avatar_label = QLabel()
         self.avatar_label.setFixedSize(150, 150)
         self.avatar_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.avatar_label.setStyleSheet("border-radius:75px; background:#3d3d3d;")
+        self.avatar_label.setStyleSheet("border-radius: 75px; background-color: #3d3d3d;")
+        
         try:
-            pix = QPixmap("curupira.png")
-            if not pix.isNull():
-                self.avatar_label.setPixmap(
-                    pix.scaled(150, 150,
-                               Qt.AspectRatioMode.KeepAspectRatio,
-                               Qt.TransformationMode.SmoothTransformation)
-                )
-        except:
-            pass
+            pixmap = QPixmap("curupira.png")  # Ajuste o caminho
+            if not pixmap.isNull():
+                pixmap = pixmap.scaled(150, 150, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation)
+                self.avatar_label.setPixmap(pixmap)
+            else:
+                self.avatar_label.setText("Avatar")
+        except Exception as e:
+            print(f"Erro ao carregar avatar: {e}")
+            self.avatar_label.setText("Avatar")
 
         self.help_button = QPushButton("Como posso ajudar?")
         self.help_button.setObjectName("help_button")
@@ -143,6 +172,8 @@ class ChatBotWindow(QMainWindow):
         # Área de chat
         self.chat_area   = QTextEdit(readOnly=True)
         self.chat_area.setFont(QFont("Segoe UI", 11))
+        self.chat_area.setReadOnly(True)
+        self.chat_area.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAsNeeded)
 
         # Input e enviar
         self.input_field = QLineEdit()
@@ -152,9 +183,26 @@ class ChatBotWindow(QMainWindow):
 
         self.send_button = QPushButton("Enviar")
         self.send_button.setFont(QFont("Segoe UI", 10, QFont.Weight.Bold))
-        self.send_button.clicked.connect(self.process_message)
+        self.send_button.setStyleSheet("""
+            QPushButton {
+                background-color: #4CAF50;
+                border-radius: 15px;
+                padding: 12px 24px;
+            }
+            QPushButton:hover {
+                background-color: #45a049;
+            }
+        """)
 
-        # Layouts
+    def _setup_help_button(self):
+        """Configura o botão de ajuda"""
+        self.help_button = QPushButton("Como posso ajudar?")
+        self.help_button.setFont(QFont("Segoe UI", 10, QFont.Weight.Bold))
+        self.help_button.setObjectName("help_button")
+
+    def _setup_layouts(self):
+        """Configura os layouts da interface"""
+        # Layout de entrada
         input_layout = QHBoxLayout()
         input_layout.addWidget(self.input_field)
         input_layout.addWidget(self.send_button)
@@ -285,8 +333,24 @@ QPushButton#help_button { background:qlineargradient(x1:0,y1:0,x2:1,y2:1,stop:0 
         self.chat_area.insertHtml(box)
         self.chat_area.verticalScrollBar().setValue(self.chat_area.verticalScrollBar().maximum())
 
-if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    win = ChatBotWindow()
-    win.show()
-    sys.exit(app.exec())
+    def _process_client_info_request(self):
+        """Processa consulta de dados cadastrais"""
+        if not self._validate_cpf(self.client_cpf):
+            self.show_response("ℹ️ Formato para consultar dados:<br><b>4 123.456.789-00</b>")
+            self._enable_ui(True)
+        else:
+            self.worker.set_query("client_info", cpf=self.client_cpf)
+            self.thread.start()
+
+    def closeEvent(self, event):
+        """Garante que a thread seja encerrada corretamente"""
+        if hasattr(self, 'thread') and self.thread.isRunning():
+            self.thread.quit()
+            self.thread.wait()
+        event.accept()
+
+# if __name__ == "__main__":
+#     app = QApplication(sys.argv)
+#     window = ChatBotWindow()
+#     window.show()
+#     sys.exit(app.exec())
