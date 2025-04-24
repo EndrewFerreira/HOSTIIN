@@ -133,6 +133,8 @@ class ChatBotWindow(QMainWindow):
         
         self.setStyleSheet(self._get_stylesheet())
 
+        self._setup_layouts()
+
     def _setup_thread(self):
         """Configura a thread para operações de banco de dados"""
         self.thread = QThread()
@@ -141,8 +143,9 @@ class ChatBotWindow(QMainWindow):
         
         # Conecta os sinais
         self.thread.started.connect(self.worker.run)
-        self.worker.finished.connect(self._handle_thread_response)
-        self.worker.error.connect(self._handle_thread_error)
+        self.worker.finished.connect(self._on_finished)
+        self.worker.error.connect(self._on_error)
+
         
         # Aplicar stylesheet
         self.setStyleSheet(self._get_stylesheet())
