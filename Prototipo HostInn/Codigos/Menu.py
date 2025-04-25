@@ -23,13 +23,8 @@ class MainMenu(QMainWindow):
         super().__init__()
         # self(self)
         # Carregar a interface gráfica
-<<<<<<< HEAD
         uic.loadUi(r"C:\Users\micae\OneDrive\Área de Trabalho\HostInn\HOSTIIN\Prototipo HostInn\Telas\Menu.ui", self)
         icon_eye_closed = QIcon(r"C:\Users\micae\OneDrive\Área de Trabalho\HostInn\HOSTIIN\Prototipo HostInn\Icones\visibility_off.png")
-=======
-        uic.loadUi(r"C:\Users\ferre\Desktop\PI\HOSTIIN\Prototipo HostInn\Telas\tela_menu_principal.ui", self)
-        icon_eye_closed = QIcon("Icones/visibility_off.png")
->>>>>>> 3a5b93cdc5a23a2cc3ac74b1b5e21dde377bb297
         self.setWindowTitle("HostInn")
         self.setFixedSize(801, 752)
 
