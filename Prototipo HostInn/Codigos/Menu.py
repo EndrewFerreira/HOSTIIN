@@ -56,7 +56,7 @@ class MainMenu(QMainWindow):
         self.carregar_quartos()
         
         # ===========================( Conexões de Botões )=============================================
-        # Menu principal
+        # MENU PRINCIPAL
 
         ##################### USUÁRIO ###################################
         self.bttn_user.clicked.connect(self.user_menu)
