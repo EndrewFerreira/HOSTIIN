@@ -25,7 +25,7 @@ class MainMenu(QMainWindow):
         super().__init__()
         # self(self)
         # Carregar a interface gráfica
-        uic.loadUi(r"C:\Users\11052806\Desktop\HostInn\HOSTIIN-1\Prototipo HostInn\Telas\Menu.ui", self)
+        uic.loadUi(r"C:\Users\11054836\Desktop\PI\HOSTIIN\Prototipo HostInn\Telas\Menu.ui", self)
         icon_eye_closed = QIcon(r"C:\Users\11054836\Desktop\PI\HOSTIIN\Prototipo HostInn\Icones\visibility_off.png")
         self.setWindowTitle("HostInn")
         self.setFixedSize(801, 752)
@@ -88,6 +88,7 @@ class MainMenu(QMainWindow):
         self.bttn_listar_reserva.clicked.connect(self.listar_reservas)
         self.btn_cancel.clicked.connect(self.cancelar_reserva)
         self.botao_aplicar_filtro.clicked.connect(self.aplicar_filtro_reservas)
+        self.btn_ver_reserva.clicked.connect(self.abrir_janela_verificacao_quartos)
         ####################### FINANCEIRO ##############################
         self.bttn_financial.clicked.connect(self.financial_menu)
         self.bttn_movements.clicked.connect(self.movements_subMenu)
