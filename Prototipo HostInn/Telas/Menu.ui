@@ -6340,7 +6340,7 @@ QWidget {
 }</string>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="page_55">
        <widget class="QPushButton" name="bttn_newPayment">
@@ -6356,7 +6356,7 @@ QWidget {
          <string>Novo Pagamento</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton_30">
+       <widget class="QPushButton" name="pushButton_despesas">
         <property name="geometry">
          <rect>
           <x>160</x>
@@ -7400,7 +7400,7 @@ QLineEdit:focus {
         </property>
         <property name="font">
          <font>
-          <pointsize>1</pointsize>
+          <pointsize>-1</pointsize>
          </font>
         </property>
         <property name="styleSheet">
