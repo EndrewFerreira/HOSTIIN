@@ -92,7 +92,7 @@ class MainMenu(QMainWindow):
         ####################### FINANCEIRO ##############################
         self.bttn_financial.clicked.connect(self.financial_menu)
         self.bttn_movements.clicked.connect(self.movements_subMenu)
-        self.pushButton_despesas.clicked.connect(self.cadastr_despesas)
+        # self.pushButton_despesas.clicked.connect(self.cadastr_despesas)
         self.bttn_newPayment.clicked.connect(self.novo_pagamento)
         self.bttn_validate.clicked.connect(self.validate_payment)
         self.bttn_voltar.clicked.connect(self.back_confirmation)
@@ -1668,7 +1668,7 @@ class MainMenu(QMainWindow):
     def abrir_janela_verificacao_quartos(self):
         dialog = QDialog()
         dialog.setWindowTitle("Verificar Disponibilidade dos Quartos")
-        dialog.setFixedSize(500, 450)
+        dialog.setFixedSize(520, 500)
 
         checkin = QDateEdit()
         checkin.setCalendarPopup(True)
@@ -1686,13 +1686,13 @@ class MainMenu(QMainWindow):
         layout_datas.addWidget(QLabel("Check-out:"))
         layout_datas.addWidget(checkout)
 
+        # Layout dos botões de quartos
         layout_quartos = QGridLayout()
         botoes_quartos = []
 
-        # Buscar quartos do banco
         cursor = banco.cursor()
         cursor.execute("SELECT ID_Quartos, Numero FROM quartos")
-        quartos = cursor.fetchall()  # Ex: [(1, 101), (2, 102), ...]
+        quartos = cursor.fetchall()
 
         for i, (id_quarto, numero) in enumerate(quartos):
             btn = QPushButton(f"Quarto {numero}")
@@ -1702,10 +1702,18 @@ class MainMenu(QMainWindow):
             col = i % 4
             layout_quartos.addWidget(btn, row, col)
 
+        # Envolve os botões de quartos num widget rolável
+        widget_scroll = QWidget()
+        widget_scroll.setLayout(layout_quartos)
+
+        scroll_area = QScrollArea()
+        scroll_area.setWidgetResizable(True)
+        scroll_area.setWidget(widget_scroll)
+
         layout_principal = QVBoxLayout()
         layout_principal.addLayout(layout_datas)
         layout_principal.addWidget(btn_verificar)
-        layout_principal.addLayout(layout_quartos)
+        layout_principal.addWidget(scroll_area)
 
         dialog.setLayout(layout_principal)
 
@@ -1734,6 +1742,7 @@ class MainMenu(QMainWindow):
 
         btn_verificar.clicked.connect(verificar)
         dialog.exec()
+
     
     def editar_quarto(self):
         linha = self.tableWidget_2.currentRow()

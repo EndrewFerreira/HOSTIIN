@@ -37,17 +37,19 @@ class EditWindow(QMainWindow):
         self.user_id = None
 
     def puxar_user(self, user_data):
-        self.stackedWidget.setCurrentIndex(1)
-        self.lnedituser_nome.setText(user_data[1])     # Nome
-        self.lineEdit_user.setText(user_data[2])       # Usuario
-        self.lineEdit_email_3.setText(user_data[4])    # Email
-        self.lineEdit_passwrd.setText(user_data[5])    # Senha
-        self.lineEdit_passwrd_2.setText(user_data[5])  # Confirmar senha
+        self.stackedWidget_2.setCurrentIndex(1)
+        self.lnedituser_nome_2.setText(user_data[1])     # Nome
+        self.lineEdit_user_2.setText(user_data[2])       # Usuario
+        self.lineEdit_email_4.setText(user_data[4])      # Email
+        self.lineEdit_passwrd_3.setText(user_data[5])    # Senha
+        self.lineEdit_passwrd_4.setText(user_data[5])    # Confirmar senha
+        self.combo_permissoedit.setCurrentText(user_data[6])  # <- Correção aqui
+
         print("Dados recebidos do usuário:", user_data)
 
         self.user_id = user_data[0]
-        self.editButton_2.clicked.connect(self.atualizar_user_dados)
-        self.editButton_2.setFocus()
+        self.editButton_3.clicked.connect(self.atualizar_user_dados)
+        self.editButton_3.setFocus()
 
     def puxar_cliente(self, user_data):
         self.stackedWidget.setCurrentIndex(0)  # Página de edição de cliente
@@ -137,30 +139,31 @@ class EditWindow(QMainWindow):
 
 
 
-    def atualizar_quarto_dados(self):
-        numero = self.line_novonumero.text()
-        tipo = self.combo_novotipo.currentText()
-        status = self.combo_novostts.currentText()
-        valor = self.line_novopreco.text()
-        capacidade = self.line_novacap.text()
-        descricao = self.line_novadesc.text()
+    def atualizar_user_dados(self):
+        novo_nome = self.lnedituser_nome_2.text()
+        novo_usuario = self.lineEdit_user_2.text()
+        novo_email = self.lineEdit_email_4.text()
+        novo_senha = self.lineEdit_passwrd_3.text()
+        conf_novo_senha = self.lineEdit_passwrd_4.text()
+        nova_permissao = self.combo_permissoedit.currentText()  # <- pega o texto selecionado no comboBox
 
+        if novo_senha != conf_novo_senha:
+            QMessageBox.warning(self, "Erro", "As senhas não coincidem!")
+            return
 
         cursor = banco.cursor()
         comando_SQL = """
-            UPDATE quartos
-            SET Numero=%s, Tipo=%s, Status_Quarto=%s, Valor_Tipo=%s, Capacidade_Quarto=%s, Descricao=%s
-            WHERE ID_Quartos=%s
+            UPDATE usuarios
+            SET nome=%s, usuario=%s, email=%s, senha=%s, permissao=%s
+            WHERE ID_Usuario=%s
         """
-        cursor.execute(comando_SQL, (numero, tipo, status, valor, capacidade, descricao, self.quarto_id))
+        cursor.execute(comando_SQL, (novo_nome, novo_usuario, novo_email, novo_senha, nova_permissao, self.user_id))
         banco.commit()
 
-        QMessageBox.information(self, "Sucesso", "Dados do quarto atualizados com sucesso!")
-
+        QMessageBox.information(self, "Sucesso", "Dados do usuário atualizados com sucesso!")
         if self.atualizar_callback:
             self.atualizar_callback()
             QApplication.processEvents()
-
         self.close()
 
 

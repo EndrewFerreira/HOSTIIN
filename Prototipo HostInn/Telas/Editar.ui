@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>657</width>
-    <height>311</height>
+    <height>566</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -23,7 +23,7 @@
       <x>0</x>
       <y>-1</y>
       <width>661</width>
-      <height>311</height>
+      <height>371</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -437,9 +437,9 @@ QStackedWidget &gt; QWidget {
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>30</y>
+        <y>60</y>
         <width>631</width>
-        <height>261</height>
+        <height>331</height>
        </rect>
       </property>
       <property name="styleSheet">
@@ -455,7 +455,7 @@ QStackedWidget &gt; QWidget {
 }</string>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="page_4">
        <widget class="QWidget" name="verticalLayoutWidget_2">
@@ -841,7 +841,23 @@ QStackedWidget &gt; QWidget {
             </widget>
            </item>
            <item>
-            <widget class="QComboBox" name="comboBox_2"/>
+            <widget class="QComboBox" name="combo_permissoedit">
+             <item>
+              <property name="text">
+               <string>Administrador</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Gerente</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Recepcionista</string>
+              </property>
+             </item>
+            </widget>
            </item>
           </layout>
          </item>
