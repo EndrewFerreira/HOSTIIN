@@ -23,8 +23,13 @@ class MainMenu(QMainWindow):
         super().__init__()
         # self(self)
         # Carregar a interface gráfica
+<<<<<<< HEAD
         uic.loadUi(r"C:\Users\micae\OneDrive\Área de Trabalho\HostInn\HOSTIIN\Prototipo HostInn\Telas\Menu.ui", self)
         icon_eye_closed = QIcon(r"C:\Users\micae\OneDrive\Área de Trabalho\HostInn\HOSTIIN\Prototipo HostInn\Icones\visibility_off.png")
+=======
+        uic.loadUi(r"C:\Users\ferre\Desktop\PI\HOSTIIN\Prototipo HostInn\Telas\tela_menu_principal.ui", self)
+        icon_eye_closed = QIcon("Icones/visibility_off.png")
+>>>>>>> 3a5b93cdc5a23a2cc3ac74b1b5e21dde377bb297
         self.setWindowTitle("HostInn")
         self.setFixedSize(801, 752)
 
@@ -310,16 +315,40 @@ class MainMenu(QMainWindow):
         if linha == -1:
             QMessageBox.warning(self, "Erro", "Selecione um cliente para deletar.")
             return
+            
 
         cursor = banco.cursor()
         cursor.execute("SELECT ID_Cliente FROM clientes")
         dados_lidos = cursor.fetchall()
         valor_id = dados_lidos[linha][0]
-        cursor.execute("DELETE FROM clientes WHERE ID_Cliente = %s", (valor_id,))
-        banco.commit()
+        # cursor.execute("DELETE FROM clientes WHERE ID_Cliente = %s", (valor_id,))
+        # banco.commit()
 
-        self.tableWidget.removeRow(linha)
-        QMessageBox.information(self, "Sucesso", "Cliente deletado com sucesso!")
+        # self.tableWidget.removeRow(linha)
+        # QMessageBox.information(self, "Sucesso", "Cliente deletado com sucesso!")
+
+        # Verifica se há reservas associadas ao cliente
+        cursor.execute("SELECT COUNT(*) FROM reserva WHERE ID_Cliente = %s", (valor_id,))
+        reservas_associadas = cursor.fetchone()[0]
+
+        if reservas_associadas > 0:
+            QMessageBox.warning(self, 'ERRO', 'ESTE CLIENTE POSSUI RESERVAS. NÃO PODE SER DELETADO.')
+            return
+        
+          # Confirma a exclusão
+        confirmacao = QMessageBox.question(
+                self,
+                "Confirmação",
+                "Tem certeza que deseja deletar este cliente?",
+                QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
+    )
+        
+        if confirmacao == QMessageBox.StandardButton.Yes:
+            cursor.execute('DELETE FROM clientes WHERE ID_Cliente = %s', (valor_id,))
+            banco.commit()
+            self.tableWidget.removeRow(linha)
+            QMessageBox.information(self, "Sucesso", "Cliente deletado com sucesso!")
+
 
     def editar_clientes(self):
         linha = self.tableWidget.currentRow()
