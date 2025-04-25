@@ -66,3 +66,12 @@ ID_Reserva int,
 foreign key (ID_Cliente) references clientes (ID_Cliente),
 foreign key (ID_Reserva) references reserva (ID_Reserva)
 );
+
+create table despesas (
+id_despesa int AUTO_INCREMENT primary key,
+descricao varchar (255) not null,
+valor decimal (10, 2) not null,
+data_despesa date not null,
+metodo_pagamento varchar (150) not null,
+categorias_despesas varchar (150) not null
+);
