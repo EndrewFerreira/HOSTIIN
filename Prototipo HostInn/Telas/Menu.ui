@@ -1505,7 +1505,7 @@ QPushButton {
 }</string>
     </property>
     <property name="currentIndex">
-     <number>4</number>
+     <number>7</number>
     </property>
     <widget class="QWidget" name="page">
      <widget class="QLabel" name="label_46">
@@ -1531,7 +1531,7 @@ QPushButton {
        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:18pt; color:#ffffff;&quot;&gt;LISTA DE CLIENTES&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
-     <widget class="QTableWidget" name="tableWidget">
+     <widget class="QTableWidget" name="tablewidgetClientes">
       <property name="geometry">
        <rect>
         <x>0</x>
@@ -1759,7 +1759,7 @@ QComboBox QAbstractItemView {
        </property>
       </item>
      </widget>
-     <widget class="QLineEdit" name="line_pesquisa">
+     <widget class="QLineEdit" name="line_pesquisa_CLIENTE">
       <property name="geometry">
        <rect>
         <x>190</x>
@@ -3109,11 +3109,11 @@ QPushButton {
         <x>0</x>
         <y>90</y>
         <width>651</width>
-        <height>641</height>
+        <height>601</height>
        </rect>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="page_13">
        <widget class="QLabel" name="label_17">
@@ -5060,15 +5060,16 @@ QComboBox QAbstractItemView {
        </widget>
       </widget>
       <widget class="QWidget" name="page_11">
-       <widget class="QTableWidget" name="tableWidget_7">
+       <widget class="QWidget" name="verticalLayoutWidget_12">
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>170</y>
+          <y>0</y>
           <width>651</width>
-          <height>321</height>
+          <height>541</height>
          </rect>
         </property>
+<<<<<<< HEAD
         <property name="styleSheet">
          <string notr="true">/* Remove todos os espaços e bordas entre os cabeçalhos */
 QHeaderView {
@@ -5641,6 +5642,389 @@ QLineEdit:focus {
         <property name="text">
          <string>Descrição</string>
         </property>
+=======
+        <layout class="QVBoxLayout" name="verticalLayout_16">
+         <item>
+          <widget class="QLabel" name="label_67">
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>Informações da Despesa</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_25">
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_17">
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_13">
+               <item alignment="Qt::AlignLeft|Qt::AlignVCenter">
+                <widget class="QLabel" name="label_68">
+                 <property name="text">
+                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;ID do Pagamento&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLineEdit" name="lineEdit_30">
+                 <property name="placeholderText">
+                  <string>Nº de registro do pagamento...</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <spacer name="verticalSpacer_17">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>40</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QGridLayout" name="gridLayout_10">
+             <item row="0" column="1">
+              <widget class="QComboBox" name="comboBox_8">
+               <item>
+                <property name="text">
+                 <string>Dinheiro</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Crédito</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Débito</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Pix</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+             <item row="0" column="2">
+              <widget class="QComboBox" name="comboBox_10">
+               <item>
+                <property name="text">
+                 <string>1x</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>2x</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>3x</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>4x</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>5x</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>6x</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>7x</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>8x</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>9x</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>10x</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>11x</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>12x</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+             <item row="2" column="2">
+              <widget class="QDateEdit" name="dateEdit_5"/>
+             </item>
+             <item row="0" column="0">
+              <widget class="QLabel" name="label_69">
+               <property name="text">
+                <string>Tipo de pagamento</string>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="2">
+              <widget class="QLabel" name="label_70">
+               <property name="text">
+                <string>Datal Transação</string>
+               </property>
+              </widget>
+             </item>
+             <item row="5" column="1">
+              <widget class="QLineEdit" name="lineEdit_31">
+               <property name="placeholderText">
+                <string>Informe o valor total da reserva...</string>
+               </property>
+              </widget>
+             </item>
+             <item row="5" column="2">
+              <widget class="QDateEdit" name="dateEdit_6"/>
+             </item>
+             <item row="7" column="0">
+              <spacer name="verticalSpacer_18">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>40</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item row="1" column="2">
+              <widget class="QLabel" name="label_71">
+               <property name="text">
+                <string>Datal Atual</string>
+               </property>
+              </widget>
+             </item>
+             <item row="5" column="0">
+              <widget class="QLabel" name="label_72">
+               <property name="text">
+                <string>ID da transação</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QComboBox" name="comboBox_11"/>
+             </item>
+             <item row="4" column="0">
+              <widget class="QLabel" name="label_73">
+               <property name="text">
+                <string>NSU </string>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="1">
+              <widget class="QLineEdit" name="lineEdit_32">
+               <property name="placeholderText">
+                <string>Informe o valor entregue pelo cliente...</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="QLineEdit" name="lineEdit_33">
+               <property name="placeholderText">
+                <string>Informe o valor entregue pelo cliente...</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0">
+              <widget class="QLabel" name="label_74">
+               <property name="text">
+                <string>Parcela</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="label_75">
+               <property name="text">
+                <string>Bandeira</string>
+               </property>
+              </widget>
+             </item>
+             <item row="6" column="0">
+              <widget class="QPushButton" name="pushButton_5">
+               <property name="text">
+                <string>Anexar 
+ comprovante</string>
+               </property>
+              </widget>
+             </item>
+             <item row="6" column="1">
+              <widget class="QLabel" name="label_76">
+               <property name="text">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;...&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_30">
+           <item>
+            <widget class="QLabel" name="label_77">
+             <property name="font">
+              <font>
+               <pointsize>18</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>Valor Total</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="lineEdit_34">
+             <property name="font">
+              <font>
+               <pointsize>18</pointsize>
+              </font>
+             </property>
+             <property name="placeholderText">
+              <string>Valor total da reserva...</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QFormLayout" name="formLayout_2">
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_78">
+             <property name="font">
+              <font>
+               <pointsize>10</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>Recebido</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_79">
+             <property name="font">
+              <font>
+               <pointsize>10</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>Troco</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLineEdit" name="lineEdit_35">
+             <property name="font">
+              <font>
+               <pointsize>10</pointsize>
+              </font>
+             </property>
+             <property name="placeholderText">
+              <string>Informe o valor entregue pelo cliente...</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QLineEdit" name="lineEdit_36">
+             <property name="font">
+              <font>
+               <pointsize>10</pointsize>
+              </font>
+             </property>
+             <property name="placeholderText">
+              <string>Valor a ser devolvido ao cliente...</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_14">
+           <item>
+            <spacer name="horizontalSpacer_6">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QPushButton" name="editButton_11">
+             <property name="font">
+              <font>
+               <family>Roboto</family>
+               <pointsize>10</pointsize>
+               <weight>50</weight>
+               <italic>true</italic>
+               <bold>false</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>Confirmar</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="editButton_12">
+             <property name="font">
+              <font>
+               <family>Roboto</family>
+               <pointsize>10</pointsize>
+               <weight>50</weight>
+               <italic>true</italic>
+               <bold>false</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>Cancelar</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+>>>>>>> 2b4c55cfded1bccbe3c9d3aabce3925014208f27
        </widget>
       </widget>
       <widget class="QWidget" name="page_14">
@@ -6359,7 +6743,7 @@ QWidget {
          <string>Novo Pagamento</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton_despesas">
+       <widget class="QPushButton" name="pushButton_30">
         <property name="geometry">
          <rect>
           <x>160</x>
@@ -8893,6 +9277,24 @@ QLineEdit:focus {
        <string>Buscar</string>
       </property>
      </widget>
+     <widget class="QPushButton" name="btn_ver_reserva">
+      <property name="geometry">
+       <rect>
+        <x>490</x>
+        <y>480</y>
+        <width>141</width>
+        <height>30</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Disponibilidade</string>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="page_21">
      <widget class="QLabel" name="label_57">
@@ -8922,9 +9324,9 @@ QLineEdit:focus {
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>120</y>
+        <y>130</y>
         <width>651</width>
-        <height>351</height>
+        <height>341</height>
        </rect>
       </property>
       <property name="font">
@@ -9005,7 +9407,7 @@ QTableCornerButton::section {
       <property name="geometry">
        <rect>
         <x>70</x>
-        <y>70</y>
+        <y>80</y>
         <width>101</width>
         <height>30</height>
        </rect>
@@ -9090,7 +9492,7 @@ QComboBox QAbstractItemView {
       <property name="geometry">
        <rect>
         <x>2</x>
-        <y>70</y>
+        <y>80</y>
         <width>60</width>
         <height>20</height>
        </rect>
@@ -9117,7 +9519,7 @@ QComboBox QAbstractItemView {
       <property name="geometry">
        <rect>
         <x>181</x>
-        <y>70</y>
+        <y>80</y>
         <width>361</width>
         <height>30</height>
        </rect>
@@ -9150,7 +9552,7 @@ QLineEdit:focus {
       <property name="geometry">
        <rect>
         <x>550</x>
-        <y>70</y>
+        <y>80</y>
         <width>80</width>
         <height>30</height>
        </rect>
