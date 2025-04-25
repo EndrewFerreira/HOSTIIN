@@ -1505,7 +1505,7 @@ QPushButton {
 }</string>
     </property>
     <property name="currentIndex">
-     <number>4</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="page">
      <widget class="QLabel" name="label_46">
@@ -1531,7 +1531,7 @@ QPushButton {
        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:18pt; color:#ffffff;&quot;&gt;LISTA DE CLIENTES&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
-     <widget class="QTableWidget" name="tableWidget">
+     <widget class="QTableWidget" name="tablewidgetClientes">
       <property name="geometry">
        <rect>
         <x>0</x>
@@ -1746,7 +1746,7 @@ QComboBox QAbstractItemView {
        <string>Nome</string>
       </property>
       <property name="placeholderText" stdset="0">
-       <string>Tipo de quarto</string>
+       <string/>
       </property>
       <item>
        <property name="text">
@@ -1759,7 +1759,7 @@ QComboBox QAbstractItemView {
        </property>
       </item>
      </widget>
-     <widget class="QLineEdit" name="line_pesquisa">
+     <widget class="QLineEdit" name="line_pesquisa_CLIENTE">
       <property name="geometry">
        <rect>
         <x>190</x>

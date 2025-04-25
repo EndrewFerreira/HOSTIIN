@@ -9,6 +9,8 @@ from PyQt6.QtWidgets import (QLineEdit, QMessageBox, QMainWindow, QPushButton, Q
 from PyQt6.QtCharts import QChart, QChartView, QPieSeries, QBarSeries, QBarSet, QBarCategoryAxis
 import sys, pymysql, Tela_edicao
 from chatbot import ChatBotWindow 
+from PyQt6.QtWidgets import QScrollArea, QVBoxLayout
+
 
 
 banco = pymysql.connect(
@@ -73,12 +75,14 @@ class MainMenu(QMainWindow):
         self.bttn_listClient.clicked.connect(self.list_client)
         self.dellButton.clicked.connect(self.deletar_clientes)
         self.editButton.clicked.connect(self.editar_clientes)
+        self.btn_pesquisa.clicked.connect(self.filtrar_clientes)
+
         ##################### RESERVA ###################################
         self.bttn_reserva.clicked.connect(self.reserva_menu)
         self.bttn_nova_reserva.clicked.connect(self.nova_reserva)
         self.bttn_listar_reserva.clicked.connect(self.listar_reservas)
         self.bttn_close.clicked.connect(self.close_reserva)
-        self.pushButton_buscar.clicked.connect(self.filtrar_clientes)
+        self.pushButton_buscar.clicked.connect(self.filtrar_Rclientes)
         self.bttn_confirm.clicked.connect(self.puxar_cliente)
         self.bttn_reservar.clicked.connect(self.reservar)
         self.bttn_listar_reserva.clicked.connect(self.listar_reservas)
@@ -296,21 +300,21 @@ class MainMenu(QMainWindow):
         cursor = banco.cursor()
         cursor.execute("SELECT * FROM clientes")
         dados_lidos = cursor.fetchall()
-        self.tableWidget.clearContents()  # Limpa os dados antigos
+        self.tablewidgetClientes.clearContents()  # Limpa os dados antigos
         # print("⚡ Atualizando tabela de clientes!")
 
-        self.tableWidget.setRowCount(len(dados_lidos))
-        self.tableWidget.setColumnCount(5)  # Ajustado para ignorar a primeira coluna
+        self.tablewidgetClientes.setRowCount(len(dados_lidos))
+        self.tablewidgetClientes.setColumnCount(5)  # Ajustado para ignorar a primeira coluna
 
         for i, linha in enumerate(dados_lidos):
             for j, valor in enumerate(linha[1:]):  # Pulando o ID
-                self.tableWidget.setItem(i, j, QtWidgets.QTableWidgetItem(str(valor)))
-        self.tableWidget.repaint()  # Força um repaint da tabela
+                self.tablewidgetClientes.setItem(i, j, QtWidgets.QTableWidgetItem(str(valor)))
+        self.tablewidgetClientes.repaint()  # Força um repaint da tabela
 
 
 
     def deletar_clientes(self):
-        linha = self.tableWidget.currentRow()
+        linha = self.tablewidgetClientes.currentRow()
         if linha == -1:
             QMessageBox.warning(self, "Erro", "Selecione um cliente para deletar.")
             return
@@ -345,12 +349,12 @@ class MainMenu(QMainWindow):
         if confirmacao == QMessageBox.StandardButton.Yes:
             cursor.execute('DELETE FROM clientes WHERE ID_Cliente = %s', (valor_id,))
             banco.commit()
-            self.tableWidget.removeRow(linha)
+            self.tablewidgetClientes.removeRow(linha)
             QMessageBox.information(self, "Sucesso", "Cliente deletado com sucesso!")
 
 
     def editar_clientes(self):
-        linha = self.tableWidget.currentRow()
+        linha = self.tablewidgetClientes.currentRow()
         if linha == -1:
             QMessageBox.warning(self, "Erro", "Selecione um cliente para editar.")
             return
@@ -364,6 +368,42 @@ class MainMenu(QMainWindow):
         self.tela_editar = Tela_edicao.EditWindow(atualizar_callback=self.list_client)
         self.tela_editar.puxar_cliente(cliente)
         self.tela_editar.show()
+
+    def filtrar_clientes(self):
+        criterio = self.combo_pesquisa.currentText()
+        termo_busca = self.line_pesquisa_CLIENTE.text().strip()
+
+        if not termo_busca:
+            QMessageBox.warning(self, "Aviso", "Digite algo para pesquisar.")
+            return
+
+        cursor = banco.cursor()
+
+        if criterio == "CPF":
+            comando_sql = "SELECT * FROM clientes WHERE CPF LIKE %s"
+            cursor.execute(comando_sql, (f"%{termo_busca}%",))
+        elif criterio == "Nome":
+            comando_sql = "SELECT * FROM clientes WHERE Nome LIKE %s"
+            cursor.execute(comando_sql, (f"%{termo_busca}%",))
+        else:
+            QMessageBox.warning(self, "Erro", "Selecione um critério válido de pesquisa.")
+            return
+
+        dados_filtrados = cursor.fetchall()
+
+        if not dados_filtrados:
+            QMessageBox.information(self, "Aviso", "Nenhum cliente encontrado.")
+            self.tablewidgetClientes.setRowCount(0)
+            return
+
+        self.tablewidgetClientes.setRowCount(len(dados_filtrados))
+        self.tablewidgetClientes.setColumnCount(5)  # Exibe: Nome, CPF, Email, Telefone, Endereço
+
+        for i, linha in enumerate(dados_filtrados):
+            for j, valor in enumerate(linha[1:]):  # Ignora o ID_Cliente
+                item = QtWidgets.QTableWidgetItem(str(valor))
+                self.tablewidgetClientes.setItem(i, j, item)
+
 
 
 
@@ -581,7 +621,7 @@ class MainMenu(QMainWindow):
             for col_idx, dado in enumerate(cliente):
                 self.tableWidget_6.setItem(row_idx, col_idx, QtWidgets.QTableWidgetItem(str(dado)))
 
-    def filtrar_clientes(self):
+    def filtrar_Rclientes(self):
         """Filtra os clientes com base na ComboBox e no valor digitado."""
         campo = self.comboBox_filtro.currentText()
         valor = self.lineEdit_filtro.text().strip()
@@ -1502,26 +1542,29 @@ class MainMenu(QMainWindow):
 
 
     #                        Visualização de Quartos Filtrados
+    
     def listar_quartos_filtrados(self, filtro_status):
         """Abre uma janela com um grid layout exibindo botões quadrados para os quartos com status filtrado."""
         dialog = QDialog(self)
         dialog.setWindowTitle(f"Quartos {filtro_status}")
-        dialog.setFixedSize(400, 300)
-        layout = QGridLayout(dialog)
-        
+        dialog.setFixedSize(700, 500)
+
+        # ⬇️ Scroll area para poder rolar se tiver muitos quartos
+        scroll_area = QtWidgets.QScrollArea(dialog)
+        scroll_area.setWidgetResizable(True)
+
+        scroll_widget = QWidget()
+        layout = QGridLayout(scroll_widget)
+
         cursor = banco.cursor()
-        # Filtra os quartos pelo status
-        comando_SQL = "SELECT Numero, Status_Quarto FROM quartos WHERE Status_Quarto = %s"
-        cursor.execute(comando_SQL, (filtro_status,))
+        cursor.execute("SELECT Numero, Status_Quarto FROM quartos WHERE Status_Quarto = %s", (filtro_status,))
         quartos = cursor.fetchall()
-        
+
         colunas = 3
-        for index, quarto in enumerate(quartos):
-            numero = quarto[0]
-            # Cria um botão para o quarto filtrado
+        for index, (numero, _) in enumerate(quartos):
             btn = QPushButton(str(numero), dialog)
             btn.setFixedSize(90, 80)
-            # Define a cor com base no status informado
+
             if filtro_status.lower() in ['disponível', 'disponivel']:
                 cor = 'green'
             elif filtro_status.lower() == 'ocupado':
@@ -1531,12 +1574,17 @@ class MainMenu(QMainWindow):
             else:
                 cor = 'gray'
             btn.setStyleSheet(f"background-color: {cor}; font-weight: bold;")
-            
+
             row = index // colunas
             col = index % colunas
             layout.addWidget(btn, row, col)
-        
-        dialog.setLayout(layout)
+
+        scroll_area.setWidget(scroll_widget)
+
+        final_layout = QVBoxLayout()
+        final_layout.addWidget(scroll_area)
+        dialog.setLayout(final_layout)
+
         dialog.exec()
 
     def listar_quartos_disponivel(self):
@@ -1547,6 +1595,8 @@ class MainMenu(QMainWindow):
 
     def listar_quartos_manutencao(self):
         self.listar_quartos_filtrados("Em manutenção")
+
+
 
     def chatbot(self):
         if not hasattr(self, 'chatbot_window'):
