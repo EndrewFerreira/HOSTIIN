@@ -82,7 +82,7 @@
      <string notr="true">QWidge {
     background-color: rgba(51, 156, 255);
     border-radius: 12px;
-    border: 2px solid rgba(255, 255, 255, 150);
+    border: 1px solid rgba(255, 255, 255, 150);
     
     padding: 5px;
 }
@@ -92,7 +92,6 @@ QWidget {
     border: 1px solid rgba(255, 255, 255, 100);
     
     /* Efeito de desfoque (requer código adicional - ver explicação abaixo) */
-    backdrop-filter: blur(10px);
 }</string>
     </property>
     <property name="frameShape">
@@ -122,7 +121,19 @@ QWidget {
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(51, 156, 255);</string>
+       <string notr="true">QLabel {
+    background-color: rgb(51, 156, 255);  /* Azul */
+    color: rgb(255, 255, 255);            /* Texto branco */
+    border: 1one;                         /* Remove borda padrão */
+    
+    /* Arredonda apenas os cantos superiores */
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    
+    padding: 8px;                         /* Espaçamento interno */
+}</string>
       </property>
       <property name="text">
        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:18pt; color:#ffffff;&quot;&gt;LOGIN&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -150,7 +161,7 @@ QWidget {
        <string notr="true">QLabel {
     background: transparent;
     color: white; /* ou o azul da paleta: #339CFF */
-    border: none;
+    border: 1one;
     padding: 0px;
 }
 </string>
@@ -177,7 +188,7 @@ QWidget {
       <property name="styleSheet">
        <string notr="true">QLineEdit {
     /* Borda e fundo */
-    border: 2px solid rgba(255, 255, 255, 200);
+    border: 1px solid rgba(255, 255, 255, 200);
     border-radius: 15px;
     background-color: rgba(0, 0, 0, 0); /* Totalmente transparente */
     
@@ -193,7 +204,7 @@ QWidget {
 
 /* Efeito ao focar */
 QLineEdit:focus {
-    border: 2px solid rgba(255, 255, 255, 255);
+    border: 1px solid rgba(255, 255, 255, 255);
     background-color: rgba(255, 255, 255, 20);
 }</string>
       </property>
@@ -223,7 +234,7 @@ QLineEdit:focus {
        <string notr="true">QLabel {
     background: transparent;
     color: white; /* ou o azul da paleta: #339CFF */
-    border: none;
+    border: 1one;
     padding: 0px;
 }
 </string>
@@ -253,7 +264,7 @@ QLineEdit:focus {
       <property name="styleSheet">
        <string notr="true">QPushButton {
     background-color: rgba(255, 255, 255, 0.5);
-    border: 2px solid rgba(255, 255, 255, 0.3); /* Borda branca translúcida */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Borda branca translúcida */
     color: #333333; /* Texto totalmente opaco */
 }
 
@@ -266,7 +277,7 @@ QPushButton:pressed {
     background-color: #A0B2C8; /* Azul acinzentado */
 border-color: #003366; /* Azul escuro */
 }
- QPushButton{border: 2px solid rgba(255, 255, 255, 200);
+ QPushButton{border: 1px solid rgba(255, 255, 255, 200);
     border-radius: 15px;
     background-color: rgba(0, 0, 0, 0); /* Totalmente transparente */
     
@@ -282,7 +293,7 @@ border-color: #003366; /* Azul escuro */
 
 /* Efeito ao focar */
 QPushButton {
-    border: 2px solid rgba(255, 255, 255, 255);
+    border: 1px solid rgba(255, 255, 255, 255);
     background-color: rgba(255, 255, 255, 20);
 }</string>
       </property>
@@ -311,7 +322,7 @@ QPushButton {
       <property name="styleSheet">
        <string notr="true">QPushButton {
     background-color: rgba(255, 255, 255, 0.5);
-    border: 2px solid rgba(255, 255, 255, 0.3); /* Borda branca translúcida */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Borda branca translúcida */
     color: #333333; /* Texto totalmente opaco */
 }
 
@@ -324,7 +335,7 @@ QPushButton:pressed {
     background-color: #A0B2C8; /* Azul acinzentado */
 border-color: #003366; /* Azul escuro */
 }
- QPushButton{border: 2px solid rgba(255, 255, 255, 200);
+ QPushButton{border: 1px solid rgba(255, 255, 255, 200);
     border-radius: 15px;
     background-color: rgba(0, 0, 0, 0); /* Totalmente transparente */
     
@@ -340,7 +351,7 @@ border-color: #003366; /* Azul escuro */
 
 /* Efeito ao focar */
 QPushButton {
-    border: 2px solid rgba(255, 255, 255, 255);
+    border: 1px solid rgba(255, 255, 255, 255);
     background-color: rgba(255, 255, 255, 20);
 }</string>
       </property>
@@ -366,7 +377,7 @@ QPushButton {
       <property name="styleSheet">
        <string notr="true">QLineEdit {
     /* Borda e fundo */
-    border: 2px solid rgba(255, 255, 255, 200);
+    border: 1px solid rgba(255, 255, 255, 200);
     border-radius: 15px;
     background-color: rgba(0, 0, 0, 0); /* Totalmente transparente */
     
@@ -382,7 +393,7 @@ QPushButton {
 
 /* Efeito ao focar */
 QLineEdit:focus {
-    border: 2px solid rgba(255, 255, 255, 255);
+    border: 1px solid rgba(255, 255, 255, 255);
     background-color: rgba(255, 255, 255, 20);
 }</string>
       </property>
@@ -402,7 +413,7 @@ QLineEdit:focus {
       <property name="styleSheet">
        <string notr="true">QPushButton {
     background-color: rgba(255, 255, 255, 0.5);
-    border: 2px solid rgba(255, 255, 255, 0.3); /* Borda branca translúcida */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Borda branca translúcida */
     color: #333333; /* Texto totalmente opaco */
 }
 
@@ -415,7 +426,7 @@ QPushButton:pressed {
     background-color: #A0B2C8; /* Azul acinzentado */
 border-color: #003366; /* Azul escuro */
 }
- QPushButton{border: 2px solid rgba(255, 255, 255, 200);
+ QPushButton{border: 1px solid rgba(255, 255, 255, 200);
     border-radius: 15px;
     background-color: rgba(0, 0, 0, 0); /* Totalmente transparente */
     
@@ -431,7 +442,7 @@ border-color: #003366; /* Azul escuro */
 
 /* Efeito ao focar */
 QPushButton {
-    border: 2px solid rgba(255, 255, 255, 255);
+    border: 1px solid rgba(255, 255, 255, 255);
     background-color: rgba(255, 255, 255, 20);
 }</string>
       </property>
@@ -461,13 +472,13 @@ QPushButton {
       <property name="font">
        <font>
         <family>Segoe UI</family>
-        <pointsize>-1</pointsize>
+        <pointsize>1</pointsize>
        </font>
       </property>
       <property name="styleSheet">
        <string notr="true">QPushButton {
     background-color: transparent;
-    border: none;
+    border: 1one;
     color: white; /* ou a cor que quiser para o texto */
     font-size: 14px; /* opcional */
 }
@@ -509,7 +520,7 @@ QPushButton:hover {
       <property name="styleSheet">
        <string notr="true">QLineEdit {
     /* Borda e fundo */
-    border: 2px solid rgba(255, 255, 255, 200);
+    border: 1px solid rgba(255, 255, 255, 200);
     border-radius: 15px;
     background-color: rgba(0, 0, 0, 0); /* Totalmente transparente */
     
@@ -525,7 +536,7 @@ QPushButton:hover {
 
 /* Efeito ao focar */
 QLineEdit:focus {
-    border: 2px solid rgba(255, 255, 255, 255);
+    border: 1px solid rgba(255, 255, 255, 255);
     background-color: rgba(255, 255, 255, 20);
 }</string>
       </property>
@@ -555,7 +566,7 @@ QLineEdit:focus {
        <string notr="true">QLabel {
     background: transparent;
     color: white; /* ou o azul da paleta: #339CFF */
-    border: none;
+    border: 1one;
     padding: 0px;
 }
 </string>
@@ -582,7 +593,7 @@ QLineEdit:focus {
       <property name="styleSheet">
        <string notr="true">QLineEdit {
     /* Borda e fundo */
-    border: 2px solid rgba(255, 255, 255, 200);
+    border: 1px solid rgba(255, 255, 255, 200);
     border-radius: 15px;
     background-color: rgba(0, 0, 0, 0); /* Totalmente transparente */
     
@@ -598,7 +609,7 @@ QLineEdit:focus {
 
 /* Efeito ao focar */
 QLineEdit:focus {
-    border: 2px solid rgba(255, 255, 255, 255);
+    border: 1px solid rgba(255, 255, 255, 255);
     background-color: rgba(255, 255, 255, 36);
 }</string>
       </property>
@@ -625,7 +636,7 @@ QLineEdit:focus {
        <string notr="true">QLabel {
     background: transparent;
     color: white; /* ou o azul da paleta: #339CFF */
-    border: none;
+    border: 1one;
     padding: 0px;
 }
 </string>
@@ -652,7 +663,7 @@ QLineEdit:focus {
       <property name="styleSheet">
        <string notr="true">QLineEdit {
     /* Borda e fundo */
-    border: 2px solid rgba(255, 255, 255, 200);
+    border: 1px solid rgba(255, 255, 255, 200);
     border-radius: 15px;
     background-color: rgba(0, 0, 0, 0); /* Totalmente transparente */
     
@@ -668,7 +679,7 @@ QLineEdit:focus {
 
 /* Efeito ao focar */
 QLineEdit:focus {
-    border: 2px solid rgba(255, 255, 255, 255);
+    border: 1px solid rgba(255, 255, 255, 255);
     background-color: rgba(255, 255, 255, 20);
 }</string>
       </property>
@@ -694,7 +705,7 @@ QLineEdit:focus {
       <property name="styleSheet">
        <string notr="true">QLabel {
     background-color: transparent;
-    border: none;
+    border: 1one;
     color: black; /* ou qualquer cor de texto */
 }</string>
       </property>
@@ -713,12 +724,12 @@ QLineEdit:focus {
       </property>
       <property name="font">
        <font>
-        <pointsize>-1</pointsize>
+        <pointsize>1</pointsize>
        </font>
       </property>
       <property name="styleSheet">
        <string notr="true">QComboBox {
-    border: 2px solid rgba(255, 255, 255, 200);  /* Borda visível */
+    border: 1px solid rgba(255, 255, 255, 200);  /* Borda visível */
     border-radius: 13px;
     background-color: transparent;              /* Totalmente transparente */
     padding: 5px 15px;
@@ -728,13 +739,13 @@ QLineEdit:focus {
 }
 
 QComboBox:focus {
-    border: 2px solid rgba(255, 255, 255, 255);  /* Borda mais forte no foco */
+    border: 1px solid rgba(255, 255, 255, 255);  /* Borda mais forte no foco */
     background-color: rgba(255, 255, 255, 36);   /* Leve destaque no foco */
 }
 
 /* Remove o botão e a seta */
 QComboBox::drop-down {
-    border: none;
+    border: 1one;
     background: transparent;
     width: 0px;  /* Esconde o espaço reservado pra seta */
 }
@@ -742,7 +753,7 @@ QComboBox::drop-down {
 QComboBox::down-arrow {
     width: 0;
     height: 0;
-    border: none;
+    border: 1one;
 }
 
 /* Dropdown com estilo flat e legível */
@@ -794,7 +805,7 @@ QComboBox QAbstractItemView {
        <string notr="true">QLabel {
     background: transparent;
     color: white; /* ou o azul da paleta: #339CFF */
-    border: none;
+    border: 1one;
     padding: 0px;
 }
 </string>
@@ -821,7 +832,7 @@ QComboBox QAbstractItemView {
       <property name="styleSheet">
        <string notr="true">QLineEdit {
     /* Borda e fundo */
-    border: 2px solid rgba(255, 255, 255, 200);
+    border: 1px solid rgba(255, 255, 255, 200);
     border-radius: 15px;
     background-color: rgba(0, 0, 0, 0); /* Totalmente transparente */
     
@@ -837,7 +848,7 @@ QComboBox QAbstractItemView {
 
 /* Efeito ao focar */
 QLineEdit:focus {
-    border: 2px solid rgba(255, 255, 255, 255);
+    border: 1px solid rgba(255, 255, 255, 255);
     background-color: rgba(255, 255, 255, 20);
 }</string>
       </property>
@@ -867,7 +878,7 @@ QLineEdit:focus {
        <string notr="true">QLabel {
     background: transparent;
     color: white; /* ou o azul da paleta: #339CFF */
-    border: none;
+    border: 1one;
     padding: 0px;
 }
 </string>
@@ -894,7 +905,7 @@ QLineEdit:focus {
       <property name="styleSheet">
        <string notr="true">QLineEdit {
     /* Borda e fundo */
-    border: 2px solid rgba(255, 255, 255, 200);
+    border: 1px solid rgba(255, 255, 255, 200);
     border-radius: 15px;
     background-color: rgba(0, 0, 0, 0); /* Totalmente transparente */
     
@@ -910,7 +921,7 @@ QLineEdit:focus {
 
 /* Efeito ao focar */
 QLineEdit:focus {
-    border: 2px solid rgba(255, 255, 255, 255);
+    border: 1px solid rgba(255, 255, 255, 255);
     background-color: rgba(255, 255, 255, 20);
 }</string>
       </property>
@@ -939,7 +950,7 @@ QLineEdit:focus {
       <property name="styleSheet">
        <string notr="true">QPushButton {
     background-color: rgba(255, 255, 255, 0.5);
-    border: 5px solid rgba(255, 255, 255, 0.3); /* Borda branca translúcida */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Borda branca translúcida */
     color: #333333; /* Texto totalmente opaco */
 }
 
@@ -952,7 +963,7 @@ QPushButton:pressed {
     background-color: #A0B2C8; /* Azul acinzentado */
 border-color: #003366; /* Azul escuro */
 }
- QPushButton{border: 2px solid rgba(255, 255, 255, 200);
+ QPushButton{border: 1px solid rgba(255, 255, 255, 200);
     border-radius: 15px;
     background-color: rgba(0, 0, 0, 0); /* Totalmente transparente */
     
@@ -968,7 +979,7 @@ border-color: #003366; /* Azul escuro */
 
 /* Efeito ao focar */
 QPushButton {
-    border: 2px solid rgba(255, 255, 255, 255);
+    border: 1px solid rgba(255, 255, 255, 255);
     background-color: rgba(255, 255, 255, 20);
 }</string>
       </property>
@@ -997,7 +1008,7 @@ QPushButton {
       <property name="styleSheet">
        <string notr="true">QPushButton {
     background-color: rgba(255, 255, 255, 0.5);
-    border: 2px solid rgba(255, 255, 255, 0.3); /* Borda branca translúcida */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Borda branca translúcida */
     color:#003366; /* Texto totalmente opaco */
 }
 
@@ -1010,7 +1021,7 @@ QPushButton:pressed {
     background-color: #A0B2C8; /* Azul acinzentado */
 border-color: #003366; /* Azul escuro */
 }
- QPushButton{border: 2px solid rgba(255, 255, 255, 200);
+ QPushButton{border: 1px solid rgba(255, 255, 255, 200);
     border-radius: 15px;
     background-color: rgba(0, 0, 0, 0); /* Totalmente transparente */
     
@@ -1026,7 +1037,7 @@ border-color: #003366; /* Azul escuro */
 
 /* Efeito ao focar */
 QPushButton {
-    border: 2px solid rgba(255, 255, 255, 255);
+    border: 1px solid rgba(255, 255, 255, 255);
     background-color: rgba(255, 255, 255, 20);
 }</string>
       </property>
@@ -1046,7 +1057,7 @@ QPushButton {
       <property name="styleSheet">
        <string notr="true">QPushButton {
     background-color: rgba(255, 255, 255, 0.5);
-    border: 2px solid rgba(255, 255, 255, 0.3); /* Borda branca translúcida */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Borda branca translúcida */
     color: #333333; /* Texto totalmente opaco */
 }
 
@@ -1059,7 +1070,7 @@ QPushButton:pressed {
     background-color: #A0B2C8; /* Azul acinzentado */
 border-color: #003366; /* Azul escuro */
 }
- QPushButton{border: 2px solid rgba(255, 255, 255, 200);
+ QPushButton{border: 1px solid rgba(255, 255, 255, 200);
     border-radius: 15px;
     background-color: rgba(0, 0, 0, 0); /* Totalmente transparente */
     
@@ -1075,7 +1086,7 @@ border-color: #003366; /* Azul escuro */
 
 /* Efeito ao focar */
 QPushButton {
-    border: 2px solid rgba(255, 255, 255, 255);
+    border: 1px solid rgba(255, 255, 255, 255);
     background-color: rgba(255, 255, 255, 20);
 }</string>
       </property>
@@ -1110,7 +1121,19 @@ QPushButton {
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(51, 156, 255);</string>
+       <string notr="true">QLabel {
+    background-color: rgb(51, 156, 255);  /* Azul */
+    color: rgb(255, 255, 255);            /* Texto branco */
+    border: 1one;                         /* Remove borda padrão */
+    
+    /* Arredonda apenas os cantos superiores */
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    
+    padding: 8px;                         /* Espaçamento interno */
+}</string>
       </property>
       <property name="text">
        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:18pt; color:#ffffff;&quot;&gt;NOVO CADASTRO&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -1128,7 +1151,7 @@ QPushButton {
       <property name="styleSheet">
        <string notr="true">QLineEdit {
     /* Borda e fundo */
-    border: 2px solid rgba(255, 255, 255, 200);
+    border: 1px solid rgba(255, 255, 255, 200);
     border-radius: 15px;
     background-color: rgba(0, 0, 0, 0); /* Totalmente transparente */
     
@@ -1144,7 +1167,7 @@ QPushButton {
 
 /* Efeito ao focar */
 QLineEdit:focus {
-    border: 2px solid rgba(255, 255, 255, 255);
+    border: 1px solid rgba(255, 255, 255, 255);
     background-color: rgba(255, 255, 255, 36);
 }</string>
       </property>
@@ -1161,7 +1184,7 @@ QLineEdit:focus {
       <property name="styleSheet">
        <string notr="true">/* Estilo do QDateEdit */
 QDateEdit {
-    border: 2px solid rgba(255, 255, 255, 200);
+    border: 1px solid rgba(255, 255, 255, 200);
     border-radius: 13px;
     background-color: transparent;
     padding: 5px 15px;
@@ -1178,7 +1201,7 @@ QDateEdit::up-button, QDateEdit::down-button {
 /* Calendário SEM BORDAS */
 QCalendarWidget {
     background-color: #2A2A2A;
-    border: 0px;
+    border: 1px;
     color: white;
 }
 
@@ -1186,7 +1209,7 @@ QCalendarWidget {
 QCalendarWidget QToolButton {
     color: white;
     background: transparent;
-    border: 0px;
+    border: 1px;
     padding: 4px;
 }
 
@@ -1206,7 +1229,7 @@ QCalendarWidget QToolButton:pressed {
 
 /* Células de data */
 QCalendarWidget QAbstractItemView {
-    border: 0px;
+    border: 1px;
     color: white;
     selection-background-color: rgb(51, 156, 255);
     selection-color: white;
@@ -1216,7 +1239,7 @@ QCalendarWidget QAbstractItemView {
 QCalendarWidget QMenu {
     background-color: #2A2A2A;
     color: white;
-    border: 0px;
+    border: 1px;
 }
 
 QCalendarWidget QMenu::item:selected {
@@ -1247,7 +1270,7 @@ QCalendarWidget QMenu::item:selected {
       <property name="styleSheet">
        <string notr="true">QLabel {
     background-color: transparent;
-    border: none;
+    border: 1one;
     color: black; /* ou qualquer cor de texto */
 }</string>
       </property>
@@ -1275,7 +1298,7 @@ QCalendarWidget QMenu::item:selected {
       <property name="styleSheet">
        <string notr="true">QLabel {
     background-color: transparent;
-    border: none;
+    border: 1one;
     color: black; /* ou qualquer cor de texto */
 }</string>
       </property>
@@ -1321,7 +1344,19 @@ QCalendarWidget QMenu::item:selected {
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(51, 156, 255);</string>
+       <string notr="true">QLabel {
+    background-color: rgb(51, 156, 255);  /* Azul */
+    color: rgb(255, 255, 255);            /* Texto branco */
+    border: 1one;                         /* Remove borda padrão */
+    
+    /* Arredonda apenas os cantos superiores */
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    
+    padding: 8px;                         /* Espaçamento interno */
+}</string>
       </property>
       <property name="text">
        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;REDEFINIR SENHA&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -1349,7 +1384,7 @@ QCalendarWidget QMenu::item:selected {
        <string notr="true">QLabel {
     background: transparent;
     color: white; /* ou o azul da paleta: #339CFF */
-    border: none;
+    border: 1one;
     padding: 0px;
 }
 </string>
@@ -1376,7 +1411,7 @@ QCalendarWidget QMenu::item:selected {
       <property name="styleSheet">
        <string notr="true">QLineEdit {
     /* Borda e fundo */
-    border: 2px solid rgba(255, 255, 255, 200);
+    border: 1px solid rgba(255, 255, 255, 200);
     border-radius: 15px;
     background-color: rgba(0, 0, 0, 0); /* Totalmente transparente */
     
@@ -1392,7 +1427,7 @@ QCalendarWidget QMenu::item:selected {
 
 /* Efeito ao focar */
 QLineEdit:focus {
-    border: 2px solid rgba(255, 255, 255, 255);
+    border: 1px solid rgba(255, 255, 255, 255);
     background-color: rgba(255, 255, 255, 20);
 }</string>
       </property>
@@ -1422,7 +1457,7 @@ QLineEdit:focus {
        <string notr="true">QLabel {
     background: transparent;
     color: white; /* ou o azul da paleta: #339CFF */
-    border: none;
+    border: 1one;
     padding: 0px;
 }
 </string>
@@ -1449,7 +1484,7 @@ QLineEdit:focus {
       <property name="styleSheet">
        <string notr="true">QLineEdit {
     /* Borda e fundo */
-    border: 2px solid rgba(255, 255, 255, 200);
+    border: 1px solid rgba(255, 255, 255, 200);
     border-radius: 15px;
     background-color: rgba(0, 0, 0, 0); /* Totalmente transparente */
     
@@ -1465,7 +1500,7 @@ QLineEdit:focus {
 
 /* Efeito ao focar */
 QLineEdit:focus {
-    border: 2px solid rgba(255, 255, 255, 255);
+    border: 1px solid rgba(255, 255, 255, 255);
     background-color: rgba(255, 255, 255, 20);
 }</string>
       </property>
@@ -1485,7 +1520,7 @@ QLineEdit:focus {
       <property name="styleSheet">
        <string notr="true">QPushButton {
     background-color: rgba(255, 255, 255, 0.5);
-    border: 2px solid rgba(255, 255, 255, 0.3); /* Borda branca translúcida */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Borda branca translúcida */
     color: #333333; /* Texto totalmente opaco */
 }
 
@@ -1498,7 +1533,7 @@ QPushButton:pressed {
     background-color: #A0B2C8; /* Azul acinzentado */
 border-color: #003366; /* Azul escuro */
 }
- QPushButton{border: 2px solid rgba(255, 255, 255, 200);
+ QPushButton{border: 1px solid rgba(255, 255, 255, 200);
     border-radius: 15px;
     background-color: rgba(0, 0, 0, 0); /* Totalmente transparente */
     
@@ -1514,7 +1549,7 @@ border-color: #003366; /* Azul escuro */
 
 /* Efeito ao focar */
 QPushButton {
-    border: 2px solid rgba(255, 255, 255, 255);
+    border: 1px solid rgba(255, 255, 255, 255);
     background-color: rgba(255, 255, 255, 20);
 }</string>
       </property>
@@ -1553,7 +1588,7 @@ QPushButton {
       <property name="styleSheet">
        <string notr="true">QPushButton {
     background-color: rgba(255, 255, 255, 0.5);
-    border: 2px solid rgba(255, 255, 255, 0.3); /* Borda branca translúcida */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Borda branca translúcida */
     color:#003366; /* Texto totalmente opaco */
 }
 
@@ -1566,7 +1601,7 @@ QPushButton:pressed {
     background-color: #A0B2C8; /* Azul acinzentado */
 border-color: #003366; /* Azul escuro */
 }
- QPushButton{border: 2px solid rgba(255, 255, 255, 200);
+ QPushButton{border: 1px solid rgba(255, 255, 255, 200);
     border-radius: 15px;
     background-color: rgba(0, 0, 0, 0); /* Totalmente transparente */
     
@@ -1582,7 +1617,7 @@ border-color: #003366; /* Azul escuro */
 
 /* Efeito ao focar */
 QPushButton {
-    border: 2px solid rgba(255, 255, 255, 255);
+    border: 1px solid rgba(255, 255, 255, 255);
     background-color: rgba(255, 255, 255, 20);
 }</string>
       </property>
@@ -1617,7 +1652,19 @@ QPushButton {
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(51, 156, 255);</string>
+       <string notr="true">QLabel {
+    background-color: rgb(51, 156, 255);  /* Azul */
+    color: rgb(255, 255, 255);            /* Texto branco */
+    border: 1one;                         /* Remove borda padrão */
+    
+    /* Arredonda apenas os cantos superiores */
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    
+    padding: 8px;                         /* Espaçamento interno */
+}</string>
       </property>
       <property name="text">
        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;ESQUECI MINHA SENHA&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -1641,7 +1688,7 @@ QPushButton {
       <property name="styleSheet">
        <string notr="true">QLineEdit {
     /* Borda e fundo */
-    border: 2px solid rgba(255, 255, 255, 200);
+    border: 1px solid rgba(255, 255, 255, 200);
     border-radius: 15px;
     background-color: rgba(0, 0, 0, 0); /* Totalmente transparente */
     
@@ -1657,7 +1704,7 @@ QPushButton {
 
 /* Efeito ao focar */
 QLineEdit:focus {
-    border: 2px solid rgba(255, 255, 255, 255);
+    border: 1px solid rgba(255, 255, 255, 255);
     background-color: rgba(255, 255, 255, 20);
 }</string>
       </property>
@@ -1687,7 +1734,7 @@ QLineEdit:focus {
        <string notr="true">QLabel {
     background: transparent;
     color: white; /* ou o azul da paleta: #339CFF */
-    border: none;
+    border: 1one;
     padding: 0px;
 }
 </string>
@@ -1718,7 +1765,7 @@ QLineEdit:focus {
        <string notr="true">QLabel {
     background: transparent;
     color: white; /* ou o azul da paleta: #339CFF */
-    border: none;
+    border: 1one;
     padding: 0px;
 }
 </string>
@@ -1745,7 +1792,7 @@ QLineEdit:focus {
       <property name="styleSheet">
        <string notr="true">QLineEdit {
     /* Borda e fundo */
-    border: 2px solid rgba(255, 255, 255, 200);
+    border: 1px solid rgba(255, 255, 255, 200);
     border-radius: 15px;
     background-color: rgba(0, 0, 0, 0); /* Totalmente transparente */
     
@@ -1761,7 +1808,7 @@ QLineEdit:focus {
 
 /* Efeito ao focar */
 QLineEdit:focus {
-    border: 2px solid rgba(255, 255, 255, 255);
+    border: 1px solid rgba(255, 255, 255, 255);
     background-color: rgba(255, 255, 255, 20);
 }</string>
       </property>
@@ -1790,7 +1837,7 @@ QLineEdit:focus {
       <property name="styleSheet">
        <string notr="true">QPushButton {
     background-color: rgba(255, 255, 255, 0.5);
-    border: 2px solid rgba(255, 255, 255, 0.3); /* Borda branca translúcida */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Borda branca translúcida */
     color:#003366; /* Texto totalmente opaco */
 }
 
@@ -1803,7 +1850,7 @@ QPushButton:pressed {
     background-color: #A0B2C8; /* Azul acinzentado */
 border-color: #003366; /* Azul escuro */
 }
- QPushButton{border: 2px solid rgba(255, 255, 255, 200);
+ QPushButton{border: 1px solid rgba(255, 255, 255, 200);
     border-radius: 15px;
     background-color: rgba(0, 0, 0, 0); /* Totalmente transparente */
     
@@ -1819,7 +1866,7 @@ border-color: #003366; /* Azul escuro */
 
 /* Efeito ao focar */
 QPushButton {
-    border: 2px solid rgba(255, 255, 255, 255);
+    border: 1px solid rgba(255, 255, 255, 255);
     background-color: rgba(255, 255, 255, 20);
 }</string>
       </property>
@@ -1839,7 +1886,7 @@ QPushButton {
       <property name="styleSheet">
        <string notr="true">QPushButton {
     background-color: rgba(255, 255, 255, 0.5);
-    border: 2px solid rgba(255, 255, 255, 0.3); /* Borda branca translúcida */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Borda branca translúcida */
     color: #333333; /* Texto totalmente opaco */
 }
 
@@ -1852,7 +1899,7 @@ QPushButton:pressed {
     background-color: #A0B2C8; /* Azul acinzentado */
 border-color: #003366; /* Azul escuro */
 }
- QPushButton{border: 2px solid rgba(255, 255, 255, 200);
+ QPushButton{border: 1px solid rgba(255, 255, 255, 200);
     border-radius: 15px;
     background-color: rgba(0, 0, 0, 0); /* Totalmente transparente */
     
@@ -1868,7 +1915,7 @@ border-color: #003366; /* Azul escuro */
 
 /* Efeito ao focar */
 QPushButton {
-    border: 2px solid rgba(255, 255, 255, 255);
+    border: 1px solid rgba(255, 255, 255, 255);
     background-color: rgba(255, 255, 255, 20);
 }</string>
       </property>

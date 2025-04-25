@@ -1,15 +1,15 @@
 from PyQt6 import uic, QtWidgets
 from PyQt6.QtCore import QDate, Qt
-from PyQt6.QtGui import QIcon
+from PyQt6.QtGui import QIcon, QPainter
 from PyQt6.QtCore import QDate
 import re
-from PyQt6.QtWidgets import QLineEdit, QMessageBox, QMainWindow, QPushButton, QGridLayout, QDialog, QTableWidgetItem
+from PyQt6.QtWidgets import (QLineEdit, QMessageBox, QMainWindow, QPushButton, QGridLayout, QDialog, QTableWidgetItem, QDialog, QLabel, QPushButton, QVBoxLayout, QHBoxLayout,
+    QDateEdit, QGridLayout, QMessageBox, QWidget, QTableWidget, QSizePolicy, QScrollArea
+)
+from PyQt6.QtCharts import QChart, QChartView, QPieSeries, QBarSeries, QBarSet, QBarCategoryAxis
 import sys, pymysql, Tela_edicao
 from chatbot import ChatBotWindow 
-from PyQt6.QtWidgets import (
-    QDialog, QLabel, QPushButton, QVBoxLayout, QHBoxLayout,
-    QDateEdit, QGridLayout, QMessageBox
-)
+
 
 banco = pymysql.connect(
     host="localhost",
@@ -23,13 +23,8 @@ class MainMenu(QMainWindow):
         super().__init__()
         # self(self)
         # Carregar a interface gráfica
-<<<<<<< HEAD
         uic.loadUi(r"C:\Users\micae\OneDrive\Área de Trabalho\HostInn\HOSTIIN\Prototipo HostInn\Telas\Menu.ui", self)
         icon_eye_closed = QIcon(r"C:\Users\micae\OneDrive\Área de Trabalho\HostInn\HOSTIIN\Prototipo HostInn\Icones\visibility_off.png")
-=======
-        uic.loadUi(r"C:\Users\ferre\Desktop\PI\HOSTIIN\Prototipo HostInn\Telas\tela_menu_principal.ui", self)
-        icon_eye_closed = QIcon("Icones/visibility_off.png")
->>>>>>> 3a5b93cdc5a23a2cc3ac74b1b5e21dde377bb297
         self.setWindowTitle("HostInn")
         self.setFixedSize(801, 752)
 
@@ -203,6 +198,8 @@ class MainMenu(QMainWindow):
         self.stackedWidget_2.hide()
         self.stackedsubMenu.hide()
     def new_room(self):
+        self.label_55.setText("NOVO QUARTO")
+        self.label_55.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.stackedWidget.setCurrentIndex(6)
         self.stackedWidget_3.setCurrentIndex(1)
         self.stackedWidget.show()
@@ -212,6 +209,8 @@ class MainMenu(QMainWindow):
         self.stackedWidget_3.setCurrentIndex(0)
 
     def menu_list_room(self):
+        self.label_55.setText("LISTAR QUARTOS")
+        self.label_55.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.stackedWidget.setCurrentIndex(6)
         self.stackedWidget_3.setCurrentIndex(0)
         self.stackedWidget.show()
@@ -1199,6 +1198,213 @@ class MainMenu(QMainWindow):
         self.label_47.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.stackedWidget_2.setCurrentIndex(3)
         self.stackedWidget_2.show()
+        self.setup_financeiro_dashboard()
+
+    def setup_financeiro_dashboard(self):
+        """Configura o dashboard no index 3 do stackedWidget_2."""
+        if self.stackedWidget_2.count() <= 3:
+            self.dashboard_page = QWidget()
+            self.stackedWidget_2.insertWidget(3, self.dashboard_page)
+        else:
+            self.dashboard_page = self.stackedWidget_2.widget(3)
+            self.clear_page(self.dashboard_page)
+
+        existing_layout = self.dashboard_page.layout()
+        if existing_layout is None:
+            layout = QVBoxLayout()
+            self.dashboard_page.setLayout(layout)
+        else:
+            layout = existing_layout
+
+
+        # --- Cards Resumo ---
+        cards_layout = QHBoxLayout()
+        self.card_recebido = self.create_card("Total Recebido", "R$ 0.00")
+        self.card_devolvido = self.create_card("Total Devolvido", "R$ 0.00")
+        self.card_aprovados = self.create_card("Aprovados", "0")
+
+        cards_layout.addWidget(self.card_recebido)
+        cards_layout.addWidget(self.card_devolvido)
+        cards_layout.addWidget(self.card_aprovados)
+
+        layout.addLayout(cards_layout)
+
+        # --- Container com barra de rolagem para os gráficos ---
+        scroll_container = QWidget()
+        scroll_container.setStyleSheet("background: transparent;")
+        scroll_area = QScrollArea()
+        scroll_area.setWidgetResizable(True)
+        scroll_area.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
+        scroll_area.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
+        scroll_area.setWidget(scroll_container)
+
+        # --- Gráficos ---
+        charts_layout = QHBoxLayout(scroll_container)
+        charts_layout.setContentsMargins(10, 10, 10, 10)
+        charts_layout.setSpacing(20)
+        
+        # Configuração dos gráficos
+        self.chart_tipo_pagamento = QChart()
+        self.chart_view_tipo = QChartView(self.chart_tipo_pagamento)
+        self.chart_view_tipo.setMinimumSize(400, 300)  # Tamanho mínimo para cada gráfico
+        self.chart_view_tipo.setRenderHint(QPainter.RenderHint.Antialiasing)
+        
+        self.chart_status = QChart()
+        self.chart_view_status = QChartView(self.chart_status)
+        self.chart_view_status.setMinimumSize(400, 300)  # Tamanho mínimo para cada gráfico
+        self.chart_view_status.setRenderHint(QPainter.RenderHint.Antialiasing)
+
+        charts_layout.addWidget(self.chart_view_tipo)
+        charts_layout.addWidget(self.chart_view_status)
+        
+        # Adiciona o container com rolagem ao layout principal
+        layout.addWidget(scroll_area)
+
+        # --- Tabela ---
+        self.table_financeiro = QTableWidget()
+        self.table_financeiro.setColumnCount(5)
+        self.table_financeiro.setHorizontalHeaderLabels(["ID", "Data", "Valor (R$)", "Tipo", "Status"])
+        layout.addWidget(self.table_financeiro)
+
+        self.load_financeiro_data()
+
+    def create_card(self, title, value):
+        """Cria um card estilizado com título e valor."""
+        card = QWidget()
+        card.setObjectName(f"card_{title.replace(' ', '_')}")  # Identificador único
+        card.setMinimumSize(200, 100)  # Tamanho aumentado para melhor visualização
+        
+        # Configuração do layout
+        layout = QVBoxLayout(card)
+        layout.setContentsMargins(15, 15, 15, 15)
+        layout.setSpacing(10)
+        
+        # Label do título
+        lbl_title = QLabel(title)
+        lbl_title.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        lbl_title.setStyleSheet("""
+            QLabel {
+                font-size: 14px;
+                color: #555555;
+                font-weight: bold;
+                padding: 5px;
+            }
+        """)
+        
+        # Label do valor
+        lbl_value = QLabel(value)
+        lbl_value.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        lbl_value.setStyleSheet("""
+            QLabel {
+                font-size: 24px;
+                font-weight: bold;
+                color: #2c3e50;
+                padding: 5px;
+            }
+        """)
+        
+        # Adiciona os widgets ao layout
+        layout.addWidget(lbl_title)
+        layout.addWidget(lbl_value)
+        
+        # Configuração visual do card
+        card.setStyleSheet("""
+            QWidget {
+                background-color: #ffffff;
+                border-radius: 10px;
+                
+            }
+        """)
+        
+        # Configuração da política de tamanho
+        card.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
+        
+        # Armazena referência para atualização futura
+        card.lbl_value = lbl_value
+        card.lbl_title = lbl_title
+        
+        return card
+
+    def load_financeiro_data(self):
+        """Carrega dados usando pymysql."""
+        db = None
+        try:
+            db = pymysql.connect(
+                host="localhost",
+                user="root",
+                password="",
+                database="bd_teste2",
+                cursorclass=pymysql.cursors.DictCursor
+            )
+            with db.cursor() as cursor:
+                cursor.execute("SELECT SUM(Valor_Recebido) as total_r, SUM(Valor_Devolvido) as total_d FROM financeiro")
+                result = cursor.fetchone()
+                
+                # Acessa os labels diretamente pela referência armazenada
+                self.card_recebido.lbl_value.setText(f"R$ {result['total_r']:,.2f}" if result['total_r'] else "R$ 0.00")
+                self.card_devolvido.lbl_value.setText(f"R$ {result['total_d']:,.2f}" if result['total_d'] else "R$ 0.00")
+
+                cursor.execute("SELECT COUNT(*) as cnt FROM financeiro WHERE Status_Pagamento = 'Pago'")
+                self.card_aprovados.lbl_value.setText(str(cursor.fetchone()['cnt']))
+
+                self.update_grafico_tipos_pagamento(cursor)
+                self.update_grafico_status(cursor)
+
+                cursor.execute("""
+                    SELECT ID_Pagamento, Data_Pagamento, Valor_Recebido, 
+                           Tipo_Pagamento, Status_Pagamento 
+                    FROM financeiro 
+                    ORDER BY Data_Pagamento DESC 
+                    LIMIT 10
+                """)
+                self.populate_table(cursor.fetchall())
+
+        except pymysql.Error as e:
+            print(f"Erro no banco de dados: {e}")
+        finally:
+            if db: db.close()
+
+    def populate_table(self, dados):
+        """Preenche a tabela com dados."""
+        self.table_financeiro.setRowCount(len(dados))
+        for row, item in enumerate(dados):
+            self.table_financeiro.setItem(row, 0, QTableWidgetItem(str(item['ID_Pagamento'])))
+            self.table_financeiro.setItem(row, 1, QTableWidgetItem(str(item['Data_Pagamento'])))
+            self.table_financeiro.setItem(row, 2, QTableWidgetItem(f"R$ {item['Valor_Recebido']:,.2f}"))
+            self.table_financeiro.setItem(row, 3, QTableWidgetItem(str(item['Tipo_Pagamento'])))
+            self.table_financeiro.setItem(row, 4, QTableWidgetItem(str(item['Status_Pagamento'])))
+
+    def update_grafico_tipos_pagamento(self, cursor):
+        """Atualiza gráfico de tipos de pagamento."""
+        cursor.execute("SELECT Tipo_Pagamento, COUNT(*) as total FROM financeiro GROUP BY Tipo_Pagamento")
+        resultados = cursor.fetchall()
+
+        series = QPieSeries()
+        for row in resultados:
+            series.append(f"{row['Tipo_Pagamento']} ({row['total']})", row['total'])
+
+        self.chart_tipo_pagamento.removeAllSeries()
+        self.chart_tipo_pagamento.addSeries(series)
+        self.chart_tipo_pagamento.setTitle("Distribuição por Tipo de Pagamento")
+
+    def update_grafico_status(self, cursor):
+        """Atualiza gráfico de status dos pagamentos."""
+        cursor.execute("SELECT Status_Pagamento, COUNT(*) as total FROM financeiro GROUP BY Status_Pagamento")
+        resultados = cursor.fetchall()
+
+        series = QPieSeries()
+        for row in resultados:
+            series.append(f"{row['Status_Pagamento']} ({row['total']})", row['total'])
+
+        self.chart_status.removeAllSeries()
+        self.chart_status.addSeries(series)
+        self.chart_status.setTitle("Status dos Pagamentos")
+
+    def clear_page(self, page):
+        """Limpa widgets de uma página específica."""
+        for widget in page.findChildren(QWidget):
+            widget.setParent(None)
+            widget.deleteLater()
 
 
     def financial_list(self):

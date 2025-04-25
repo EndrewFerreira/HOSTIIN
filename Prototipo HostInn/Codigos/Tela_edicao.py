@@ -17,7 +17,7 @@ banco = pymysql.connect(
 class EditWindow(QMainWindow):
     def __init__(self, atualizar_callback=None):
         super().__init__()
-        uic.loadUi(r"C:\Users\ferre\Desktop\PI\HOSTIIN\Prototipo HostInn\Telas\tela_editar.ui", self)
+        uic.loadUi(r"C:\Users\micae\OneDrive\Área de Trabalho\HostInn\HOSTIIN\Prototipo HostInn\Telas\tela_editar.ui", self)
 
         self.atualizar_callback = atualizar_callback
 
