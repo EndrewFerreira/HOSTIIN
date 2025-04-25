@@ -1,12 +1,12 @@
 from PyQt6 import uic, QtWidgets
 from PyQt6.QtCore import QDate, Qt
-from PyQt6.QtGui import QIcon, QPainter
+from PyQt6.QtGui import QIcon, QPainter, QColor
 from PyQt6.QtCore import QDate
 import re
 from PyQt6.QtWidgets import (QLineEdit, QMessageBox, QMainWindow, QPushButton, QGridLayout, QDialog, QTableWidgetItem, QDialog, QLabel, QPushButton, QVBoxLayout, QHBoxLayout,
     QDateEdit, QGridLayout, QMessageBox, QWidget, QTableWidget, QSizePolicy, QScrollArea
 )
-from PyQt6.QtCharts import QChart, QChartView, QPieSeries, QBarSeries, QBarSet, QBarCategoryAxis
+from PyQt6.QtCharts import QChart, QChartView, QPieSeries, QBarSeries, QBarSet, QBarCategoryAxis, QValueAxis
 import sys, pymysql, Tela_edicao
 from chatbot import ChatBotWindow 
 
@@ -87,6 +87,7 @@ class MainMenu(QMainWindow):
         ####################### FINANCEIRO ##############################
         self.bttn_financial.clicked.connect(self.financial_menu)
         self.bttn_movements.clicked.connect(self.movements_subMenu)
+        self.pushButton_despesas.connect(self.cadastr_despesas)
         self.bttn_newPayment.clicked.connect(self.novo_pagamento)
         self.bttn_validate.clicked.connect(self.validate_payment)
         self.bttn_voltar.clicked.connect(self.back_confirmation)
@@ -773,6 +774,9 @@ class MainMenu(QMainWindow):
         self.stackedWidget.show()
         self.stackedWidget_2.hide()
 
+    def cadastr_despesas(self):
+        0
+
     def novo_pagamento(self):
         self.label_47.setText("NOVO PAGAMENTO")
         self.label_47.setAlignment(Qt.AlignmentFlag.AlignCenter)
@@ -1216,16 +1220,15 @@ class MainMenu(QMainWindow):
         else:
             layout = existing_layout
 
-
         # --- Cards Resumo ---
         cards_layout = QHBoxLayout()
-        self.card_recebido = self.create_card("Total Recebido", "R$ 0.00")
-        self.card_devolvido = self.create_card("Total Devolvido", "R$ 0.00")
-        self.card_aprovados = self.create_card("Aprovados", "0")
+        self.card_ganhos = self.create_card("Total Ganhos", "R$ 0.00")
+        self.card_gastos = self.create_card("Total Gastos", "R$ 0.00")
+        self.card_balanco = self.create_card("Balanço", "R$ 0.00")
 
-        cards_layout.addWidget(self.card_recebido)
-        cards_layout.addWidget(self.card_devolvido)
-        cards_layout.addWidget(self.card_aprovados)
+        cards_layout.addWidget(self.card_ganhos)
+        cards_layout.addWidget(self.card_gastos)
+        cards_layout.addWidget(self.card_balanco)
 
         layout.addLayout(cards_layout)
 
@@ -1243,21 +1246,28 @@ class MainMenu(QMainWindow):
         charts_layout.setContentsMargins(10, 10, 10, 10)
         charts_layout.setSpacing(20)
         
-        # Configuração dos gráficos
+        # Gráfico de tipos de pagamento (Pizza)
         self.chart_tipo_pagamento = QChart()
         self.chart_view_tipo = QChartView(self.chart_tipo_pagamento)
-        self.chart_view_tipo.setMinimumSize(400, 300)  # Tamanho mínimo para cada gráfico
+        self.chart_view_tipo.setMinimumSize(400, 300)
         self.chart_view_tipo.setRenderHint(QPainter.RenderHint.Antialiasing)
         
+        # Gráfico de status (Pizza)
         self.chart_status = QChart()
         self.chart_view_status = QChartView(self.chart_status)
-        self.chart_view_status.setMinimumSize(400, 300)  # Tamanho mínimo para cada gráfico
+        self.chart_view_status.setMinimumSize(400, 300)
         self.chart_view_status.setRenderHint(QPainter.RenderHint.Antialiasing)
+        
+        # Novo gráfico de categorias de despesas (Barras horizontais)
+        self.chart_categorias = QChart()
+        self.chart_view_categorias = QChartView(self.chart_categorias)
+        self.chart_view_categorias.setMinimumSize(400, 300)
+        self.chart_view_categorias.setRenderHint(QPainter.RenderHint.Antialiasing)
 
         charts_layout.addWidget(self.chart_view_tipo)
         charts_layout.addWidget(self.chart_view_status)
+        charts_layout.addWidget(self.chart_view_categorias)
         
-        # Adiciona o container com rolagem ao layout principal
         layout.addWidget(scroll_area)
 
         # --- Tabela ---
@@ -1337,22 +1347,28 @@ class MainMenu(QMainWindow):
                 cursorclass=pymysql.cursors.DictCursor
             )
             with db.cursor() as cursor:
-                cursor.execute("SELECT SUM(Valor_Recebido) as total_r, SUM(Valor_Devolvido) as total_d FROM financeiro")
-                result = cursor.fetchone()
+                # Consulta para ganhos (tabela financeiro)
+                cursor.execute("SELECT SUM(Valor_Recebido) as total_r FROM financeiro")
+                total_ganhos = cursor.fetchone()['total_r'] or 0
                 
-                # Acessa os labels diretamente pela referência armazenada
-                self.card_recebido.lbl_value.setText(f"R$ {result['total_r']:,.2f}" if result['total_r'] else "R$ 0.00")
-                self.card_devolvido.lbl_value.setText(f"R$ {result['total_d']:,.2f}" if result['total_d'] else "R$ 0.00")
+                # Consulta para gastos (tabela despesas)
+                cursor.execute("SELECT SUM(valor) as total_gastos FROM despesas")
+                total_gastos = cursor.fetchone()['total_gastos'] or 0
+                
+                # Atualiza os cards
+                self.card_ganhos.lbl_value.setText(f"R$ {total_ganhos:,.2f}")
+                self.card_gastos.lbl_value.setText(f"R$ {total_gastos:,.2f}")
+                self.card_balanco.lbl_value.setText(f"R$ {total_ganhos - total_gastos:,.2f}")
 
-                cursor.execute("SELECT COUNT(*) as cnt FROM financeiro WHERE Status_Pagamento = 'Pago'")
-                self.card_aprovados.lbl_value.setText(str(cursor.fetchone()['cnt']))
-
+                # Atualiza gráficos
                 self.update_grafico_tipos_pagamento(cursor)
                 self.update_grafico_status(cursor)
+                self.update_grafico_categorias(cursor)
 
+                # Preenche tabela com dados financeiros
                 cursor.execute("""
                     SELECT ID_Pagamento, Data_Pagamento, Valor_Recebido, 
-                           Tipo_Pagamento, Status_Pagamento 
+                        Tipo_Pagamento, Status_Pagamento 
                     FROM financeiro 
                     ORDER BY Data_Pagamento DESC 
                     LIMIT 10
@@ -1386,6 +1402,47 @@ class MainMenu(QMainWindow):
         self.chart_tipo_pagamento.removeAllSeries()
         self.chart_tipo_pagamento.addSeries(series)
         self.chart_tipo_pagamento.setTitle("Distribuição por Tipo de Pagamento")
+
+    def update_grafico_categorias(self, cursor):
+        """Atualiza gráfico de barras horizontais com categorias de despesas."""
+        cursor.execute("""
+            SELECT categorias_despesas as categoria, COUNT(*) as quantidade, SUM(valor) as total 
+            FROM despesas 
+            GROUP BY categorias_despesas 
+            ORDER BY quantidade DESC
+            LIMIT 10
+        """)
+        resultados = cursor.fetchall()
+
+        series = QBarSeries()
+        bar_set = QBarSet("Categorias de Despesas")
+        
+        categories = []
+        for row in resultados:
+            bar_set.append(row['quantidade'])
+            categories.append(f"{row['categoria']}\n(R$ {row['total']:,.2f})")
+        
+        series.append(bar_set)
+        
+        self.chart_categorias.removeAllSeries()
+        self.chart_categorias.addSeries(series)
+        self.chart_categorias.setTitle("Top Categorias de Despesas")
+        self.chart_categorias.setAnimationOptions(QChart.AnimationOption.SeriesAnimations)
+        
+        # Configura eixo Y com as categorias
+        axis_y = QBarCategoryAxis()
+        axis_y.append(categories)
+        self.chart_categorias.addAxis(axis_y, Qt.AlignmentFlag.AlignLeft)
+        series.attachAxis(axis_y)
+        
+        # Configura eixo X com valores
+        axis_x = QValueAxis()
+        self.chart_categorias.addAxis(axis_x, Qt.AlignmentFlag.AlignBottom)
+        series.attachAxis(axis_x)
+        
+        # Estilização
+        self.chart_categorias.legend().setVisible(False)
+        bar_set.setColor(QColor("#3498db"))
 
     def update_grafico_status(self, cursor):
         """Atualiza gráfico de status dos pagamentos."""
