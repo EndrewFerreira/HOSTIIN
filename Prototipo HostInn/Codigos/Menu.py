@@ -23,10 +23,15 @@ class MainMenu(QMainWindow):
         super().__init__()
         # self(self)
         # Carregar a interface gráfica
+<<<<<<< HEAD
+        uic.loadUi(r"C:\Users\micae\OneDrive\Área de Trabalho\HostInn\HOSTIIN\Prototipo HostInn\Telas\Menu.ui", self)
+        icon_eye_closed = QIcon(r"C:\Users\micae\OneDrive\Área de Trabalho\HostInn\HOSTIIN\Prototipo HostInn\Icones\visibility_off.png")
+=======
         uic.loadUi(r"C:\Users\ferre\Desktop\PI\HOSTIIN\Prototipo HostInn\Telas\tela_menu_principal.ui", self)
         icon_eye_closed = QIcon("Icones/visibility_off.png")
+>>>>>>> 3a5b93cdc5a23a2cc3ac74b1b5e21dde377bb297
         self.setWindowTitle("HostInn")
-        # self.setFixedSize(801, 652)
+        self.setFixedSize(801, 752)
 
         self.lineEdit_21.textChanged.connect(self.calcular)
         self.comboBox_4.currentTextChanged.connect(self.atualizar_valor_pagamento)
@@ -38,7 +43,7 @@ class MainMenu(QMainWindow):
         self.stackedMenu.setCurrentIndex(0)
         self.stackedWidget.hide()
         self.stackedWidget_2.hide()
-        self.frame.hide()
+        # self.frame.hide()
         self.comboBox_4.currentTextChanged.connect(self.on_tipo_pagamento_changed)
         self.comboBox_5.currentTextChanged.connect(self.calcular_valor_parcela)
         self.lineEdit_23.textChanged.connect(self.calcular_valor_parcela)
@@ -423,8 +428,8 @@ class MainMenu(QMainWindow):
         self.comboBox.setCurrentIndex(0)
 
     def password_view(self):
-        icon_eye_open = QIcon("Icones/visibility.png")
-        icon_eye_closed = QIcon("Icones/visibility_off.png")
+        icon_eye_open = QIcon(r"C:\Users\micae\OneDrive\Área de Trabalho\HostInn\HOSTIIN\Prototipo HostInn\Icones\visibility.png")
+        icon_eye_closed = QIcon(r"C:\Users\micae\OneDrive\Área de Trabalho\HostInn\HOSTIIN\Prototipo HostInn\Icones\visibility_off.png")
         """
         Alterna o modo de exibição das senhas e troca os ícones dos botões de visualização.
         """
@@ -761,12 +766,17 @@ class MainMenu(QMainWindow):
 
     # ===========================( FINANCEIRO )=============================================
     def movements_subMenu(self):
+        self.label_47.setText("FINANCEIRO")
+        self.label_47.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.stackedsubMenu.setCurrentIndex(0)
         self.stackedWidget.setCurrentIndex(4)
         self.stackedsubMenu.show()
         self.stackedWidget.show()
+        self.stackedWidget_2.hide()
 
     def novo_pagamento(self):
+        self.label_47.setText("NOVO PAGAMENTO")
+        self.label_47.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.stackedWidget_2.setCurrentIndex(0)
         self.stackedWidget_2.show()
 
@@ -1176,16 +1186,24 @@ class MainMenu(QMainWindow):
 
 
     def report_subMenu(self):
+        self.label_47.setText("FINANCEIRO")
+        self.label_47.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.stackedsubMenu.setCurrentIndex(1)
         self.stackedWidget.setCurrentIndex(4)
         self.stackedsubMenu.show()
         self.stackedWidget.show()
+        self.stackedWidget_2.hide()
 
     def dashboard(self):
+        self.label_47.setText("DASHBOARD")
+        self.label_47.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.stackedWidget_2.setCurrentIndex(3)
         self.stackedWidget_2.show()
 
+
     def financial_list(self):
+        self.label_47.setText("FLUXO DE CAIXA")
+        self.label_47.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.stackedWidget_2.setCurrentIndex(4)
         self.stackedWidget_2.show()
 
