@@ -132,7 +132,7 @@ class ChatBotWindow(QMainWindow):
         self.avatar_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.avatar_label.setStyleSheet("border-radius: 75px; background-color: #3d3d3d;")
         try:
-            pixmap = QPixmap("curupira.png")
+            pixmap = QPixmap(r"C:\Users\11054836\Desktop\PI\HOSTIIN\Prototipo HostInn\Icones\curupira.png")
             if not pixmap.isNull():
                 pixmap = pixmap.scaled(150, 150, Qt.AspectRatioMode.KeepAspectRatio)
                 self.avatar_label.setPixmap(pixmap)
