@@ -5121,7 +5121,7 @@ QTableCornerButton::section {
         </column>
         <column>
          <property name="text">
-          <string>Metodo</string>
+          <string>Metodo de pagamento</string>
          </property>
         </column>
        </widget>
@@ -5212,7 +5212,7 @@ QLineEdit:focus {
 }</string>
         </property>
         <property name="placeholderText">
-         <string>Informe o valor entregue pelo cliente...</string>
+         <string>Informe a descrição da despesa...</string>
         </property>
        </widget>
        <widget class="QPushButton" name="editButton_12">
@@ -5262,7 +5262,7 @@ QLineEdit:focus {
        <widget class="QLabel" name="label_71">
         <property name="geometry">
          <rect>
-          <x>450</x>
+          <x>420</x>
           <y>60</y>
           <width>81</width>
           <height>16</height>
@@ -5318,7 +5318,7 @@ QLineEdit:focus {
          <rect>
           <x>90</x>
           <y>60</y>
-          <width>111</width>
+          <width>101</width>
           <height>30</height>
          </rect>
         </property>
@@ -5406,7 +5406,7 @@ QComboBox QAbstractItemView {
        <widget class="QComboBox" name="comboBox_8">
         <property name="geometry">
          <rect>
-          <x>360</x>
+          <x>330</x>
           <y>60</y>
           <width>81</width>
           <height>30</height>
@@ -5473,12 +5473,12 @@ QComboBox QAbstractItemView {
          </property>
         </item>
        </widget>
-       <widget class="QDateEdit" name="dateEdit_5">
+       <widget class="QDateEdit" name="dateEdit_despesa">
         <property name="geometry">
          <rect>
-          <x>540</x>
+          <x>508</x>
           <y>60</y>
-          <width>79</width>
+          <width>121</width>
           <height>30</height>
          </rect>
         </property>
@@ -5548,11 +5548,14 @@ QCalendarWidget QMenu::item:selected {
     color: white;
 }</string>
         </property>
+        <property name="calendarPopup">
+         <bool>true</bool>
+        </property>
        </widget>
        <widget class="QLabel" name="label_69">
         <property name="geometry">
          <rect>
-          <x>210</x>
+          <x>200</x>
           <y>60</y>
           <width>141</width>
           <height>21</height>
@@ -5573,7 +5576,7 @@ QCalendarWidget QMenu::item:selected {
 </string>
         </property>
         <property name="text">
-         <string>Tipo de pagamento</string>
+         <string>Tipo pagamento</string>
         </property>
        </widget>
        <widget class="QLineEdit" name="lineEdit_31">
@@ -5581,7 +5584,7 @@ QCalendarWidget QMenu::item:selected {
          <rect>
           <x>490</x>
           <y>110</y>
-          <width>133</width>
+          <width>141</width>
           <height>30</height>
          </rect>
         </property>
@@ -5609,7 +5612,7 @@ QLineEdit:focus {
 }</string>
         </property>
         <property name="placeholderText">
-         <string>Informe o valor total da reserva...</string>
+         <string>Informe o valor...</string>
         </property>
        </widget>
        <widget class="QLabel" name="label_75">
@@ -6340,7 +6343,7 @@ QWidget {
 }</string>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="page_55">
        <widget class="QPushButton" name="bttn_newPayment">
