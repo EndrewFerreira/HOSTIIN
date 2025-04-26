@@ -1,15 +1,17 @@
 from PyQt6 import uic, QtWidgets
 from PyQt6.QtCore import QDate, Qt
-from PyQt6.QtGui import QIcon
+from PyQt6.QtGui import QIcon, QPainter, QColor
 from PyQt6.QtCore import QDate
 import re
-from PyQt6.QtWidgets import QLineEdit, QMessageBox, QMainWindow, QPushButton, QGridLayout, QDialog, QTableWidgetItem
+from PyQt6.QtWidgets import (QLineEdit, QMessageBox, QMainWindow, QPushButton, QGridLayout, QDialog, QTableWidgetItem, QDialog, QLabel, QPushButton, QVBoxLayout, QHBoxLayout,
+    QDateEdit, QGridLayout, QMessageBox, QWidget, QTableWidget, QSizePolicy, QScrollArea
+)
+from PyQt6.QtCharts import QChart, QChartView, QPieSeries, QBarSeries, QBarSet, QBarCategoryAxis, QValueAxis
 import sys, pymysql, Tela_edicao
 from chatbot import ChatBotWindow 
-from PyQt6.QtWidgets import (
-    QDialog, QLabel, QPushButton, QVBoxLayout, QHBoxLayout,
-    QDateEdit, QGridLayout, QMessageBox
-)
+from PyQt6.QtWidgets import QScrollArea, QVBoxLayout
+
+
 
 banco = pymysql.connect(
     host="localhost",
@@ -23,8 +25,8 @@ class MainMenu(QMainWindow):
         super().__init__()
         # self(self)
         # Carregar a interface gráfica
-        uic.loadUi(r"C:\Users\micae\OneDrive\Área de Trabalho\HostInn\HOSTIIN\Prototipo HostInn\Telas\Menu.ui", self)
-        icon_eye_closed = QIcon(r"C:\Users\micae\OneDrive\Área de Trabalho\HostInn\HOSTIIN\Prototipo HostInn\Icones\visibility_off.png")
+        uic.loadUi(r"C:\Users\11054836\Desktop\PI\HOSTIIN\Prototipo HostInn\Telas\Menu.ui", self)
+        icon_eye_closed = QIcon(r"C:\Users\11054836\Desktop\PI\HOSTIIN\Prototipo HostInn\Icones\visibility_off.png")
         self.setWindowTitle("HostInn")
         self.setFixedSize(801, 752)
 
@@ -73,20 +75,24 @@ class MainMenu(QMainWindow):
         self.bttn_listClient.clicked.connect(self.list_client)
         self.dellButton.clicked.connect(self.deletar_clientes)
         self.editButton.clicked.connect(self.editar_clientes)
+        self.btn_pesquisa.clicked.connect(self.filtrar_clientes)
+
         ##################### RESERVA ###################################
         self.bttn_reserva.clicked.connect(self.reserva_menu)
         self.bttn_nova_reserva.clicked.connect(self.nova_reserva)
         self.bttn_listar_reserva.clicked.connect(self.listar_reservas)
         self.bttn_close.clicked.connect(self.close_reserva)
-        self.pushButton_buscar.clicked.connect(self.filtrar_clientes)
+        self.pushButton_buscar.clicked.connect(self.filtrar_Rclientes)
         self.bttn_confirm.clicked.connect(self.puxar_cliente)
         self.bttn_reservar.clicked.connect(self.reservar)
         self.bttn_listar_reserva.clicked.connect(self.listar_reservas)
         self.btn_cancel.clicked.connect(self.cancelar_reserva)
         self.botao_aplicar_filtro.clicked.connect(self.aplicar_filtro_reservas)
+        self.btn_ver_reserva.clicked.connect(self.abrir_janela_verificacao_quartos)
         ####################### FINANCEIRO ##############################
         self.bttn_financial.clicked.connect(self.financial_menu)
         self.bttn_movements.clicked.connect(self.movements_subMenu)
+        # self.pushButton_despesas.clicked.connect(self.cadastr_despesas)
         self.bttn_newPayment.clicked.connect(self.novo_pagamento)
         self.bttn_validate.clicked.connect(self.validate_payment)
         self.bttn_voltar.clicked.connect(self.back_confirmation)
@@ -198,6 +204,8 @@ class MainMenu(QMainWindow):
         self.stackedWidget_2.hide()
         self.stackedsubMenu.hide()
     def new_room(self):
+        self.label_55.setText("NOVO QUARTO")
+        self.label_55.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.stackedWidget.setCurrentIndex(6)
         self.stackedWidget_3.setCurrentIndex(1)
         self.stackedWidget.show()
@@ -207,6 +215,8 @@ class MainMenu(QMainWindow):
         self.stackedWidget_3.setCurrentIndex(0)
 
     def menu_list_room(self):
+        self.label_55.setText("LISTAR QUARTOS")
+        self.label_55.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.stackedWidget.setCurrentIndex(6)
         self.stackedWidget_3.setCurrentIndex(0)
         self.stackedWidget.show()
@@ -292,21 +302,21 @@ class MainMenu(QMainWindow):
         cursor = banco.cursor()
         cursor.execute("SELECT * FROM clientes")
         dados_lidos = cursor.fetchall()
-        self.tableWidget.clearContents()  # Limpa os dados antigos
+        self.tablewidgetClientes.clearContents()  # Limpa os dados antigos
         # print("⚡ Atualizando tabela de clientes!")
 
-        self.tableWidget.setRowCount(len(dados_lidos))
-        self.tableWidget.setColumnCount(5)  # Ajustado para ignorar a primeira coluna
+        self.tablewidgetClientes.setRowCount(len(dados_lidos))
+        self.tablewidgetClientes.setColumnCount(5)  # Ajustado para ignorar a primeira coluna
 
         for i, linha in enumerate(dados_lidos):
             for j, valor in enumerate(linha[1:]):  # Pulando o ID
-                self.tableWidget.setItem(i, j, QtWidgets.QTableWidgetItem(str(valor)))
-        self.tableWidget.repaint()  # Força um repaint da tabela
+                self.tablewidgetClientes.setItem(i, j, QtWidgets.QTableWidgetItem(str(valor)))
+        self.tablewidgetClientes.repaint()  # Força um repaint da tabela
 
 
 
     def deletar_clientes(self):
-        linha = self.tableWidget.currentRow()
+        linha = self.tablewidgetClientes.currentRow()
         if linha == -1:
             QMessageBox.warning(self, "Erro", "Selecione um cliente para deletar.")
             return
@@ -335,12 +345,12 @@ class MainMenu(QMainWindow):
         if confirmacao == QMessageBox.StandardButton.Yes:
             cursor.execute('DELETE FROM clientes WHERE ID_Cliente = %s', (valor_id,))
             banco.commit()
-            self.tableWidget.removeRow(linha)
+            self.tablewidgetClientes.removeRow(linha)
             QMessageBox.information(self, "Sucesso", "Cliente deletado com sucesso!")
 
 
     def editar_clientes(self):
-        linha = self.tableWidget.currentRow()
+        linha = self.tablewidgetClientes.currentRow()
         if linha == -1:
             QMessageBox.warning(self, "Erro", "Selecione um cliente para editar.")
             return
@@ -354,6 +364,42 @@ class MainMenu(QMainWindow):
         self.tela_editar = Tela_edicao.EditWindow(atualizar_callback=self.list_client)
         self.tela_editar.puxar_cliente(cliente)
         self.tela_editar.show()
+
+    def filtrar_clientes(self):
+        criterio = self.combo_pesquisa.currentText()
+        termo_busca = self.line_pesquisa_CLIENTE.text().strip()
+
+        if not termo_busca:
+            QMessageBox.warning(self, "Aviso", "Digite algo para pesquisar.")
+            return
+
+        cursor = banco.cursor()
+
+        if criterio == "CPF":
+            comando_sql = "SELECT * FROM clientes WHERE CPF LIKE %s"
+            cursor.execute(comando_sql, (f"%{termo_busca}%",))
+        elif criterio == "Nome":
+            comando_sql = "SELECT * FROM clientes WHERE Nome LIKE %s"
+            cursor.execute(comando_sql, (f"%{termo_busca}%",))
+        else:
+            QMessageBox.warning(self, "Erro", "Selecione um critério válido de pesquisa.")
+            return
+
+        dados_filtrados = cursor.fetchall()
+
+        if not dados_filtrados:
+            QMessageBox.information(self, "Aviso", "Nenhum cliente encontrado.")
+            self.tablewidgetClientes.setRowCount(0)
+            return
+
+        self.tablewidgetClientes.setRowCount(len(dados_filtrados))
+        self.tablewidgetClientes.setColumnCount(5)  # Exibe: Nome, CPF, Email, Telefone, Endereço
+
+        for i, linha in enumerate(dados_filtrados):
+            for j, valor in enumerate(linha[1:]):  # Ignora o ID_Cliente
+                item = QtWidgets.QTableWidgetItem(str(valor))
+                self.tablewidgetClientes.setItem(i, j, item)
+
 
 
 
@@ -571,7 +617,7 @@ class MainMenu(QMainWindow):
             for col_idx, dado in enumerate(cliente):
                 self.tableWidget_6.setItem(row_idx, col_idx, QtWidgets.QTableWidgetItem(str(dado)))
 
-    def filtrar_clientes(self):
+    def filtrar_Rclientes(self):
         """Filtra os clientes com base na ComboBox e no valor digitado."""
         campo = self.comboBox_filtro.currentText()
         valor = self.lineEdit_filtro.text().strip()
@@ -762,6 +808,9 @@ class MainMenu(QMainWindow):
         self.stackedsubMenu.show()
         self.stackedWidget.show()
         self.stackedWidget_2.hide()
+
+    def cadastr_despesas(self):
+        0
 
     def novo_pagamento(self):
         self.label_47.setText("NOVO PAGAMENTO")
@@ -1188,6 +1237,266 @@ class MainMenu(QMainWindow):
         self.label_47.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.stackedWidget_2.setCurrentIndex(3)
         self.stackedWidget_2.show()
+        self.setup_financeiro_dashboard()
+
+    def setup_financeiro_dashboard(self):
+        """Configura o dashboard no index 3 do stackedWidget_2."""
+        if self.stackedWidget_2.count() <= 3:
+            self.dashboard_page = QWidget()
+            self.stackedWidget_2.insertWidget(3, self.dashboard_page)
+        else:
+            self.dashboard_page = self.stackedWidget_2.widget(3)
+            self.clear_page(self.dashboard_page)
+
+        existing_layout = self.dashboard_page.layout()
+        if existing_layout is None:
+            layout = QVBoxLayout()
+            self.dashboard_page.setLayout(layout)
+        else:
+            layout = existing_layout
+
+        # --- Cards Resumo ---
+        cards_layout = QHBoxLayout()
+        self.card_ganhos = self.create_card("Total Ganhos", "R$ 0.00")
+        self.card_gastos = self.create_card("Total Gastos", "R$ 0.00")
+        self.card_balanco = self.create_card("Balanço", "R$ 0.00")
+
+        cards_layout.addWidget(self.card_ganhos)
+        cards_layout.addWidget(self.card_gastos)
+        cards_layout.addWidget(self.card_balanco)
+
+        layout.addLayout(cards_layout)
+
+        # --- Container com barra de rolagem para os gráficos ---
+        scroll_container = QWidget()
+        scroll_container.setStyleSheet("background: transparent;")
+        scroll_area = QScrollArea()
+        scroll_area.setWidgetResizable(True)
+        scroll_area.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
+        scroll_area.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
+        scroll_area.setWidget(scroll_container)
+
+        # --- Gráficos ---
+        charts_layout = QHBoxLayout(scroll_container)
+        charts_layout.setContentsMargins(10, 10, 10, 10)
+        charts_layout.setSpacing(20)
+        
+        # Gráfico de tipos de pagamento (Pizza)
+        self.chart_tipo_pagamento = QChart()
+        self.chart_view_tipo = QChartView(self.chart_tipo_pagamento)
+        self.chart_view_tipo.setMinimumSize(400, 300)
+        self.chart_view_tipo.setRenderHint(QPainter.RenderHint.Antialiasing)
+        
+        # Gráfico de status (Pizza)
+        self.chart_status = QChart()
+        self.chart_view_status = QChartView(self.chart_status)
+        self.chart_view_status.setMinimumSize(400, 300)
+        self.chart_view_status.setRenderHint(QPainter.RenderHint.Antialiasing)
+        
+        # Novo gráfico de categorias de despesas (Barras horizontais)
+        self.chart_categorias = QChart()
+        self.chart_view_categorias = QChartView(self.chart_categorias)
+        self.chart_view_categorias.setMinimumSize(400, 300)
+        self.chart_view_categorias.setRenderHint(QPainter.RenderHint.Antialiasing)
+
+        charts_layout.addWidget(self.chart_view_tipo)
+        charts_layout.addWidget(self.chart_view_status)
+        charts_layout.addWidget(self.chart_view_categorias)
+        
+        layout.addWidget(scroll_area)
+
+        # --- Tabela ---
+        self.table_financeiro = QTableWidget()
+        self.table_financeiro.setColumnCount(5)
+        self.table_financeiro.setHorizontalHeaderLabels(["ID", "Data", "Valor (R$)", "Tipo", "Status"])
+        layout.addWidget(self.table_financeiro)
+
+        self.load_financeiro_data()
+
+    def create_card(self, title, value):
+        """Cria um card estilizado com título e valor."""
+        card = QWidget()
+        card.setObjectName(f"card_{title.replace(' ', '_')}")  # Identificador único
+        card.setMinimumSize(200, 100)  # Tamanho aumentado para melhor visualização
+        
+        # Configuração do layout
+        layout = QVBoxLayout(card)
+        layout.setContentsMargins(15, 15, 15, 15)
+        layout.setSpacing(10)
+        
+        # Label do título
+        lbl_title = QLabel(title)
+        lbl_title.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        lbl_title.setStyleSheet("""
+            QLabel {
+                font-size: 14px;
+                color: #555555;
+                font-weight: bold;
+                padding: 5px;
+            }
+        """)
+        
+        # Label do valor
+        lbl_value = QLabel(value)
+        lbl_value.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        lbl_value.setStyleSheet("""
+            QLabel {
+                font-size: 24px;
+                font-weight: bold;
+                color: #2c3e50;
+                padding: 5px;
+            }
+        """)
+        
+        # Adiciona os widgets ao layout
+        layout.addWidget(lbl_title)
+        layout.addWidget(lbl_value)
+        
+        # Configuração visual do card
+        card.setStyleSheet("""
+            QWidget {
+                background-color: #ffffff;
+                border-radius: 10px;
+                
+            }
+        """)
+        
+        # Configuração da política de tamanho
+        card.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
+        
+        # Armazena referência para atualização futura
+        card.lbl_value = lbl_value
+        card.lbl_title = lbl_title
+        
+        return card
+
+    def load_financeiro_data(self):
+        """Carrega dados usando pymysql."""
+        db = None
+        try:
+            db = pymysql.connect(
+                host="localhost",
+                user="root",
+                password="",
+                database="bd_teste2",
+                cursorclass=pymysql.cursors.DictCursor
+            )
+            with db.cursor() as cursor:
+                # Consulta para ganhos (tabela financeiro)
+                cursor.execute("SELECT SUM(Valor_Recebido) as total_r FROM financeiro")
+                total_ganhos = cursor.fetchone()['total_r'] or 0
+                
+                # Consulta para gastos (tabela despesas)
+                cursor.execute("SELECT SUM(valor) as total_gastos FROM despesas")
+                total_gastos = cursor.fetchone()['total_gastos'] or 0
+                
+                # Atualiza os cards
+                self.card_ganhos.lbl_value.setText(f"R$ {total_ganhos:,.2f}")
+                self.card_gastos.lbl_value.setText(f"R$ {total_gastos:,.2f}")
+                self.card_balanco.lbl_value.setText(f"R$ {total_ganhos - total_gastos:,.2f}")
+
+                # Atualiza gráficos
+                self.update_grafico_tipos_pagamento(cursor)
+                self.update_grafico_status(cursor)
+                self.update_grafico_categorias(cursor)
+
+                # Preenche tabela com dados financeiros
+                cursor.execute("""
+                    SELECT ID_Pagamento, Data_Pagamento, Valor_Recebido, 
+                        Tipo_Pagamento, Status_Pagamento 
+                    FROM financeiro 
+                    ORDER BY Data_Pagamento DESC 
+                    LIMIT 10
+                """)
+                self.populate_table(cursor.fetchall())
+
+        except pymysql.Error as e:
+            print(f"Erro no banco de dados: {e}")
+        finally:
+            if db: db.close()
+
+    def populate_table(self, dados):
+        """Preenche a tabela com dados."""
+        self.table_financeiro.setRowCount(len(dados))
+        for row, item in enumerate(dados):
+            self.table_financeiro.setItem(row, 0, QTableWidgetItem(str(item['ID_Pagamento'])))
+            self.table_financeiro.setItem(row, 1, QTableWidgetItem(str(item['Data_Pagamento'])))
+            self.table_financeiro.setItem(row, 2, QTableWidgetItem(f"R$ {item['Valor_Recebido']:,.2f}"))
+            self.table_financeiro.setItem(row, 3, QTableWidgetItem(str(item['Tipo_Pagamento'])))
+            self.table_financeiro.setItem(row, 4, QTableWidgetItem(str(item['Status_Pagamento'])))
+
+    def update_grafico_tipos_pagamento(self, cursor):
+        """Atualiza gráfico de tipos de pagamento."""
+        cursor.execute("SELECT Tipo_Pagamento, COUNT(*) as total FROM financeiro GROUP BY Tipo_Pagamento")
+        resultados = cursor.fetchall()
+
+        series = QPieSeries()
+        for row in resultados:
+            series.append(f"{row['Tipo_Pagamento']} ({row['total']})", row['total'])
+
+        self.chart_tipo_pagamento.removeAllSeries()
+        self.chart_tipo_pagamento.addSeries(series)
+        self.chart_tipo_pagamento.setTitle("Distribuição por Tipo de Pagamento")
+
+    def update_grafico_categorias(self, cursor):
+        """Atualiza gráfico de barras horizontais com categorias de despesas."""
+        cursor.execute("""
+            SELECT categorias_despesas as categoria, COUNT(*) as quantidade, SUM(valor) as total 
+            FROM despesas 
+            GROUP BY categorias_despesas 
+            ORDER BY quantidade DESC
+            LIMIT 10
+        """)
+        resultados = cursor.fetchall()
+
+        series = QBarSeries()
+        bar_set = QBarSet("Categorias de Despesas")
+        
+        categories = []
+        for row in resultados:
+            bar_set.append(row['quantidade'])
+            categories.append(f"{row['categoria']}\n(R$ {row['total']:,.2f})")
+        
+        series.append(bar_set)
+        
+        self.chart_categorias.removeAllSeries()
+        self.chart_categorias.addSeries(series)
+        self.chart_categorias.setTitle("Top Categorias de Despesas")
+        self.chart_categorias.setAnimationOptions(QChart.AnimationOption.SeriesAnimations)
+        
+        # Configura eixo Y com as categorias
+        axis_y = QBarCategoryAxis()
+        axis_y.append(categories)
+        self.chart_categorias.addAxis(axis_y, Qt.AlignmentFlag.AlignLeft)
+        series.attachAxis(axis_y)
+        
+        # Configura eixo X com valores
+        axis_x = QValueAxis()
+        self.chart_categorias.addAxis(axis_x, Qt.AlignmentFlag.AlignBottom)
+        series.attachAxis(axis_x)
+        
+        # Estilização
+        self.chart_categorias.legend().setVisible(False)
+        bar_set.setColor(QColor("#3498db"))
+
+    def update_grafico_status(self, cursor):
+        """Atualiza gráfico de status dos pagamentos."""
+        cursor.execute("SELECT Status_Pagamento, COUNT(*) as total FROM financeiro GROUP BY Status_Pagamento")
+        resultados = cursor.fetchall()
+
+        series = QPieSeries()
+        for row in resultados:
+            series.append(f"{row['Status_Pagamento']} ({row['total']})", row['total'])
+
+        self.chart_status.removeAllSeries()
+        self.chart_status.addSeries(series)
+        self.chart_status.setTitle("Status dos Pagamentos")
+
+    def clear_page(self, page):
+        """Limpa widgets de uma página específica."""
+        for widget in page.findChildren(QWidget):
+            widget.setParent(None)
+            widget.deleteLater()
 
 
     def financial_list(self):
@@ -1285,26 +1594,29 @@ class MainMenu(QMainWindow):
 
 
     #                        Visualização de Quartos Filtrados
+    
     def listar_quartos_filtrados(self, filtro_status):
         """Abre uma janela com um grid layout exibindo botões quadrados para os quartos com status filtrado."""
         dialog = QDialog(self)
         dialog.setWindowTitle(f"Quartos {filtro_status}")
-        dialog.setFixedSize(400, 300)
-        layout = QGridLayout(dialog)
-        
+        dialog.setFixedSize(700, 500)
+
+        # ⬇️ Scroll area para poder rolar se tiver muitos quartos
+        scroll_area = QtWidgets.QScrollArea(dialog)
+        scroll_area.setWidgetResizable(True)
+
+        scroll_widget = QWidget()
+        layout = QGridLayout(scroll_widget)
+
         cursor = banco.cursor()
-        # Filtra os quartos pelo status
-        comando_SQL = "SELECT Numero, Status_Quarto FROM quartos WHERE Status_Quarto = %s"
-        cursor.execute(comando_SQL, (filtro_status,))
+        cursor.execute("SELECT Numero, Status_Quarto FROM quartos WHERE Status_Quarto = %s", (filtro_status,))
         quartos = cursor.fetchall()
-        
+
         colunas = 3
-        for index, quarto in enumerate(quartos):
-            numero = quarto[0]
-            # Cria um botão para o quarto filtrado
+        for index, (numero, _) in enumerate(quartos):
             btn = QPushButton(str(numero), dialog)
             btn.setFixedSize(90, 80)
-            # Define a cor com base no status informado
+
             if filtro_status.lower() in ['disponível', 'disponivel']:
                 cor = 'green'
             elif filtro_status.lower() == 'ocupado':
@@ -1314,12 +1626,17 @@ class MainMenu(QMainWindow):
             else:
                 cor = 'gray'
             btn.setStyleSheet(f"background-color: {cor}; font-weight: bold;")
-            
+
             row = index // colunas
             col = index % colunas
             layout.addWidget(btn, row, col)
-        
-        dialog.setLayout(layout)
+
+        scroll_area.setWidget(scroll_widget)
+
+        final_layout = QVBoxLayout()
+        final_layout.addWidget(scroll_area)
+        dialog.setLayout(final_layout)
+
         dialog.exec()
 
     def listar_quartos_disponivel(self):
@@ -1330,6 +1647,8 @@ class MainMenu(QMainWindow):
 
     def listar_quartos_manutencao(self):
         self.listar_quartos_filtrados("Em manutenção")
+
+
 
     def chatbot(self):
         if not hasattr(self, 'chatbot_window'):
@@ -1343,7 +1662,7 @@ class MainMenu(QMainWindow):
     def abrir_janela_verificacao_quartos(self):
         dialog = QDialog()
         dialog.setWindowTitle("Verificar Disponibilidade dos Quartos")
-        dialog.setFixedSize(500, 450)
+        dialog.setFixedSize(520, 500)
 
         checkin = QDateEdit()
         checkin.setCalendarPopup(True)
@@ -1361,13 +1680,13 @@ class MainMenu(QMainWindow):
         layout_datas.addWidget(QLabel("Check-out:"))
         layout_datas.addWidget(checkout)
 
+        # Layout dos botões de quartos
         layout_quartos = QGridLayout()
         botoes_quartos = []
 
-        # Buscar quartos do banco
         cursor = banco.cursor()
         cursor.execute("SELECT ID_Quartos, Numero FROM quartos")
-        quartos = cursor.fetchall()  # Ex: [(1, 101), (2, 102), ...]
+        quartos = cursor.fetchall()
 
         for i, (id_quarto, numero) in enumerate(quartos):
             btn = QPushButton(f"Quarto {numero}")
@@ -1377,10 +1696,18 @@ class MainMenu(QMainWindow):
             col = i % 4
             layout_quartos.addWidget(btn, row, col)
 
+        # Envolve os botões de quartos num widget rolável
+        widget_scroll = QWidget()
+        widget_scroll.setLayout(layout_quartos)
+
+        scroll_area = QScrollArea()
+        scroll_area.setWidgetResizable(True)
+        scroll_area.setWidget(widget_scroll)
+
         layout_principal = QVBoxLayout()
         layout_principal.addLayout(layout_datas)
         layout_principal.addWidget(btn_verificar)
-        layout_principal.addLayout(layout_quartos)
+        layout_principal.addWidget(scroll_area)
 
         dialog.setLayout(layout_principal)
 
@@ -1409,6 +1736,7 @@ class MainMenu(QMainWindow):
 
         btn_verificar.clicked.connect(verificar)
         dialog.exec()
+
     
     def editar_quarto(self):
         linha = self.tableWidget_2.currentRow()
