@@ -316,13 +316,7 @@ class MainMenu(QMainWindow):
         cursor.execute("SELECT ID_Cliente FROM clientes")
         dados_lidos = cursor.fetchall()
         valor_id = dados_lidos[linha][0]
-        # cursor.execute("DELETE FROM clientes WHERE ID_Cliente = %s", (valor_id,))
-        # banco.commit()
-
-        # self.tableWidget.removeRow(linha)
-        # QMessageBox.information(self, "Sucesso", "Cliente deletado com sucesso!")
-
-        # Verifica se há reservas associadas ao cliente
+    
         cursor.execute("SELECT COUNT(*) FROM reserva WHERE ID_Cliente = %s", (valor_id,))
         reservas_associadas = cursor.fetchone()[0]
 
