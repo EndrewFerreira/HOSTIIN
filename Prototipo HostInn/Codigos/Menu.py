@@ -25,7 +25,7 @@ class MainMenu(QMainWindow):
         super().__init__()
         # self(self)
         # Carregar a interface gráfica
-        uic.loadUi(r"C:\Users\11054836\Desktop\PI\HOSTIIN\Prototipo HostInn\Telas\Menu.ui", self)
+        uic.loadUi(r"C:\Users\ferre\Desktop\PI\HOSTIIN\Prototipo HostInn\Telas\Menu.ui", self)
         icon_eye_closed = QIcon(r"C:\Users\11054836\Desktop\PI\HOSTIIN\Prototipo HostInn\Icones\visibility_off.png")
         self.setWindowTitle("HostInn")
         self.setFixedSize(801, 752)
@@ -299,20 +299,23 @@ class MainMenu(QMainWindow):
     def list_client(self):
         self.stackedWidget.setCurrentIndex(0)  # ou o índice correto da tela de clientes
         self.stackedWidget.show()
+
         cursor = banco.cursor()
-        cursor.execute("SELECT * FROM clientes")
-        dados_lidos = cursor.fetchall()
-        self.tablewidgetClientes.clearContents()  # Limpa os dados antigos
-        # print("⚡ Atualizando tabela de clientes!")
+        comando_SQL = "SELECT * FROM clientes"
+        cursor.execute(comando_SQL)
+        clientes = cursor.fetchall()
 
-        self.tablewidgetClientes.setRowCount(len(dados_lidos))
-        self.tablewidgetClientes.setColumnCount(5)  # Ajustado para ignorar a primeira coluna
+        self.tablewidgetClientes.clearContents()  # Limpa conteúdo antigo
+        self.tablewidgetClientes.setRowCount(0)   # Zera linhas
 
-        for i, linha in enumerate(dados_lidos):
-            for j, valor in enumerate(linha[1:]):  # Pulando o ID
+        self.tablewidgetClientes.setRowCount(len(clientes))
+        self.tablewidgetClientes.setColumnCount(6)  # Ajuste conforme suas colunas
+
+        for i, cliente in enumerate(clientes):
+            for j, valor in enumerate(cliente):
                 self.tablewidgetClientes.setItem(i, j, QtWidgets.QTableWidgetItem(str(valor)))
-        self.tablewidgetClientes.repaint()  # Força um repaint da tabela
 
+        cursor.close()
 
 
     def deletar_clientes(self):
@@ -526,9 +529,10 @@ class MainMenu(QMainWindow):
         dados_lidos = cursor.fetchall()
         user = dados_lidos[linha]
 
-        self.tela_editar = Tela_edicao.EditWindow()         # <- sem passar user
-        self.tela_editar.puxar_user(user)                   # <- passa aqui
+        self.tela_editar = Tela_edicao.EditWindow(atualizar_callback=self.list_user)
+        self.tela_editar.puxar_user(user)
         self.tela_editar.show()
+
 
 
    
