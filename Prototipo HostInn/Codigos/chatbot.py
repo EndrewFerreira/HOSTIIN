@@ -20,10 +20,19 @@ class DatabaseWorker(QObject):
     finished = pyqtSignal(str)
     error = pyqtSignal(str)
 
-    def __init__(self):
+    def __init__(self, query_type, **kwargs):
         super().__init__()
-        self.query_type = None
-        self.kwargs = {}
+        self.query_type = query_type
+        self.kwargs = kwargs
+
+    # def run(self):
+    #     # tudo igual ao seu código atual
+
+
+    # def __init__(self):
+    #     super().__init__()
+    #     self.query_type = None
+    #     self.kwargs = {}
 
     def set_query(self, query_type, **kwargs):
         self.query_type = query_type
@@ -243,8 +252,7 @@ QPushButton#help_button { background:qlineargradient(x1:0,y1:0,x2:1,y2:1,stop:0 
 
     def _run_query(self, qtype, **kwargs):
         thread = QThread(self)
-        worker = DatabaseWorker()
-        worker.set_query(qtype, **kwargs)
+        worker = DatabaseWorker(qtype, **kwargs)
         worker.moveToThread(thread)
 
         thread.started.connect(worker.run)
@@ -261,6 +269,7 @@ QPushButton#help_button { background:qlineargradient(x1:0,y1:0,x2:1,y2:1,stop:0 
         thread.finished.connect(lambda: self._threads.remove(thread))
 
         thread.start()
+
 
     def _on_finished(self, resp):
         self._append_message(resp, sender='bot')
