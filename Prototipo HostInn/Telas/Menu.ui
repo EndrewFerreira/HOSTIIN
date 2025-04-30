@@ -51,7 +51,7 @@ QWidget {
      <enum>QFrame::Raised</enum>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="stackedWidgetPage1">
      <widget class="QToolButton" name="bttn_financial">
@@ -1505,7 +1505,7 @@ QPushButton {
 }</string>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>4</number>
     </property>
     <widget class="QWidget" name="page">
      <widget class="QLabel" name="label_46">
@@ -3118,7 +3118,7 @@ QPushButton {
        </rect>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="page_13">
        <widget class="QLabel" name="label_17">
@@ -5065,7 +5065,7 @@ QComboBox QAbstractItemView {
        </widget>
       </widget>
       <widget class="QWidget" name="page_11">
-       <widget class="QWidget" name="verticalLayoutWidget_12">
+       <widget class="QWidget" name="verticalLayoutWidget_12" native="true">
         <property name="geometry">
          <rect>
           <x>0</x>
@@ -5104,31 +5104,74 @@ QTableCornerButton::section {
     border: 1px;
 }</string>
         </property>
-        <column>
-         <property name="text">
-          <string>Categoria</string>
+        <widget class="QTableWidget" name="tableWidget_7">
+         <property name="enabled">
+          <bool>true</bool>
          </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Descrição</string>
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>160</y>
+           <width>647</width>
+           <height>371</height>
+          </rect>
          </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Valor</string>
+         <property name="styleSheet">
+          <string notr="true">/* Remove todos os espaços e bordas entre os cabeçalhos */
+QHeaderView {
+    border: 1px;                         /* Remove bordas externas */
+    margin: 0px;                         /* Remove margens */
+    padding: 0px;                        /* Remove espaçamento */
+}
+
+/* Cabeçalho horizontal (linha de títulos) */
+QHeaderView::section:horizontal {
+    background-color: rgba(255, 255, 255, 20);  /* Azul */
+    color: white;
+    border: 1px;                         /* Sem bordas */
+    padding: 5px 10px;                   /* Espaçamento interno */
+}
+
+/* Cabeçalho vertical (linha lateral) */
+QHeaderView::section:vertical {
+    background-color: rgba(255, 255, 255, 20);  /* Mesmo azul */
+    color: white;
+    border: 1px;
+    padding: 10px 5px;
+}
+
+/* Canto superior esquerdo (onde os cabeçalhos se encontram) */
+QTableCornerButton::section {
+    background-color: rgba(255, 255, 255, 20);  /* Azul para unificar visual */
+    border: 1px;
+}</string>
          </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Data</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Metodo de pagamento</string>
-         </property>
-        </column>
+         <column>
+          <property name="text">
+           <string>Categoria</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Descrição</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Valor</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Data</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Metodo de pagamento</string>
+          </property>
+         </column>
+        </widget>
        </widget>
        <widget class="QLabel" name="label_67">
         <property name="geometry">
@@ -6348,7 +6391,7 @@ QWidget {
 }</string>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="page_55">
        <widget class="QPushButton" name="bttn_newPayment">
@@ -6364,7 +6407,7 @@ QWidget {
          <string>Novo Pagamento</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton_30">
+       <widget class="QPushButton" name="pushButton_despesas">
         <property name="geometry">
          <rect>
           <x>160</x>
