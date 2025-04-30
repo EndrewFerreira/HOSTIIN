@@ -8,7 +8,7 @@ from PyQt6.QtWidgets import (QLineEdit, QMessageBox, QMainWindow, QPushButton, Q
 )
 from PyQt6.QtCharts import QChart, QChartView, QPieSeries, QBarSeries, QBarSet, QBarCategoryAxis, QValueAxis
 import sys, pymysql, Tela_edicao
-from chatbot import ChatBotWindow 
+from chatbot import ChatBotWindow
 from PyQt6.QtWidgets import QScrollArea, QVBoxLayout
 
 
@@ -25,7 +25,7 @@ class MainMenu(QMainWindow):
         super().__init__()
         # self(self)
         # Carregar a interface gráfica
-        uic.loadUi(r"C:\Users\11054836\Desktop\PI\HOSTIIN\Prototipo HostInn\Telas\menu_alternativo_degrade.ui", self)
+        uic.loadUi(r"C:\Users\11054836\Desktop\PI\HOSTIIN\Prototipo HostInn\Telas\Menu.ui", self)
         icon_eye_closed = QIcon(r"C:\Users\11054836\Desktop\PI\HOSTIIN\Prototipo HostInn\Icones\visibility_off.png")
         self.setWindowTitle("HostInn")
         self.setFixedSize(801, 752)
@@ -1762,12 +1762,9 @@ class MainMenu(QMainWindow):
     def listar_quartos_manutencao(self):
         self.listar_quartos_filtrados("Em manutenção")
 
-
-
     def chatbot(self):
         if not hasattr(self, 'chatbot_window'):
             self.chatbot_window = ChatBotWindow(self)
-        
         # Sempre traz a janela para frente
         self.chatbot_window.show()
         self.chatbot_window.raise_()
