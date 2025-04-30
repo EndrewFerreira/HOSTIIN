@@ -51,7 +51,7 @@ QWidget {
      <enum>QFrame::Raised</enum>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="stackedWidgetPage1">
      <widget class="QToolButton" name="bttn_financial">
@@ -415,8 +415,10 @@ QToolButton:pressed {
       </property>
       <property name="styleSheet">
        <string notr="true">QLabel {
-    background-color: rgb(51, 156, 255);  /* Azul */
-    color: rgb(255, 255, 255);            /* Texto branco */
+	background-color: qlineargradient(spread:pad, x1:0, y1:0, x1:0, y1:1, 
+                                 stop:0 rgba(0, 50, 150, 255), 
+                                 stop:1 rgba(51, 156, 255, 255));
+	color: rgb(255, 255, 255);
     border: 1one;                         /* Remove borda padrão */
     
     /* Arredonda apenas os cantos superiores */
@@ -426,7 +428,8 @@ QToolButton:pressed {
     border-bottom-right-radius: 0px;
     
     padding: 8px;                         /* Espaçamento interno */
-}</string>
+}
+</string>
       </property>
       <property name="text">
        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;MENU&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -564,8 +567,10 @@ QToolButton:pressed {
       </property>
       <property name="styleSheet">
        <string notr="true">QLabel {
-    background-color: rgb(51, 156, 255);  /* Azul */
-    color: rgb(255, 255, 255);            /* Texto branco */
+	background-color: qlineargradient(spread:pad, x1:0, y1:0, x1:0, y1:1, 
+                                 stop:0 rgba(0, 50, 150, 255), 
+                                 stop:1 rgba(51, 156, 255, 255));
+	color: rgb(255, 255, 255);
     border: 1one;                         /* Remove borda padrão */
     
     /* Arredonda apenas os cantos superiores */
@@ -575,7 +580,8 @@ QToolButton:pressed {
     border-bottom-right-radius: 0px;
     
     padding: 8px;                         /* Espaçamento interno */
-}</string>
+}
+</string>
       </property>
       <property name="text">
        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;CLIENTES&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -658,8 +664,10 @@ color:#003366;
       </property>
       <property name="styleSheet">
        <string notr="true">QLabel {
-    background-color: rgb(51, 156, 255);  /* Azul */
-    color: rgb(255, 255, 255);            /* Texto branco */
+	background-color: qlineargradient(spread:pad, x1:0, y1:0, x1:0, y1:1, 
+                                 stop:0 rgba(0, 50, 150, 255), 
+                                 stop:1 rgba(51, 156, 255, 255));
+	color: rgb(255, 255, 255);
     border: 1one;                         /* Remove borda padrão */
     
     /* Arredonda apenas os cantos superiores */
@@ -669,7 +677,8 @@ color:#003366;
     border-bottom-right-radius: 0px;
     
     padding: 8px;                         /* Espaçamento interno */
-}</string>
+}
+</string>
       </property>
       <property name="text">
        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;USUÁRIOS&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -918,8 +927,10 @@ QToolButton:pressed {
       </property>
       <property name="styleSheet">
        <string notr="true">QLabel {
-    background-color: rgb(51, 156, 255);  /* Azul */
-    color: rgb(255, 255, 255);            /* Texto branco */
+	background-color: qlineargradient(spread:pad, x1:0, y1:0, x1:0, y1:1, 
+                                 stop:0 rgba(0, 50, 150, 255), 
+                                 stop:1 rgba(51, 156, 255, 255));
+	color: rgb(255, 255, 255);
     border: 1one;                         /* Remove borda padrão */
     
     /* Arredonda apenas os cantos superiores */
@@ -929,7 +940,8 @@ QToolButton:pressed {
     border-bottom-right-radius: 0px;
     
     padding: 8px;                         /* Espaçamento interno */
-}</string>
+}
+</string>
       </property>
       <property name="text">
        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Financeiro&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -1068,8 +1080,10 @@ color:#003366;
       </property>
       <property name="styleSheet">
        <string notr="true">QLabel {
-    background-color: rgb(51, 156, 255);  /* Azul */
-    color: rgb(255, 255, 255);            /* Texto branco */
+	background-color: qlineargradient(spread:pad, x1:0, y1:0, x1:0, y1:1, 
+                                 stop:0 rgba(0, 50, 150, 255), 
+                                 stop:1 rgba(51, 156, 255, 255));
+	color: rgb(255, 255, 255);
     border: 1one;                         /* Remove borda padrão */
     
     /* Arredonda apenas os cantos superiores */
@@ -1079,7 +1093,8 @@ color:#003366;
     border-bottom-right-radius: 0px;
     
     padding: 8px;                         /* Espaçamento interno */
-}</string>
+}
+</string>
       </property>
       <property name="text">
        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Quartos&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -1273,8 +1288,10 @@ color:#003366;
       </property>
       <property name="styleSheet">
        <string notr="true">QLabel {
-    background-color: rgb(51, 156, 255);  /* Azul */
-    color: rgb(255, 255, 255);            /* Texto branco */
+	background-color: qlineargradient(spread:pad, x1:0, y1:0, x1:0, y1:1, 
+                                 stop:0 rgba(0, 50, 150, 255), 
+                                 stop:1 rgba(51, 156, 255, 255));
+	color: rgb(255, 255, 255);
     border: 1one;                         /* Remove borda padrão */
     
     /* Arredonda apenas os cantos superiores */
@@ -1284,7 +1301,8 @@ color:#003366;
     border-bottom-right-radius: 0px;
     
     padding: 8px;                         /* Espaçamento interno */
-}</string>
+}
+</string>
       </property>
       <property name="text">
        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Reserva&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -1505,7 +1523,7 @@ QPushButton {
 }</string>
     </property>
     <property name="currentIndex">
-     <number>4</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="page">
      <widget class="QLabel" name="label_46">
@@ -1525,7 +1543,14 @@ QPushButton {
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(51, 156, 255);</string>
+       <string notr="true">QLabel {
+	background-color: qlineargradient(spread:pad, x1:0, y1:0, x1:0, y1:1, 
+                                 stop:0 rgba(0, 50, 150, 255), 
+                                 stop:1 rgba(51, 156, 255, 255));
+	color: rgb(255, 255, 255);
+    border: 1one;                         /* Remove borda padrão */
+    }
+</string>
       </property>
       <property name="text">
        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:18pt; color:#ffffff;&quot;&gt;LISTA DE CLIENTES&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -1819,7 +1844,14 @@ QLineEdit:focus {
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(51, 156, 255);</string>
+       <string notr="true">QLabel {
+	background-color: qlineargradient(spread:pad, x1:0, y1:0, x1:0, y1:1, 
+                                 stop:0 rgba(0, 50, 150, 255), 
+                                 stop:1 rgba(51, 156, 255, 255));
+	color: rgb(255, 255, 255);
+    border: 1one;                         /* Remove borda padrão */
+    }
+</string>
       </property>
       <property name="text">
        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:18pt; color:#ffffff;&quot;&gt;CADASTRO DE CLIENTES&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -2224,7 +2256,14 @@ QLineEdit:focus {
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(51, 156, 255);</string>
+       <string notr="true">QLabel {
+	background-color: qlineargradient(spread:pad, x1:0, y1:0, x1:0, y1:1, 
+                                 stop:0 rgba(0, 50, 150, 255), 
+                                 stop:1 rgba(51, 156, 255, 255));
+	color: rgb(255, 255, 255);
+    border: 1one;                         /* Remove borda padrão */
+    }
+</string>
       </property>
       <property name="text">
        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:18pt; color:#ffffff;&quot;&gt;LISTA DE USUÁRIOS&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -2428,7 +2467,14 @@ QPushButton {
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(51, 156, 255);</string>
+       <string notr="true">QLabel {
+	background-color: qlineargradient(spread:pad, x1:0, y1:0, x1:0, y1:1, 
+                                 stop:0 rgba(0, 50, 150, 255), 
+                                 stop:1 rgba(51, 156, 255, 255));
+	color: rgb(255, 255, 255);
+    border: 1one;                         /* Remove borda padrão */
+    }
+</string>
       </property>
       <property name="text">
        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:18pt; color:#ffffff;&quot;&gt;CADASTRO DE USUÁRIO&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -6363,7 +6409,14 @@ QTableCornerButton::section {
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(51, 156, 255);</string>
+       <string notr="true">QLabel {
+	background-color: qlineargradient(spread:pad, x1:0, y1:0, x1:0, y1:1, 
+                                 stop:0 rgba(0, 50, 150, 255), 
+                                 stop:1 rgba(51, 156, 255, 255));
+	color: rgb(255, 255, 255);
+    border: 1one;                         /* Remove borda padrão */
+    }
+</string>
       </property>
       <property name="text">
        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;FINANCEIRO&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -6472,7 +6525,14 @@ QWidget {
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(51, 156, 255);</string>
+       <string notr="true">QLabel {
+	background-color: qlineargradient(spread:pad, x1:0, y1:0, x1:0, y1:1, 
+                                 stop:0 rgba(0, 50, 150, 255), 
+                                 stop:1 rgba(51, 156, 255, 255));
+	color: rgb(255, 255, 255);
+    border: 1one;                         /* Remove borda padrão */
+    }
+</string>
       </property>
       <property name="text">
        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;LISTAR TODO OS QUARTOS&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -6872,7 +6932,7 @@ QStackedWidget &gt; QWidget {
 }</string>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="page_19">
        <widget class="QPushButton" name="btn_tabelaq">
@@ -7569,7 +7629,14 @@ QComboBox QAbstractItemView {
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(51, 156, 255);</string>
+       <string notr="true">QLabel {
+	background-color: qlineargradient(spread:pad, x1:0, y1:0, x1:0, y1:1, 
+                                 stop:0 rgba(0, 50, 150, 255), 
+                                 stop:1 rgba(51, 156, 255, 255));
+	color: rgb(255, 255, 255);
+    border: 1one;                         /* Remove borda padrão */
+    }
+</string>
       </property>
       <property name="text">
        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;QUARTOS&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -7596,7 +7663,14 @@ QComboBox QAbstractItemView {
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(51, 156, 255);</string>
+       <string notr="true">QLabel {
+	background-color: qlineargradient(spread:pad, x1:0, y1:0, x1:0, y1:1, 
+                                 stop:0 rgba(0, 50, 150, 255), 
+                                 stop:1 rgba(51, 156, 255, 255));
+	color: rgb(255, 255, 255);
+    border: 1one;                         /* Remove borda padrão */
+    }
+</string>
       </property>
       <property name="text">
        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;NOVA RESERVA&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -8978,7 +9052,14 @@ QLineEdit:focus {
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(51, 156, 255);</string>
+       <string notr="true">QLabel {
+	background-color: qlineargradient(spread:pad, x1:0, y1:0, x1:0, y1:1, 
+                                 stop:0 rgba(0, 50, 150, 255), 
+                                 stop:1 rgba(51, 156, 255, 255));
+	color: rgb(255, 255, 255);
+    border: 1one;                         /* Remove borda padrão */
+    }
+</string>
       </property>
       <property name="text">
        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;LISTAR RESERVAS&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>

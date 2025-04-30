@@ -1973,7 +1973,7 @@ QPushButton {
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>../imagens/imagens/Logo_Hostinn.png</pixmap>
+     <pixmap>../../../../../Downloads/logo_hostinn.webp</pixmap>
     </property>
     <property name="scaledContents">
      <bool>true</bool>
