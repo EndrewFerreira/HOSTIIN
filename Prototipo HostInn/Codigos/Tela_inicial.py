@@ -191,11 +191,7 @@ icon_eye_open = QIcon(r"C:\Users\11054836\Desktop\PI\HOSTIIN\Prototipo HostInn\I
 icon_eye_closed = QIcon(r"C:\Users\11054836\Desktop\PI\HOSTIIN\Prototipo HostInn\Icones\visibility_off.png")
 
 #===========================( Login/ Cadastro )=============================================
-<<<<<<< HEAD
 login_register = uic.loadUi(r"C:\Users\11052806\Desktop\HostInn\HOSTIIN-1\Prototipo HostInn\Telas\Login_Cadastro_1.ui")
-=======
-login_register = uic.loadUi(r"C:\Users\11054836\Desktop\PI\HOSTIIN\Prototipo HostInn\Telas\Login_Cadastro_1.ui")
->>>>>>> b0832d1aa1dbe5bbab49894c680f786bb655e4ef
 login_register.setWindowTitle("HostInn")
 login_register.lineEdit_2.setInputMask("000.000.000-00;_")
 login_register.stackedWidget.setCurrentIndex(0)
