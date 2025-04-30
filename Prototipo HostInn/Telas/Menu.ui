@@ -1505,7 +1505,7 @@ QPushButton {
 }</string>
     </property>
     <property name="currentIndex">
-     <number>7</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="page">
      <widget class="QLabel" name="label_46">
@@ -1578,6 +1578,11 @@ QTableCornerButton::section {
     border: 1px;
 }</string>
       </property>
+      <column>
+       <property name="text">
+        <string>ID</string>
+       </property>
+      </column>
       <column>
        <property name="text">
         <string>Nome</string>

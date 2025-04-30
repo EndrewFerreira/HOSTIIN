@@ -25,7 +25,7 @@ class MainMenu(QMainWindow):
         super().__init__()
         # self(self)
         # Carregar a interface gráfica
-        uic.loadUi(r"C:\Users\11054836\Desktop\PI\HOSTIIN\Prototipo HostInn\Telas\Menu.ui", self)
+        uic.loadUi(r"C:\Users\ferre\Desktop\PI\HOSTIIN\Prototipo HostInn\Telas\Menu.ui", self)
         icon_eye_closed = QIcon(r"C:\Users\11054836\Desktop\PI\HOSTIIN\Prototipo HostInn\Icones\visibility_off.png")
         self.setWindowTitle("HostInn")
         self.setFixedSize(801, 752)
@@ -304,20 +304,23 @@ class MainMenu(QMainWindow):
     def list_client(self):
         self.stackedWidget.setCurrentIndex(0)  # ou o índice correto da tela de clientes
         self.stackedWidget.show()
+
         cursor = banco.cursor()
-        cursor.execute("SELECT * FROM clientes")
-        dados_lidos = cursor.fetchall()
-        self.tablewidgetClientes.clearContents()  # Limpa os dados antigos
-        # print("⚡ Atualizando tabela de clientes!")
+        comando_SQL = "SELECT * FROM clientes"
+        cursor.execute(comando_SQL)
+        clientes = cursor.fetchall()
 
-        self.tablewidgetClientes.setRowCount(len(dados_lidos))
-        self.tablewidgetClientes.setColumnCount(5)  # Ajustado para ignorar a primeira coluna
+        self.tablewidgetClientes.clearContents()  # Limpa conteúdo antigo
+        self.tablewidgetClientes.setRowCount(0)   # Zera linhas
 
-        for i, linha in enumerate(dados_lidos):
-            for j, valor in enumerate(linha[1:]):  # Pulando o ID
+        self.tablewidgetClientes.setRowCount(len(clientes))
+        self.tablewidgetClientes.setColumnCount(6)  # Ajuste conforme suas colunas
+
+        for i, cliente in enumerate(clientes):
+            for j, valor in enumerate(cliente):
                 self.tablewidgetClientes.setItem(i, j, QtWidgets.QTableWidgetItem(str(valor)))
-        self.tablewidgetClientes.repaint()  # Força um repaint da tabela
 
+        cursor.close()
 
 
     def deletar_clientes(self):
@@ -331,13 +334,7 @@ class MainMenu(QMainWindow):
         cursor.execute("SELECT ID_Cliente FROM clientes")
         dados_lidos = cursor.fetchall()
         valor_id = dados_lidos[linha][0]
-        # cursor.execute("DELETE FROM clientes WHERE ID_Cliente = %s", (valor_id,))
-        # banco.commit()
-
-        # self.tableWidget.removeRow(linha)
-        # QMessageBox.information(self, "Sucesso", "Cliente deletado com sucesso!")
-
-        # Verifica se há reservas associadas ao cliente
+    
         cursor.execute("SELECT COUNT(*) FROM reserva WHERE ID_Cliente = %s", (valor_id,))
         reservas_associadas = cursor.fetchone()[0]
 
@@ -537,9 +534,10 @@ class MainMenu(QMainWindow):
         dados_lidos = cursor.fetchall()
         user = dados_lidos[linha]
 
-        self.tela_editar = Tela_edicao.EditWindow()         # <- sem passar user
-        self.tela_editar.puxar_user(user)                   # <- passa aqui
+        self.tela_editar = Tela_edicao.EditWindow(atualizar_callback=self.list_user)
+        self.tela_editar.puxar_user(user)
         self.tela_editar.show()
+
 
 
    
@@ -1665,29 +1663,52 @@ class MainMenu(QMainWindow):
 
     # ===========================( QUARTO )=============================================
     def cadastar_novo_quarto(self):
-        numero_quarto = self.linha_numero_quarto.text()
+        numero_quarto = self.linha_numero_quarto.text().strip()
         tipo_quarto = self.combo_tipo.currentText()
         status = self.combo_stts.currentText()
-        preco = self.linha_preco.text()
-        capacidade = self.linha_capacidade.text()
-        descricao = self.linha_desc.text()
+        preco = self.linha_preco.text().strip()
+        capacidade = self.linha_capacidade.text().strip()
+        descricao = self.linha_desc.text().strip()
 
-        cursor = banco.cursor()
-        comando_SQL = ('INSERT INTO quartos (Numero, Tipo, Status_Quarto, '
-                       'Valor_Tipo, Capacidade_Quarto, Descricao) '
-                       'VALUES (%s, %s, %s, %s, %s, %s)')
-        dados = (int(numero_quarto), str(tipo_quarto), str(status), int(preco), str(capacidade), str(descricao))
-        cursor.execute(comando_SQL, dados)
-        banco.commit()
+        # Verificar se campos obrigatórios estão preenchidos
+        if not numero_quarto or not preco:
+            QMessageBox.warning(self, "Erro", "Preencha o número do quarto e o preço antes de cadastrar.")
+            return
 
-        self.linha_numero_quarto.clear()
-        self.linha_preco.clear()
-        self.linha_capacidade.clear()
-        self.linha_desc.clear()
+        try:
+            dados = (
+                int(numero_quarto),
+                tipo_quarto,
+                status,
+                int(preco),
+                capacidade,
+                descricao
+            )
 
-        QMessageBox.information(self, "Sucesso", "Novo quarto registrado com sucesso!")
-        self.carregar_quartos()  # ← atualiza a comboBox com os quartos disponíveis
-        # self.stackedWidget.setCurrentIndex(7)  # ← vai para a tela de reserva (troque o número se for diferente)
+            cursor = banco.cursor()
+            comando_SQL = (
+                'INSERT INTO quartos (Numero, Tipo, Status_Quarto, '
+                'Valor_Tipo, Capacidade_Quarto, Descricao) '
+                'VALUES (%s, %s, %s, %s, %s, %s)'
+            )
+            cursor.execute(comando_SQL, dados)
+            banco.commit()
+
+            # Limpa os campos depois de cadastrar
+            self.linha_numero_quarto.clear()
+            self.linha_preco.clear()
+            self.linha_capacidade.clear()
+            self.linha_desc.clear()
+
+            QMessageBox.information(self, "Sucesso", "Novo quarto registrado com sucesso!")
+            self.carregar_quartos()  # Atualiza a lista de quartos disponíveis
+
+        except ValueError:
+            QMessageBox.warning(self, "Erro", "O número do quarto e o preço devem ser numéricos.")
+        except Exception as e:
+            QMessageBox.critical(self, "Erro Crítico", f"Ocorreu um erro inesperado:\n{str(e)}")
+
+    
 
 
     #                        Visualização de Quartos Filtrados
@@ -1759,7 +1780,7 @@ class MainMenu(QMainWindow):
     def abrir_janela_verificacao_quartos(self):
         dialog = QDialog()
         dialog.setWindowTitle("Verificar Disponibilidade dos Quartos")
-        dialog.setFixedSize(520, 500)
+        dialog.setFixedSize(700, 520)
 
         checkin = QDateEdit()
         checkin.setCalendarPopup(True)
@@ -1770,11 +1791,13 @@ class MainMenu(QMainWindow):
         checkout.setDate(QDate.currentDate().addDays(1))
 
         btn_verificar = QPushButton("Verificar")
+        btn_verificar.setFixedSize(680,50)
+        
 
         layout_datas = QHBoxLayout()
-        layout_datas.addWidget(QLabel("Check-in:"))
+        layout_datas.addWidget(QLabel("CHECK-IN:"))
         layout_datas.addWidget(checkin)
-        layout_datas.addWidget(QLabel("Check-out:"))
+        layout_datas.addWidget(QLabel("CHECK-OUT:"))
         layout_datas.addWidget(checkout)
 
         # Layout dos botões de quartos
@@ -1899,4 +1922,3 @@ if __name__ == "__main__":
     sys.exit(app.exec())  
 
 
-   

@@ -1,0 +1,1992 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>843</width>
+    <height>534</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>490</y>
+      <width>211</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt; color:#ffffff;&quot;&gt;POWERED BY (NOME DO GRUPO)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_7">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>40</y>
+      <width>291</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Montserrat Medium</family>
+      <pointsize>48</pointsize>
+      <italic>false</italic>
+     </font>
+    </property>
+    <property name="text">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:36pt; color:#ffffff;&quot;&gt;BEM VINDO&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>-410</x>
+      <y>-820</y>
+      <width>1291</width>
+      <height>2001</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(32, 32, 32);</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap>../fundo azul.jpg</pixmap>
+    </property>
+   </widget>
+   <widget class="QStackedWidget" name="stackedWidget">
+    <property name="geometry">
+     <rect>
+      <x>380</x>
+      <y>50</y>
+      <width>431</width>
+      <height>441</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QWidge {
+    background-color: rgba(51, 156, 255);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 150);
+    
+    padding: 5px;
+}
+QWidget {
+    background-color: rgba(255, 255, 255, 20); /* 50 = 20% de opacidade */
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 100);
+    
+    /* Efeito de desfoque (requer código adicional - ver explicação abaixo) */
+}</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <property name="currentIndex">
+     <number>0</number>
+    </property>
+    <widget class="QWidget" name="stackedWidget_loginPage1_3">
+     <widget class="QLabel" name="label_5">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>431</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Montserrat Medium</family>
+        <pointsize>14</pointsize>
+        <italic>false</italic>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x1:0, y1:1, 
+                                 stop:0 rgba(0, 50, 150, 255), 
+                                 stop:1 rgba(51, 156, 255, 255));</string>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:18pt; color:#ffffff;&quot;&gt;LOGIN&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_user_3">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>150</y>
+        <width>391</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>MS Shell Dlg 2</family>
+        <pointsize>11</pointsize>
+        <weight>50</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel {
+    background: transparent;
+    color: white; /* ou o azul da paleta: #339CFF */
+    border: 1one;
+    padding: 0px;
+}
+</string>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Usuário:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEdit_passwrd_3">
+      <property name="geometry">
+       <rect>
+        <x>90</x>
+        <y>250</y>
+        <width>261</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>MS Shell Dlg 2</family>
+        <italic>false</italic>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLineEdit {
+    /* Borda e fundo */
+    border: 2px solid rgba(255, 255, 255, 200);
+    border-radius: 15px;
+    background-color: rgba(0, 0, 0, 0); /* Totalmente transparente */
+    
+    /* Espaçamento interno */
+    padding: 5px 15px;
+    
+    /* Cor do texto */
+    color: white;
+    
+    /* Melhora a renderização */
+    background-clip: padding-box;
+}
+
+/* Efeito ao focar */
+QLineEdit:focus {
+    border: 2px solid rgba(255, 255, 255, 255);
+    background-color: rgba(255, 255, 255, 36);
+}</string>
+      </property>
+      <property name="placeholderText">
+       <string>Digite sua Senha...</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_passwrd_3">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>230</y>
+        <width>391</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>MS Shell Dlg 2</family>
+        <pointsize>11</pointsize>
+        <weight>50</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel {
+    background: transparent;
+    color: white; /* ou o azul da paleta: #339CFF */
+    border: 1one;
+    padding: 0px;
+}
+</string>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Senha:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="bttn_login">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>370</y>
+        <width>131</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>MS Shell Dlg 2</family>
+        <pointsize>10</pointsize>
+        <weight>50</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 5px solid rgba(255, 255, 255, 0.3); /* Borda branca translúcida */
+    color: #333333; /* Texto totalmente opaco */
+}
+
+QPushButton:hover {
+    background-color: rgba(207, 216, 220, 100);
+    border-color:rgba(255, 255, 255,255);
+    
+}
+
+QPushButton:pressed {
+    background-color: #A0B2C8; /* Azul acinzentado */
+border-color: #003366; /* Azul escuro */
+color: #003366;
+}
+ QPushButton{border: 2px solid rgba(255, 255, 255, 200);
+    border-radius: 15px;
+    background-color: rgba(0, 0, 0, 0); /* Totalmente transparente */
+    
+    /* Espaçamento interno */
+    padding: 5px 15px;
+    
+    /* Cor do texto */
+    color: white;
+    
+    /* Melhora a renderização */
+    background-clip: padding-box;
+}
+
+/* Efeito ao focar */
+QPushButton {
+    border: 2px solid rgba(255, 255, 255, 255);
+    background-color: rgba(255, 255, 255, 20);
+}</string>
+      </property>
+      <property name="text">
+       <string>Entrar</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="bttn_alterindex_2">
+      <property name="geometry">
+       <rect>
+        <x>240</x>
+        <y>370</y>
+        <width>131</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>MS Shell Dlg 2</family>
+        <pointsize>8</pointsize>
+        <weight>50</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 5px solid rgba(255, 255, 255, 0.3); /* Borda branca translúcida */
+    color: #333333; /* Texto totalmente opaco */
+}
+
+QPushButton:hover {
+    background-color: rgba(207, 216, 220, 100);
+    border-color:rgba(255, 255, 255,255);
+    
+}
+
+QPushButton:pressed {
+    background-color: #A0B2C8; /* Azul acinzentado */
+border-color: #003366; /* Azul escuro */
+color: #003366;
+}
+ QPushButton{border: 2px solid rgba(255, 255, 255, 200);
+    border-radius: 15px;
+    background-color: rgba(0, 0, 0, 0); /* Totalmente transparente */
+    
+    /* Espaçamento interno */
+    padding: 5px 15px;
+    
+    /* Cor do texto */
+    color: white;
+    
+    /* Melhora a renderização */
+    background-clip: padding-box;
+}
+
+/* Efeito ao focar */
+QPushButton {
+    border: 2px solid rgba(255, 255, 255, 255);
+    background-color: rgba(255, 255, 255, 20);
+}</string>
+      </property>
+      <property name="text">
+       <string>Novo Usuário</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEdit_user_2">
+      <property name="geometry">
+       <rect>
+        <x>90</x>
+        <y>170</y>
+        <width>311</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>MS Shell Dlg 2</family>
+        <italic>false</italic>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLineEdit {
+    /* Borda e fundo */
+    border: 2px solid rgba(255, 255, 255, 200);
+    border-radius: 15px;
+    background-color: rgba(0, 0, 0, 0); /* Totalmente transparente */
+    
+    /* Espaçamento interno */
+    padding: 5px 15px;
+    
+    /* Cor do texto */
+    color: white;
+    
+    /* Melhora a renderização */
+    background-clip: padding-box;
+}
+
+/* Efeito ao focar */
+QLineEdit:focus {
+    border: 2px solid rgba(255, 255, 255, 255);
+    background-color: rgba(255, 255, 255, 36);
+}</string>
+      </property>
+      <property name="placeholderText">
+       <string>Digite seu Usuário...</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="bttn_passwrdview">
+      <property name="geometry">
+       <rect>
+        <x>360</x>
+        <y>250</y>
+        <width>41</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Borda branca translúcida */
+    color: #333333; /* Texto totalmente opaco */
+}
+
+QPushButton:hover {
+     background-color: #CFD8DC;
+    border-color: rgba(255, 255, 255,255); 
+}
+
+QPushButton:pressed {
+    background-color: #A0B2C8; /* Azul acinzentado */
+border-color: #003366; /* Azul escuro */
+}
+ QPushButton{border: 1px solid rgba(255, 255, 255, 200);
+    border-radius: 15px;
+    background-color: rgba(0, 0, 0, 0); /* Totalmente transparente */
+    
+    /* Espaçamento interno */
+    padding: 5px 15px;
+    
+    /* Cor do texto */
+    color: white;
+    
+    /* Melhora a renderização */
+    background-clip: padding-box;
+}
+
+/* Efeito ao focar */
+QPushButton {
+    border: 1px solid rgba(255, 255, 255, 255);
+    background-color: rgba(255, 255, 255, 20);
+}</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset>
+        <normaloff>../../Downloads/visibility_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png</normaloff>../../Downloads/visibility_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>24</width>
+        <height>24</height>
+       </size>
+      </property>
+     </widget>
+     <widget class="QCommandLinkButton" name="bttn_forgotpassword">
+      <property name="geometry">
+       <rect>
+        <x>230</x>
+        <y>300</y>
+        <width>172</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>-1</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+    background-color: transparent;
+    border: 1one;
+    color: white; /* ou a cor que quiser para o texto */
+    font-size: 14px; /* opcional */
+}
+
+QPushButton:hover {
+    text-decoration: underline; /* opcional para hover */
+}</string>
+      </property>
+      <property name="text">
+       <string>esqueci a senha</string>
+      </property>
+     </widget>
+     <zorder>label_user_3</zorder>
+     <zorder>label_passwrd_3</zorder>
+     <zorder>label_5</zorder>
+     <zorder>lineEdit_passwrd_3</zorder>
+     <zorder>bttn_login</zorder>
+     <zorder>bttn_alterindex_2</zorder>
+     <zorder>lineEdit_user_2</zorder>
+     <zorder>bttn_passwrdview</zorder>
+     <zorder>bttn_forgotpassword</zorder>
+    </widget>
+    <widget class="QWidget" name="page_3">
+     <widget class="QLineEdit" name="lineEdit_email">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>210</y>
+        <width>161</width>
+        <height>30</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>MS Shell Dlg 2</family>
+        <italic>false</italic>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLineEdit {
+    /* Borda e fundo */
+    border: 2px solid rgba(255, 255, 255, 200);
+    border-radius: 15px;
+    background-color: rgba(0, 0, 0, 0); /* Totalmente transparente */
+    
+    /* Espaçamento interno */
+    padding: 5px 15px;
+    
+    /* Cor do texto */
+    color: white;
+    
+    /* Melhora a renderização */
+    background-clip: padding-box;
+}
+
+/* Efeito ao focar */
+QLineEdit:focus {
+    border: 2px solid rgba(255, 255, 255, 255);
+    background-color: rgba(255, 255, 255, 36);
+}</string>
+      </property>
+      <property name="placeholderText">
+       <string>Informe seu E-mail...</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_name_4">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>100</y>
+        <width>411</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>MS Shell Dlg 2</family>
+        <pointsize>10</pointsize>
+        <weight>50</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel {
+    background: transparent;
+    color: white; /* ou o azul da paleta: #339CFF */
+    border: 1one;
+    padding: 0px;
+}
+</string>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Nome&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEdit_name">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>110</y>
+        <width>191</width>
+        <height>30</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>MS Shell Dlg 2</family>
+        <italic>false</italic>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLineEdit {
+    /* Borda e fundo */
+    border: 2px solid rgba(255, 255, 255, 200);
+    border-radius: 15px;
+    background-color: rgba(0, 0, 0, 0); /* Totalmente transparente */
+    
+    /* Espaçamento interno */
+    padding: 5px 15px;
+    
+    /* Cor do texto */
+    color: white;
+    
+    /* Melhora a renderização */
+    background-clip: padding-box;
+}
+
+/* Efeito ao focar */
+QLineEdit:focus {
+    border: 2px solid rgba(255, 255, 255, 255);
+    background-color: rgba(255, 255, 255, 36);
+}</string>
+      </property>
+      <property name="placeholderText">
+       <string>Informe seu Nome completo...</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_user_6">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>150</y>
+        <width>411</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>MS Shell Dlg 2</family>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel {
+    background: transparent;
+    color: white; /* ou o azul da paleta: #339CFF */
+    border: 1one;
+    padding: 0px;
+}
+</string>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;User  &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEdit_user">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>160</y>
+        <width>161</width>
+        <height>30</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>MS Shell Dlg 2</family>
+        <italic>false</italic>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLineEdit {
+    /* Borda e fundo */
+    border: 2px solid rgba(255, 255, 255, 200);
+    border-radius: 15px;
+    background-color: rgba(0, 0, 0, 0); /* Totalmente transparente */
+    
+    /* Espaçamento interno */
+    padding: 5px 15px;
+    
+    /* Cor do texto */
+    color: white;
+    
+    /* Melhora a renderização */
+    background-clip: padding-box;
+}
+
+/* Efeito ao focar */
+QLineEdit:focus {
+    border: 2px solid rgba(255, 255, 255, 255);
+    background-color: rgba(255, 255, 255, 36);
+}</string>
+      </property>
+      <property name="placeholderText">
+       <string>Informe seu Usuário...</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_2">
+      <property name="geometry">
+       <rect>
+        <x>230</x>
+        <y>150</y>
+        <width>71</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>MS Shell Dlg 2</family>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel {
+    background-color: transparent;
+    border: 1one;
+    color: black; /* ou qualquer cor de texto */
+}</string>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;Permissão&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="comboBox">
+      <property name="geometry">
+       <rect>
+        <x>300</x>
+        <y>160</y>
+        <width>111</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>-1</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QComboBox {
+    border: 1px solid rgba(255, 255, 255, 200);  /* Borda visível */
+    border-radius: 13px;
+    background-color: transparent;              /* Totalmente transparente */
+    padding: 5px 15px;
+    color: white;
+    font-size: 12px;
+    background-clip: padding-box;
+}
+
+QComboBox:focus {
+    border: 1px solid rgba(255, 255, 255, 255);  /* Borda mais forte no foco */
+    background-color: rgba(255, 255, 255, 36);   /* Leve destaque no foco */
+}
+
+/* Remove o botão e a seta */
+QComboBox::drop-down {
+    border: 1one;
+    background: transparent;
+    width: 0px;  /* Esconde o espaço reservado pra seta */
+}
+
+QComboBox::down-arrow {
+    width: 0;
+    height: 0;
+    border: 1one;
+}
+
+/* Dropdown com estilo flat e legível */
+QComboBox QAbstractItemView {
+    background-color: #2A2A2A;              /* Fundo da lista */
+    color: white;                           /* Texto das opções */
+    border: 1px solid rgba(255, 255, 255, 50);
+    border-radius: 8px;
+    selection-background-color: #339CFF;    /* Azul no hover/seleção */
+    selection-color: black;
+}
+</string>
+      </property>
+      <item>
+       <property name="text">
+        <string>Recepcionista</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Gerente</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Administrador</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QLabel" name="label_passwrd_6">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>250</y>
+        <width>411</width>
+        <height>91</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>MS Shell Dlg 2</family>
+        <pointsize>10</pointsize>
+        <weight>50</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel {
+    background: transparent;
+    color: white; /* ou o azul da paleta: #339CFF */
+    border: 1one;
+    padding: 0px;
+}
+</string>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Senha&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEdit_passwrd">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>260</y>
+        <width>281</width>
+        <height>30</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>MS Shell Dlg 2</family>
+        <italic>false</italic>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLineEdit {
+    /* Borda e fundo */
+    border: 2px solid rgba(255, 255, 255, 200);
+    border-radius: 15px;
+    background-color: rgba(0, 0, 0, 0); /* Totalmente transparente */
+    
+    /* Espaçamento interno */
+    padding: 5px 15px;
+    
+    /* Cor do texto */
+    color: white;
+    
+    /* Melhora a renderização */
+    background-clip: padding-box;
+}
+
+/* Efeito ao focar */
+QLineEdit:focus {
+    border: 2px solid rgba(255, 255, 255, 255);
+    background-color: rgba(255, 255, 255, 36);
+}</string>
+      </property>
+      <property name="placeholderText">
+       <string>Informe sua Senha...</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_email_4">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>200</y>
+        <width>411</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>MS Shell Dlg 2</family>
+        <pointsize>10</pointsize>
+        <weight>50</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel {
+    background: transparent;
+    color: white; /* ou o azul da paleta: #339CFF */
+    border: 1one;
+    padding: 0px;
+}
+</string>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;E-mail&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEdit_passwrd_2">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>300</y>
+        <width>281</width>
+        <height>30</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>MS Shell Dlg 2</family>
+        <italic>false</italic>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLineEdit {
+    /* Borda e fundo */
+    border: 2px solid rgba(255, 255, 255, 200);
+    border-radius: 15px;
+    background-color: rgba(0, 0, 0, 0); /* Totalmente transparente */
+    
+    /* Espaçamento interno */
+    padding: 5px 15px;
+    
+    /* Cor do texto */
+    color: white;
+    
+    /* Melhora a renderização */
+    background-clip: padding-box;
+}
+
+/* Efeito ao focar */
+QLineEdit:focus {
+    border: 2px solid rgba(255, 255, 255, 255);
+    background-color: rgba(255, 255, 255, 36);
+}</string>
+      </property>
+      <property name="placeholderText">
+       <string>Confirme sua Senha...</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="bttn_register">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>370</y>
+        <width>131</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>MS Shell Dlg 2</family>
+        <pointsize>10</pointsize>
+        <weight>50</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 5px solid rgba(255, 255, 255, 0.3); /* Borda branca translúcida */
+    color: #333333; /* Texto totalmente opaco */
+}
+
+QPushButton:hover {
+    background-color: rgba(207, 216, 220, 100);
+    border-color:rgba(255, 255, 255,255);
+    
+}
+
+QPushButton:pressed {
+    background-color: #A0B2C8; /* Azul acinzentado */
+border-color: #003366; /* Azul escuro */
+color: #003366;
+}
+ QPushButton{border: 2px solid rgba(255, 255, 255, 200);
+    border-radius: 15px;
+    background-color: rgba(0, 0, 0, 0); /* Totalmente transparente */
+    
+    /* Espaçamento interno */
+    padding: 5px 15px;
+    
+    /* Cor do texto */
+    color: white;
+    
+    /* Melhora a renderização */
+    background-clip: padding-box;
+}
+
+/* Efeito ao focar */
+QPushButton {
+    border: 2px solid rgba(255, 255, 255, 255);
+    background-color: rgba(255, 255, 255, 20);
+}</string>
+      </property>
+      <property name="text">
+       <string>Cadastrar</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="bttn_alterindex">
+      <property name="geometry">
+       <rect>
+        <x>240</x>
+        <y>370</y>
+        <width>131</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>MS Shell Dlg 2</family>
+        <pointsize>10</pointsize>
+        <weight>50</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 5px solid rgba(255, 255, 255, 0.3); /* Borda branca translúcida */
+    color: #333333; /* Texto totalmente opaco */
+}
+
+QPushButton:hover {
+    background-color: rgba(207, 216, 220, 100);
+    border-color:rgba(255, 255, 255,255);
+    
+}
+
+QPushButton:pressed {
+    background-color: #A0B2C8; /* Azul acinzentado */
+border-color: #003366; /* Azul escuro */
+color: #003366;
+}
+ QPushButton{border: 2px solid rgba(255, 255, 255, 200);
+    border-radius: 15px;
+    background-color: rgba(0, 0, 0, 0); /* Totalmente transparente */
+    
+    /* Espaçamento interno */
+    padding: 5px 15px;
+    
+    /* Cor do texto */
+    color: white;
+    
+    /* Melhora a renderização */
+    background-clip: padding-box;
+}
+
+/* Efeito ao focar */
+QPushButton {
+    border: 2px solid rgba(255, 255, 255, 255);
+    background-color: rgba(255, 255, 255, 20);
+}</string>
+      </property>
+      <property name="text">
+       <string>Voltar</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="bttn_passwrdview_2">
+      <property name="geometry">
+       <rect>
+        <x>350</x>
+        <y>280</y>
+        <width>41</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Borda branca translúcida */
+    color: #333333; /* Texto totalmente opaco */
+}
+
+QPushButton:hover {
+     background-color: #CFD8DC;
+    border-color: rgba(255, 255, 255,255); 
+}
+
+QPushButton:pressed {
+    background-color: #A0B2C8; /* Azul acinzentado */
+border-color: #003366; /* Azul escuro */
+}
+ QPushButton{border: 1px solid rgba(255, 255, 255, 200);
+    border-radius: 15px;
+    background-color: rgba(0, 0, 0, 0); /* Totalmente transparente */
+    
+    /* Espaçamento interno */
+    padding: 5px 15px;
+    
+    /* Cor do texto */
+    color: white;
+    
+    /* Melhora a renderização */
+    background-clip: padding-box;
+}
+
+/* Efeito ao focar */
+QPushButton {
+    border: 1px solid rgba(255, 255, 255, 255);
+    background-color: rgba(255, 255, 255, 20);
+}</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset>
+        <normaloff>../../Downloads/visibility_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png</normaloff>../../Downloads/visibility_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>24</width>
+        <height>24</height>
+       </size>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_6">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>431</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Montserrat Medium</family>
+        <pointsize>14</pointsize>
+        <italic>false</italic>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x1:0, y1:1, 
+                                 stop:0 rgba(0, 50, 150, 255), 
+                                 stop:1 rgba(51, 156, 255, 255));</string>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:18pt; color:#ffffff;&quot;&gt;NOVO CADASTRO&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEdit_2">
+      <property name="geometry">
+       <rect>
+        <x>290</x>
+        <y>110</y>
+        <width>121</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLineEdit {
+    /* Borda e fundo */
+    border: 2px solid rgba(255, 255, 255, 200);
+    border-radius: 15px;
+    background-color: rgba(0, 0, 0, 0); /* Totalmente transparente */
+    
+    /* Espaçamento interno */
+    padding: 5px 15px;
+    
+    /* Cor do texto */
+    color: white;
+    
+    /* Melhora a renderização */
+    background-clip: padding-box;
+}
+
+/* Efeito ao focar */
+QLineEdit:focus {
+    border: 2px solid rgba(255, 255, 255, 255);
+    background-color: rgba(255, 255, 255, 36);
+}</string>
+      </property>
+     </widget>
+     <widget class="QDateEdit" name="dateEdit_2">
+      <property name="geometry">
+       <rect>
+        <x>310</x>
+        <y>210</y>
+        <width>101</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">/* Estilo do QDateEdit */
+QDateEdit {
+    border: 1px solid rgba(255, 255, 255, 200);
+    border-radius: 13px;
+    background-color: transparent;
+    padding: 5px 15px;
+    color: white;
+    font-size: 12px;
+}
+
+/* Remove setas laterais */
+QDateEdit::up-button, QDateEdit::down-button {
+    width: 0;
+    height: 0;
+}
+
+/* Calendário SEM BORDAS */
+QCalendarWidget {
+    background-color: #2A2A2A;
+    border: 1px;
+    color: white;
+}
+
+/* Cabeçalho (mês/ano) */
+QCalendarWidget QToolButton {
+    color: white;
+    background: transparent;
+    border: 1px;
+    padding: 4px;
+}
+
+/* Dias da semana (header) */
+QCalendarWidget QWidget#qt_calendar_navigationbar {
+    color: white;
+    background-color: transparent;
+}
+
+/* Efeito hover/press */
+QCalendarWidget QToolButton:hover,
+QCalendarWidget QToolButton:pressed {
+    background-color: rgb(51, 156, 255);
+    color: white;
+    border-radius: 4px;
+}
+
+/* Células de data */
+QCalendarWidget QAbstractItemView {
+    border: 1px;
+    color: white;
+    selection-background-color: rgb(51, 156, 255);
+    selection-color: white;
+}
+
+/* Menu de mês/ano */
+QCalendarWidget QMenu {
+    background-color: #2A2A2A;
+    color: white;
+    border: 1px;
+}
+
+QCalendarWidget QMenu::item:selected {
+    background-color: rgb(51, 156, 255);
+    color: white;
+}</string>
+      </property>
+      <property name="calendarPopup">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_12">
+      <property name="geometry">
+       <rect>
+        <x>230</x>
+        <y>205</y>
+        <width>71</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>MS Shell Dlg 2</family>
+        <pointsize>10</pointsize>
+        <italic>false</italic>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel {
+    background-color: transparent;
+    border: 1one;
+    color: black; /* ou qualquer cor de texto */
+}</string>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;Data Nascimento&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+      <property name="wordWrap">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_13">
+      <property name="geometry">
+       <rect>
+        <x>260</x>
+        <y>100</y>
+        <width>41</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel {
+    background-color: transparent;
+    border: 1one;
+    color: black; /* ou qualquer cor de texto */
+}</string>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;CPF&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+     <zorder>label_user_6</zorder>
+     <zorder>label_2</zorder>
+     <zorder>label_email_4</zorder>
+     <zorder>label_name_4</zorder>
+     <zorder>lineEdit_name</zorder>
+     <zorder>lineEdit_user</zorder>
+     <zorder>comboBox</zorder>
+     <zorder>label_passwrd_6</zorder>
+     <zorder>lineEdit_passwrd</zorder>
+     <zorder>lineEdit_email</zorder>
+     <zorder>lineEdit_passwrd_2</zorder>
+     <zorder>bttn_register</zorder>
+     <zorder>bttn_alterindex</zorder>
+     <zorder>bttn_passwrdview_2</zorder>
+     <zorder>label_6</zorder>
+     <zorder>lineEdit_2</zorder>
+     <zorder>dateEdit_2</zorder>
+     <zorder>label_12</zorder>
+     <zorder>label_13</zorder>
+    </widget>
+    <widget class="QWidget" name="page">
+     <widget class="QLabel" name="label_11">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>431</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Montserrat Medium</family>
+        <pointsize>14</pointsize>
+        <italic>false</italic>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x1:0, y1:1, 
+                                 stop:0 rgba(0, 50, 150, 255), 
+                                 stop:1 rgba(51, 156, 255, 255));</string>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;REDEFINIR SENHA&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_user_9">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>150</y>
+        <width>391</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>MS Shell Dlg 2</family>
+        <pointsize>10</pointsize>
+        <weight>50</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel {
+    background: transparent;
+    color: white; /* ou o azul da paleta: #339CFF */
+    border: 1one;
+    padding: 0px;
+}
+</string>
+      </property>
+      <property name="text">
+       <string>Nova senha:</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEdit_user_7">
+      <property name="geometry">
+       <rect>
+        <x>130</x>
+        <y>170</y>
+        <width>251</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>MS Shell Dlg 2</family>
+        <italic>false</italic>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLineEdit {
+    /* Borda e fundo */
+    border: 2px solid rgba(255, 255, 255, 200);
+    border-radius: 15px;
+    background-color: rgba(0, 0, 0, 0); /* Totalmente transparente */
+    
+    /* Espaçamento interno */
+    padding: 5px 15px;
+    
+    /* Cor do texto */
+    color: white;
+    
+    /* Melhora a renderização */
+    background-clip: padding-box;
+}
+
+/* Efeito ao focar */
+QLineEdit:focus {
+    border: 2px solid rgba(255, 255, 255, 255);
+    background-color: rgba(255, 255, 255, 36);
+}</string>
+      </property>
+      <property name="placeholderText">
+       <string>digite a nova senha</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_passwrd_9">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>230</y>
+        <width>391</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>MS Shell Dlg 2</family>
+        <pointsize>10</pointsize>
+        <weight>50</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel {
+    background: transparent;
+    color: white; /* ou o azul da paleta: #339CFF */
+    border: 1one;
+    padding: 0px;
+}
+</string>
+      </property>
+      <property name="text">
+       <string>Confirmar senha:</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEdit_passwrd_8">
+      <property name="geometry">
+       <rect>
+        <x>130</x>
+        <y>250</y>
+        <width>251</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>MS Shell Dlg 2</family>
+        <italic>false</italic>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLineEdit {
+    /* Borda e fundo */
+    border: 2px solid rgba(255, 255, 255, 200);
+    border-radius: 15px;
+    background-color: rgba(0, 0, 0, 0); /* Totalmente transparente */
+    
+    /* Espaçamento interno */
+    padding: 5px 15px;
+    
+    /* Cor do texto */
+    color: white;
+    
+    /* Melhora a renderização */
+    background-clip: padding-box;
+}
+
+/* Efeito ao focar */
+QLineEdit:focus {
+    border: 2px solid rgba(255, 255, 255, 255);
+    background-color: rgba(255, 255, 255, 36);
+}</string>
+      </property>
+      <property name="placeholderText">
+       <string>confirme a nova senha</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="bttn_reset_password">
+      <property name="geometry">
+       <rect>
+        <x>70</x>
+        <y>360</y>
+        <width>131</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 5px solid rgba(255, 255, 255, 0.3); /* Borda branca translúcida */
+    color: #333333; /* Texto totalmente opaco */
+}
+
+QPushButton:hover {
+    background-color: rgba(207, 216, 220, 100);
+    border-color:rgba(255, 255, 255,255);
+    
+}
+
+QPushButton:pressed {
+    background-color: #A0B2C8; /* Azul acinzentado */
+border-color: #003366; /* Azul escuro */
+color: #003366;
+}
+ QPushButton{border: 2px solid rgba(255, 255, 255, 200);
+    border-radius: 15px;
+    background-color: rgba(0, 0, 0, 0); /* Totalmente transparente */
+    
+    /* Espaçamento interno */
+    padding: 5px 15px;
+    
+    /* Cor do texto */
+    color: white;
+    
+    /* Melhora a renderização */
+    background-clip: padding-box;
+}
+
+/* Efeito ao focar */
+QPushButton {
+    border: 2px solid rgba(255, 255, 255, 255);
+    background-color: rgba(255, 255, 255, 20);
+}</string>
+      </property>
+      <property name="text">
+       <string>Redefinir</string>
+      </property>
+      <property name="icon">
+       <iconset>
+        <normaloff>../../Downloads/visibility_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png</normaloff>../../Downloads/visibility_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>24</width>
+        <height>24</height>
+       </size>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="bttn_back_login">
+      <property name="geometry">
+       <rect>
+        <x>240</x>
+        <y>360</y>
+        <width>131</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>MS Shell Dlg 2</family>
+        <pointsize>8</pointsize>
+        <weight>50</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 5px solid rgba(255, 255, 255, 0.3); /* Borda branca translúcida */
+    color: #333333; /* Texto totalmente opaco */
+}
+
+QPushButton:hover {
+    background-color: rgba(207, 216, 220, 100);
+    border-color:rgba(255, 255, 255,255);
+    
+}
+
+QPushButton:pressed {
+    background-color: #A0B2C8; /* Azul acinzentado */
+border-color: #003366; /* Azul escuro */
+color: #003366;
+}
+ QPushButton{border: 2px solid rgba(255, 255, 255, 200);
+    border-radius: 15px;
+    background-color: rgba(0, 0, 0, 0); /* Totalmente transparente */
+    
+    /* Espaçamento interno */
+    padding: 5px 15px;
+    
+    /* Cor do texto */
+    color: white;
+    
+    /* Melhora a renderização */
+    background-clip: padding-box;
+}
+
+/* Efeito ao focar */
+QPushButton {
+    border: 2px solid rgba(255, 255, 255, 255);
+    background-color: rgba(255, 255, 255, 20);
+}</string>
+      </property>
+      <property name="text">
+       <string>Voltar para a
+ tela de Login</string>
+      </property>
+     </widget>
+     <zorder>bttn_back_login</zorder>
+     <zorder>label_11</zorder>
+     <zorder>label_user_9</zorder>
+     <zorder>lineEdit_user_7</zorder>
+     <zorder>label_passwrd_9</zorder>
+     <zorder>lineEdit_passwrd_8</zorder>
+     <zorder>bttn_reset_password</zorder>
+    </widget>
+    <widget class="QWidget" name="page_2">
+     <widget class="QLabel" name="label_8">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>431</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Montserrat Medium</family>
+        <pointsize>14</pointsize>
+        <italic>false</italic>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x1:0, y1:1, 
+                                 stop:0 rgba(0, 50, 150, 255), 
+                                 stop:1 rgba(51, 156, 255, 255));</string>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;ESQUECI MINHA SENHA&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEdit_cpf">
+      <property name="geometry">
+       <rect>
+        <x>70</x>
+        <y>170</y>
+        <width>311</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>MS Shell Dlg 2</family>
+        <italic>false</italic>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLineEdit {
+    /* Borda e fundo */
+    border: 2px solid rgba(255, 255, 255, 200);
+    border-radius: 15px;
+    background-color: rgba(0, 0, 0, 0); /* Totalmente transparente */
+    
+    /* Espaçamento interno */
+    padding: 5px 15px;
+    
+    /* Cor do texto */
+    color: white;
+    
+    /* Melhora a renderização */
+    background-clip: padding-box;
+}
+
+/* Efeito ao focar */
+QLineEdit:focus {
+    border: 2px solid rgba(255, 255, 255, 255);
+    background-color: rgba(255, 255, 255, 36);
+}</string>
+      </property>
+      <property name="placeholderText">
+       <string>Não use traços e nem pontos, apenas números</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_user_7">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>150</y>
+        <width>391</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>MS Shell Dlg 2</family>
+        <pointsize>10</pointsize>
+        <weight>50</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel {
+    background: transparent;
+    color: white; /* ou o azul da paleta: #339CFF */
+    border: 1one;
+    padding: 0px;
+}
+</string>
+      </property>
+      <property name="text">
+       <string>CPF</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_passwrd_7">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>230</y>
+        <width>391</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>MS Shell Dlg 2</family>
+        <pointsize>10</pointsize>
+        <weight>50</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel {
+    background: transparent;
+    color: white; /* ou o azul da paleta: #339CFF */
+    border: 1one;
+    padding: 0px;
+}
+</string>
+      </property>
+      <property name="text">
+       <string>Data de Nascimento</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEdit_bday">
+      <property name="geometry">
+       <rect>
+        <x>150</x>
+        <y>250</y>
+        <width>231</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>MS Shell Dlg 2</family>
+        <italic>false</italic>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLineEdit {
+    /* Borda e fundo */
+    border: 2px solid rgba(255, 255, 255, 200);
+    border-radius: 15px;
+    background-color: rgba(0, 0, 0, 0); /* Totalmente transparente */
+    
+    /* Espaçamento interno */
+    padding: 5px 15px;
+    
+    /* Cor do texto */
+    color: white;
+    
+    /* Melhora a renderização */
+    background-clip: padding-box;
+}
+
+/* Efeito ao focar */
+QLineEdit:focus {
+    border: 2px solid rgba(255, 255, 255, 255);
+    background-color: rgba(255, 255, 255, 36);
+}</string>
+      </property>
+      <property name="placeholderText">
+       <string>Use apenas números</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="bttn_alterindex_4">
+      <property name="geometry">
+       <rect>
+        <x>240</x>
+        <y>370</y>
+        <width>131</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>MS Shell Dlg 2</family>
+        <pointsize>10</pointsize>
+        <weight>50</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 5px solid rgba(255, 255, 255, 0.3); /* Borda branca translúcida */
+    color: #333333; /* Texto totalmente opaco */
+}
+
+QPushButton:hover {
+    background-color: rgba(207, 216, 220, 100);
+    border-color:rgba(255, 255, 255,255);
+    
+}
+
+QPushButton:pressed {
+    background-color: #A0B2C8; /* Azul acinzentado */
+border-color: #003366; /* Azul escuro */
+color: #003366;
+}
+ QPushButton{border: 2px solid rgba(255, 255, 255, 200);
+    border-radius: 15px;
+    background-color: rgba(0, 0, 0, 0); /* Totalmente transparente */
+    
+    /* Espaçamento interno */
+    padding: 5px 15px;
+    
+    /* Cor do texto */
+    color: white;
+    
+    /* Melhora a renderização */
+    background-clip: padding-box;
+}
+
+/* Efeito ao focar */
+QPushButton {
+    border: 2px solid rgba(255, 255, 255, 255);
+    background-color: rgba(255, 255, 255, 20);
+}</string>
+      </property>
+      <property name="text">
+       <string>Voltar</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="bttn_search_user">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>370</y>
+        <width>131</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 5px solid rgba(255, 255, 255, 0.3); /* Borda branca translúcida */
+    color: #333333; /* Texto totalmente opaco */
+}
+
+QPushButton:hover {
+    background-color: rgba(207, 216, 220, 100);
+    border-color:rgba(255, 255, 255,255);
+    
+}
+
+QPushButton:pressed {
+    background-color: #A0B2C8; /* Azul acinzentado */
+border-color: #003366; /* Azul escuro */
+color: #003366;
+}
+ QPushButton{border: 2px solid rgba(255, 255, 255, 200);
+    border-radius: 15px;
+    background-color: rgba(0, 0, 0, 0); /* Totalmente transparente */
+    
+    /* Espaçamento interno */
+    padding: 5px 15px;
+    
+    /* Cor do texto */
+    color: white;
+    
+    /* Melhora a renderização */
+    background-clip: padding-box;
+}
+
+/* Efeito ao focar */
+QPushButton {
+    border: 2px solid rgba(255, 255, 255, 255);
+    background-color: rgba(255, 255, 255, 20);
+}</string>
+      </property>
+      <property name="text">
+       <string>Buscar</string>
+      </property>
+      <property name="icon">
+       <iconset>
+        <normaloff>../../Downloads/visibility_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png</normaloff>../../Downloads/visibility_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>24</width>
+        <height>24</height>
+       </size>
+      </property>
+     </widget>
+     <zorder>bttn_search_user</zorder>
+     <zorder>label_user_7</zorder>
+     <zorder>label_8</zorder>
+     <zorder>lineEdit_cpf</zorder>
+     <zorder>label_passwrd_7</zorder>
+     <zorder>lineEdit_bday</zorder>
+     <zorder>bttn_alterindex_4</zorder>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="widget" native="true">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>-10</y>
+      <width>911</width>
+      <height>661</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QWidget {
+    background: qradialgradient(
+        cx: 0.5, cy: 0.2, radius: 0.8,
+        fx: 0.5, fy: 0.2,
+        stop: 0 #7FA3A6,  /* Brilho no topo (mais suave) */
+        stop: 0.4 #4E7580, /* Azul intermediário mais escuro */
+        stop: 0.7 #27425A, /* Azul mais escuro na transição */
+        stop: 1 #0A1A30   /* Azul bem escuro na parte inferior */
+    );
+}
+</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>90</y>
+      <width>391</width>
+      <height>381</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap>../Downloads/Design sem nome (3).png</pixmap>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_9">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>110</y>
+      <width>331</width>
+      <height>331</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap>../imagens/imagens/Logo_Hostinn.png</pixmap>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <zorder>widget</zorder>
+   <zorder>label_3</zorder>
+   <zorder>label</zorder>
+   <zorder>label_7</zorder>
+   <zorder>stackedWidget</zorder>
+   <zorder>label_4</zorder>
+   <zorder>label_9</zorder>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
