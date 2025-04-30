@@ -25,7 +25,7 @@ class MainMenu(QMainWindow):
         super().__init__()
         # self(self)
         # Carregar a interface gráfica
-        uic.loadUi(r"C:\Users\ferre\Desktop\PI\HOSTIIN\Prototipo HostInn\Telas\Menu.ui", self)
+        uic.loadUi(r"C:\Users\11052806\Desktop\HostInn\HOSTIIN-1\Prototipo HostInn\Telas\Menu.ui", self)
         icon_eye_closed = QIcon(r"C:\Users\11054836\Desktop\PI\HOSTIIN\Prototipo HostInn\Icones\visibility_off.png")
         self.setWindowTitle("HostInn")
         self.setFixedSize(801, 752)
@@ -92,12 +92,8 @@ class MainMenu(QMainWindow):
         ####################### FINANCEIRO ##############################
         self.bttn_financial.clicked.connect(self.financial_menu)
         self.bttn_movements.clicked.connect(self.movements_subMenu)
-<<<<<<< HEAD
         self.pushButton_despesas.clicked.connect(self.menu_despesas)
         self.editButton_11.clicked.connect(self.cadstr_despesa)
-=======
-        # self.pushButton_despesas.clicked.connect(self.cadastr_despesas)
->>>>>>> 2b4c55cfded1bccbe3c9d3aabce3925014208f27
         self.bttn_newPayment.clicked.connect(self.novo_pagamento)
         self.bttn_validate.clicked.connect(self.validate_payment)
         self.bttn_voltar.clicked.connect(self.back_confirmation)
