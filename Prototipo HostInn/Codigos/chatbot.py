@@ -1,4 +1,6 @@
+#pip install PyQt6 mysql-connector-python
 import sys
+import os
 import mysql.connector
 import re
 from PyQt6.QtWidgets import (
@@ -6,7 +8,7 @@ from PyQt6.QtWidgets import (
     QVBoxLayout, QWidget, QHBoxLayout, QLabel
 )
 from PyQt6.QtGui import QPixmap, QFont
-from PyQt6.QtCore import Qt, QThread, pyqtSignal, QObject
+from PyQt6.QtCore import Qt, QObject, pyqtSignal, QRunnable, QThreadPool
 
 # Configurações do banco de dados
 DB_CONFIG = {
@@ -16,30 +18,20 @@ DB_CONFIG = {
     'database': 'bd_teste2'
 }
 
-class DatabaseWorker(QObject):
+class SignalEmitter(QObject):
     finished = pyqtSignal(str)
     error = pyqtSignal(str)
 
-    def __init__(self, query_type, **kwargs):
+class DatabaseWorker(QRunnable):
+    def __init__(self, query_type, signal_emitter, **kwargs):
         super().__init__()
         self.query_type = query_type
         self.kwargs = kwargs
-
-    # def run(self):
-    #     # tudo igual ao seu código atual
-
-
-    # def __init__(self):
-    #     super().__init__()
-    #     self.query_type = None
-    #     self.kwargs = {}
-
-    def set_query(self, query_type, **kwargs):
-        self.query_type = query_type
-        self.kwargs = kwargs
+        self.signal_emitter = signal_emitter
 
     def run(self):
-        print("[WORKER] Iniciando run()")
+        conn = None
+        cursor = None
         try:
             conn = mysql.connector.connect(**DB_CONFIG)
             cursor = conn.cursor(dictionary=True)
@@ -52,13 +44,10 @@ class DatabaseWorker(QObject):
                     WHERE Status_Quarto = 'Disponível'
                 """)
                 rows = cursor.fetchall()
-                if rows:
-                    response = "Quartos disponíveis:<br>" + "<br>".join(
-                        f"🏨 Quarto {r['Numero']} | Tipo: {r['Tipo']} | R${r['Valor_Tipo']:.2f}/noite"
-                        for r in rows
-                    )
-                else:
-                    response = "Não há quartos disponíveis."
+                response = ("Quartos disponíveis:<br>" + "<br>".join(
+                    f"🏨 Quarto {r['Numero']} | Tipo: {r['Tipo']} | R${r['Valor_Tipo']:.2f}/noite"
+                    for r in rows
+                )) if rows else "Não há quartos disponíveis."
 
             elif self.query_type == "get_contact":
                 response = "📞 +55 11 98765-4321<br>✉️ contato@hostinn.com.br"
@@ -77,14 +66,11 @@ class DatabaseWorker(QObject):
                         WHERE c.CPF = %s AND r.Status_reserva = 'Ativa'
                     """, (cpf,))
                     rows = cursor.fetchall()
-                    if rows:
-                        response = "Suas reservas:<br>" + "<br>".join(
-                            f"✅ ID {r['ID_Reserva']} | Quarto {r['Numero']} | "
-                            f"{r['Data_Checkin'].strftime('%d/%m/%Y')}→{r['Data_Checkout'].strftime('%d/%m/%Y')} | R${r['Valor_Reserva']:.2f}"
-                            for r in rows
-                        )
-                    else:
-                        response = "Você não tem reservas ativas."
+                    response = ("Suas reservas:<br>" + "<br>".join(
+                        f"✅ ID {r['ID_Reserva']} | Quarto {r['Numero']} | "
+                        f"{r['Data_Checkin'].strftime('%d/%m/%Y')}→{r['Data_Checkout'].strftime('%d/%m/%Y')} | R${r['Valor_Reserva']:.2f}"
+                        for r in rows
+                    )) if rows else "Você não tem reservas ativas."
 
             elif self.query_type == "client_info":
                 cpf = self.kwargs.get('cpf')
@@ -97,75 +83,101 @@ class DatabaseWorker(QObject):
                         WHERE CPF = %s
                     """, (cpf,))
                     r = cursor.fetchone()
-                    if r:
-                        response = (
-                            f"👤 Nome: {r['Nome']}<br>"
-                            f"✉️ Email: {r['Email']}<br>"
-                            f"📞 Tel: {r['Telefone']}<br>"
-                            f"🏠 Endereço: {r['Endereco']}"
-                        )
-                    else:
-                        response = "Cliente não encontrado."
+                    response = (
+                        f"👤 Nome: {r['Nome']}<br>"
+                        f"✉️ Email: {r['Email']}<br>"
+                        f"📞 Tel: {r['Telefone']}<br>"
+                        f"🏠 Endereço: {r['Endereco']}"
+                    ) if r else "Cliente não encontrado."
 
-            print("[WORKER] Emitindo resposta:", response)
-            self.finished.emit(response)
+            self.signal_emitter.finished.emit(response)
 
         except mysql.connector.Error as e:
-            self.error.emit(f"Erro no DB: {e}")
+            self.signal_emitter.error.emit(f"Erro no DB: {e}")
         except Exception as e:
-            self.error.emit(f"Erro inesperado: {e}")
+            self.signal_emitter.error.emit(f"Erro inesperado: {e}")
         finally:
-            try:
+            if cursor:
                 cursor.close()
+            if conn:
                 conn.close()
-            except:
-                pass
-
 
 class ChatBotWindow(QMainWindow):
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.setAttribute(Qt.WidgetAttribute.WA_DeleteOnClose, False)
         self.setWindowTitle("HostInn - Assistente Virtual")
-        self.setMinimumSize(800, 600)
-        self.setMaximumSize(800, 600)
+        self.setFixedSize(800, 600)
         self.client_cpf = None
+        self.pool = QThreadPool.globalInstance()
+        self.signal_emitter = SignalEmitter()
 
         self._setup_ui()
         self._setup_layouts()
         self.setStyleSheet(self._get_stylesheet())
 
+        # Conectar sinais
+        self.signal_emitter.finished.connect(self._on_finished)
+        self.signal_emitter.error.connect(self._on_error)
+
     def _setup_ui(self):
         self.avatar_label = QLabel()
         self.avatar_label.setFixedSize(150, 150)
         self.avatar_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.avatar_label.setStyleSheet("border-radius: 75px; background-color: #3d3d3d;")
-        try:
-            pixmap = QPixmap(r"C:\Users\11054836\Desktop\PI\HOSTIIN\Prototipo HostInn\Icones\curupira.png")
-            if not pixmap.isNull():
-                pixmap = pixmap.scaled(150, 150, Qt.AspectRatioMode.KeepAspectRatio)
-                self.avatar_label.setPixmap(pixmap)
-            else:
-                self.avatar_label.setText("Avatar")
-        except:
-            self.avatar_label.setText("Avatar")
+        self.avatar_label.setStyleSheet("border-radius:75px; background:#3d3d3d;")
+        
+        self._load_avatar_image()
 
         self.help_button = QPushButton("Como posso ajudar?")
         self.help_button.setObjectName("help_button")
         self.help_button.clicked.connect(self.show_help_menu)
 
-        self.chat_area = QTextEdit(readOnly=True)
+        self.chat_area = QTextEdit()
+        self.chat_area.setReadOnly(True)
         self.chat_area.setFont(QFont("Segoe UI", 11))
 
         self.input_field = QLineEdit()
         self.input_field.setPlaceholderText("Digite sua mensagem...")
         self.input_field.setFont(QFont("Segoe UI", 11))
-        self.input_field.returnPressed.connect(self.process_message)
+        self.input_field.returnPressed.connect(self._safe_process_message)
 
         self.send_button = QPushButton("Enviar")
         self.send_button.setFont(QFont("Segoe UI", 10, QFont.Weight.Bold))
-        self.send_button.setStyleSheet("QPushButton { background-color: #4CAF50; border-radius: 15px; padding: 12px 24px; } QPushButton:hover { background-color: #45a049; }")
-        self.send_button.clicked.connect(self.process_message)
+        self.send_button.setStyleSheet(
+            "QPushButton{background:#4CAF50;color:white;border-radius:15px;padding:8px;}"
+            "QPushButton:hover{background:#45a049;}"
+        )
+        self.send_button.clicked.connect(self._safe_process_message)
+
+    def _load_avatar_image(self):
+        """Carrega a imagem do avatar com fallback"""
+        image_path = r"C:\Users\11054836\Desktop\PI\HOSTIIN\Prototipo HostInn\Icones\curupira.png"
+        
+        if os.path.exists(image_path):
+            try:
+                pixmap = QPixmap(image_path)
+                if not pixmap.isNull():
+                    pixmap = pixmap.scaled(
+                        150, 150, 
+                        Qt.AspectRatioMode.KeepAspectRatio,
+                        Qt.TransformationMode.SmoothTransformation
+                    )
+                    self.avatar_label.setPixmap(pixmap)
+                    return
+            except Exception as e:
+                print(f"Erro ao carregar avatar: {e}")
+        
+        self._set_default_avatar()
+
+    def _set_default_avatar(self):
+        """Define um avatar padrão caso a imagem não carregue"""
+        self.avatar_label.setText("HostInn")
+        self.avatar_label.setStyleSheet("""
+            border-radius:75px; 
+            background:qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #6a1b9a, stop:1 #ab47bc);
+            color:white;
+            font-weight:bold;
+            font-size:16px;
+        """)
 
     def _setup_layouts(self):
         input_layout = QHBoxLayout()
@@ -191,12 +203,12 @@ class ChatBotWindow(QMainWindow):
 
     def _get_stylesheet(self):
         return """
-QMainWindow { background: #1e1e1e; }
-QTextEdit { background: #2d2d2d; color: #e0e0e0; border-radius:10px; padding:10px; }
-QLineEdit { background: #3d3d3d; color:white; border-radius:15px; padding:8px; }
-QPushButton { background:#4CAF50; color:white; border-radius:15px; padding:8px; }
-QPushButton:hover { background:#45a049; }
-QPushButton#help_button { background:qlineargradient(x1:0,y1:0,x2:1,y2:1,stop:0 #6a1b9a, stop:1 #ab47bc); }
+QMainWindow {background:#1e1e1e;}
+QTextEdit {background:#2d2d2d;color:#e0e0e0;border-radius:10px;padding:10px;}
+QLineEdit {background:#3d3d3d;color:white;border-radius:15px;padding:8px;}
+QPushButton {background:#4CAF50;color:white;border-radius:15px;padding:8px;}
+QPushButton:hover {background:#45a049;}
+QPushButton#help_button {background:qlineargradient(x1:0,y1:0,x2:1,y2:1,stop:0 #6a1b9a,stop:1 #ab47bc);}
 """
 
     def show_help_menu(self):
@@ -207,12 +219,20 @@ QPushButton#help_button { background:qlineargradient(x1:0,y1:0,x2:1,y2:1,stop:0 
             "📅 3 - Minhas reservas (informe CPF)<br>"
             "👤 4 - Meus dados cadastrais (informe CPF)<br>"
         )
-        self._append_message(help_text, sender='bot')
+        self._append_message(help_text, 'bot')
+
+    def _safe_process_message(self):
+        try:
+            self.process_message()
+        except Exception as e:
+            print(f"Erro ao processar mensagem: {e}")
+            self._enable_ui()
 
     def process_message(self):
         msg = self.input_field.text().strip()
         if not msg:
             return
+            
         self.input_field.clear()
 
         cpf_match = re.search(r"(\d{11}|\d{3}\.\d{3}\.\d{3}-\d{2})", msg)
@@ -221,62 +241,45 @@ QPushButton#help_button { background:qlineargradient(x1:0,y1:0,x2:1,y2:1,stop:0 
             display = msg.replace(cpf_match.group(), "[CPF]")
         else:
             display = msg
-
-        self._append_message(display, sender='user')
+            
+        self._append_message(display, 'user')
         self.send_button.setEnabled(False)
         self.input_field.setEnabled(False)
 
         low = msg.lower()
-        if low in ('ajuda', 'help', 'menu', '?', '5'):
-            self.show_help_menu()
-            self._enable_ui()
-        elif re.search(r'(telefone|contato|2)', low):
-            self._run_query("get_contact")
-        elif re.search(r'(quartos?|disponíveis?|1)', low):
+        if re.fullmatch(r"\s*1\s*", low):
             self._run_query("check_availability")
-        elif re.search(r'(reservas?|minhas reservas|3)', low):
+        elif re.fullmatch(r"\s*2\s*", low):
+            self._run_query("get_contact")
+        elif re.match(r"\s*3", low):
             if not self.client_cpf:
                 self._append_message("ℹ️ Use: 3 123.456.789-00", 'bot')
                 self._enable_ui()
             else:
                 self._run_query("my_reservations", cpf=self.client_cpf)
-        elif re.search(r'(meus dados|cadastro|4)', low):
+        elif re.match(r"\s*4", low):
             if not self.client_cpf:
                 self._append_message("ℹ️ Use: 4 123.456.789-00", 'bot')
                 self._enable_ui()
             else:
                 self._run_query("client_info", cpf=self.client_cpf)
+        elif low in ('ajuda', 'help', 'menu', '?'):
+            self.show_help_menu()
+            self._enable_ui()
         else:
             self._append_message("⚠️ Comando não reconhecido. Digite 'ajuda'.", 'bot')
             self._enable_ui()
 
     def _run_query(self, qtype, **kwargs):
-        thread = QThread(self)
-        worker = DatabaseWorker(qtype, **kwargs)
-        worker.moveToThread(thread)
-
-        thread.started.connect(worker.run)
-        worker.finished.connect(self._on_finished)
-        worker.error.connect(self._on_error)
-
-        worker.finished.connect(worker.deleteLater)
-        worker.error.connect(worker.deleteLater)
-        thread.finished.connect(thread.deleteLater)
-
-        if not hasattr(self, "_threads"):
-            self._threads = []
-        self._threads.append(thread)
-        thread.finished.connect(lambda: self._threads.remove(thread))
-
-        thread.start()
-
+        worker = DatabaseWorker(qtype, self.signal_emitter, **kwargs)
+        self.pool.start(worker)
 
     def _on_finished(self, resp):
-        self._append_message(resp, sender='bot')
+        self._append_message(resp, 'bot')
         self._enable_ui()
 
     def _on_error(self, err):
-        self._append_message(err, sender='bot')
+        self._append_message(err, 'bot')
         self._enable_ui()
 
     def _enable_ui(self):
@@ -302,8 +305,10 @@ QPushButton#help_button { background:qlineargradient(x1:0,y1:0,x2:1,y2:1,stop:0 
         self.chat_area.verticalScrollBar().setValue(self.chat_area.verticalScrollBar().maximum())
 
     def closeEvent(self, event):
-        if hasattr(self, "_threads"):
-            for thread in self._threads:
-                thread.quit()
-                thread.wait()
         event.accept()
+
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    window = ChatBotWindow()
+    window.show()
+    sys.exit(app.exec())

@@ -17,13 +17,13 @@ banco = pymysql.connect(
 class EditWindow(QMainWindow):
     def __init__(self, atualizar_callback=None):
         super().__init__()
-        uic.loadUi(r"C:\Users\ferre\Desktop\PI\HOSTIIN\Prototipo HostInn\Telas\Editar.ui", self)
+        uic.loadUi(r"C:\Users\11054836\Desktop\PI\HOSTIIN\Prototipo HostInn\Telas\Editar.ui", self)
 
         self.atualizar_callback = atualizar_callback
 
         # Inicializa os ícones
-        self.icon_eye_open = QIcon("Icones/visibility.png")
-        self.icon_eye_closed = QIcon("Icones/visibility_off.png")
+        self.icon_eye_open = QIcon(r"C:\Users\10816146\Desktop\PI\HOSTIIN\Prototipo HostInn\Icones\visibility.png")
+        self.icon_eye_closed = QIcon(r"C:\Users\10816146\Desktop\PI\HOSTIIN\Prototipo HostInn\Icones\visibility_off.png")
 
         # Configurações de senha
         self.lineEdit_passwrd.setEchoMode(QLineEdit.EchoMode.Password)
