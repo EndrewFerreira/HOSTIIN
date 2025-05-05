@@ -9365,7 +9365,7 @@ QLineEdit:focus {
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>../../../../../Downloads/image.png</pixmap>
+     <pixmap>../imagens/image.png</pixmap>
     </property>
     <property name="scaledContents">
      <bool>true</bool>
@@ -9384,7 +9384,7 @@ QLineEdit:focus {
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>../../../../../Downloads/bem vindo (Capa para Facebook).png</pixmap>
+     <pixmap>../imagens/bem vindo (Capa para Facebook).png</pixmap>
     </property>
     <property name="scaledContents">
      <bool>true</bool>
