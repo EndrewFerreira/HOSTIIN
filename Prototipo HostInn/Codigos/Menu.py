@@ -8,7 +8,7 @@ from PyQt6.QtWidgets import (QLineEdit, QMessageBox, QMainWindow, QPushButton, Q
 )
 from PyQt6.QtCharts import QChart, QChartView, QPieSeries, QBarSeries, QBarSet, QBarCategoryAxis, QValueAxis
 import sys, pymysql, Tela_edicao
-from chatbot import ChatBotWindow 
+from chatbot import ChatBotWindow
 from PyQt6.QtWidgets import QScrollArea, QVBoxLayout
 
 
@@ -1762,12 +1762,9 @@ class MainMenu(QMainWindow):
     def listar_quartos_manutencao(self):
         self.listar_quartos_filtrados("Em manutenção")
 
-
-
     def chatbot(self):
         if not hasattr(self, 'chatbot_window'):
             self.chatbot_window = ChatBotWindow(self)
-        
         # Sempre traz a janela para frente
         self.chatbot_window.show()
         self.chatbot_window.raise_()
