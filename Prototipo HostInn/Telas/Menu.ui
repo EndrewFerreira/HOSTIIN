@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>801</width>
+    <width>1132</width>
     <height>752</height>
    </rect>
   </property>
@@ -51,7 +51,7 @@ QWidget {
      <enum>QFrame::Raised</enum>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="stackedWidgetPage1">
      <widget class="QToolButton" name="bttn_financial">
@@ -1523,7 +1523,7 @@ QPushButton {
 }</string>
     </property>
     <property name="currentIndex">
-     <number>6</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="page">
      <widget class="QLabel" name="label_46">
@@ -9352,6 +9352,48 @@ QLineEdit:focus {
      </widget>
     </widget>
    </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>180</x>
+      <y>220</y>
+      <width>551</width>
+      <height>531</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap>../../../../../Downloads/image.png</pixmap>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_64">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>10</y>
+      <width>421</width>
+      <height>191</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap>../../../../../Downloads/bem vindo (Capa para Facebook).png</pixmap>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <zorder>label_64</zorder>
+   <zorder>label_3</zorder>
+   <zorder>stackedMenu</zorder>
+   <zorder>stackedWidget</zorder>
   </widget>
  </widget>
  <resources/>
