@@ -190,7 +190,7 @@ app = QtWidgets.QApplication(sys.argv)
 icon_eye_open = QIcon(r"C:\Users\11054836\Desktop\PI\HOSTIIN\Prototipo HostInn\Icones\visibility.png")
 icon_eye_closed = QIcon(r"C:\Users\11054836\Desktop\PI\HOSTIIN\Prototipo HostInn\Icones\visibility_off.png")
 
-#===========================( Login/ Cadastro )=============================================
+#===========================( Login/ Cadastro )=====================================================================
 login_register = uic.loadUi(r"C:\Users\11054836\Desktop\PI\HOSTIIN\Prototipo HostInn\Telas\Login_Cadastro_1.ui")
 login_register.setWindowTitle("HostInn")
 login_register.lineEdit_2.setInputMask("000.000.000-00;_")
