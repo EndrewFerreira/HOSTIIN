@@ -187,7 +187,7 @@ def new_reg():
 app = QtWidgets.QApplication(sys.argv)
 
 # Defina os ícones (ajuste os caminhos para os seus arquivos PNG)
-icon_eye_open = QIcon(r"C:\Users\11054836\Desktop\PI\HOSTIIN\Prototipo HostInn\Icones\visibility.pngg")
+icon_eye_open = QIcon(r"C:\Users\11054836\Desktop\PI\HOSTIIN\Prototipo HostInn\Icones\visibility.png")
 icon_eye_closed = QIcon(r"C:\Users\11054836\Desktop\PI\HOSTIIN\Prototipo HostInn\Icones\visibility_off.png")
 
 #===========================( Login/ Cadastro )=============================================
