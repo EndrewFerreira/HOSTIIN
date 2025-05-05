@@ -485,6 +485,7 @@ class MainMenu(QMainWindow):
             self.lineEdit_passwrd_2.setEchoMode(QLineEdit.EchoMode.Password)
             # Atualiza os ícones para o olho fechado
             self.passButton_view.setIcon(icon_eye_closed)
+            
 
     def list_user(self):
         self.stackedWidget.setCurrentIndex(2)
