@@ -1,7 +1,8 @@
-#pip install PyQt6 mysql-connector-python
+# pip install PyQt6 pymysql
 import sys
 import os
-import mysql.connector
+import pymysql
+from pymysql.cursors import DictCursor
 import re
 from PyQt6.QtWidgets import (
     QApplication, QMainWindow, QTextEdit, QLineEdit, QPushButton,
@@ -15,7 +16,8 @@ DB_CONFIG = {
     'host': 'localhost',
     'user': 'root',
     'password': '',
-    'database': 'bd_teste2'
+    'database': 'bd_teste2',
+    'cursorclass': DictCursor
 }
 
 class SignalEmitter(QObject):
@@ -33,8 +35,8 @@ class DatabaseWorker(QRunnable):
         conn = None
         cursor = None
         try:
-            conn = mysql.connector.connect(**DB_CONFIG)
-            cursor = conn.cursor(dictionary=True)
+            conn = pymysql.connect(**DB_CONFIG)
+            cursor = conn.cursor()
             response = ""
 
             if self.query_type == "check_availability":
@@ -92,7 +94,7 @@ class DatabaseWorker(QRunnable):
 
             self.signal_emitter.finished.emit(response)
 
-        except mysql.connector.Error as e:
+        except pymysql.MySQLError as e:
             self.signal_emitter.error.emit(f"Erro no DB: {e}")
         except Exception as e:
             self.signal_emitter.error.emit(f"Erro inesperado: {e}")
@@ -149,7 +151,6 @@ class ChatBotWindow(QMainWindow):
         self.send_button.clicked.connect(self._safe_process_message)
 
     def _load_avatar_image(self):
-        """Carrega a imagem do avatar com fallback"""
         image_path = r"C:\Users\11054836\Desktop\PI\HOSTIIN\Prototipo HostInn\Icones\curupira.png"
         
         if os.path.exists(image_path):
@@ -158,7 +159,7 @@ class ChatBotWindow(QMainWindow):
                 if not pixmap.isNull():
                     pixmap = pixmap.scaled(
                         150, 150, 
-                        Qt.AspectRatioMode.KeepAspectRatio,
+                        Qt.AspectRatioMode.AlignKeepAspectRatio,
                         Qt.TransformationMode.SmoothTransformation
                     )
                     self.avatar_label.setPixmap(pixmap)
@@ -169,7 +170,6 @@ class ChatBotWindow(QMainWindow):
         self._set_default_avatar()
 
     def _set_default_avatar(self):
-        """Define um avatar padrão caso a imagem não carregue"""
         self.avatar_label.setText("HostInn")
         self.avatar_label.setStyleSheet("""
             border-radius:75px; 
