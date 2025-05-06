@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>843</width>
+    <width>879</width>
     <height>534</height>
    </rect>
   </property>
@@ -25,26 +25,6 @@
     </property>
     <property name="text">
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt; color:#ffffff;&quot;&gt;POWERED BY (NOME DO GRUPO)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_7">
-    <property name="geometry">
-     <rect>
-      <x>40</x>
-      <y>40</y>
-      <width>291</width>
-      <height>61</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Montserrat Medium</family>
-      <pointsize>48</pointsize>
-      <italic>false</italic>
-     </font>
-    </property>
-    <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:36pt; color:#ffffff;&quot;&gt;BEM VINDO&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_3">
@@ -101,7 +81,7 @@ QWidget {
      <enum>QFrame::Raised</enum>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="stackedWidget_loginPage1_3">
      <widget class="QLabel" name="label_5">
@@ -121,9 +101,20 @@ QWidget {
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x1:0, y1:1, 
+       <string notr="true">QLabel {
+	background-color: qlineargradient(spread:pad, x1:0, y1:0, x1:0, y1:1, 
                                  stop:0 rgba(0, 50, 150, 255), 
-                                 stop:1 rgba(51, 156, 255, 255));</string>
+                                 stop:1 rgba(51, 156, 255, 255));
+    border: 1one;                         /* Remove borda padrão */
+    
+    /* Arredonda apenas os cantos superiores */
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    
+    padding: 8px;                         /* Espaçamento interno */
+}</string>
       </property>
       <property name="text">
        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:18pt; color:#ffffff;&quot;&gt;LOGIN&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -1118,9 +1109,20 @@ QPushButton {
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x1:0, y1:1, 
+       <string notr="true">QLabel {
+	background-color: qlineargradient(spread:pad, x1:0, y1:0, x1:0, y1:1, 
                                  stop:0 rgba(0, 50, 150, 255), 
-                                 stop:1 rgba(51, 156, 255, 255));</string>
+                                 stop:1 rgba(51, 156, 255, 255));
+    border: 1one;                         /* Remove borda padrão */
+    
+    /* Arredonda apenas os cantos superiores */
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    
+    padding: 8px;                         /* Espaçamento interno */
+}</string>
       </property>
       <property name="text">
        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:18pt; color:#ffffff;&quot;&gt;NOVO CADASTRO&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -1331,9 +1333,20 @@ QCalendarWidget QMenu::item:selected {
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x1:0, y1:1, 
+       <string notr="true">QLabel {
+	background-color: qlineargradient(spread:pad, x1:0, y1:0, x1:0, y1:1, 
                                  stop:0 rgba(0, 50, 150, 255), 
-                                 stop:1 rgba(51, 156, 255, 255));</string>
+                                 stop:1 rgba(51, 156, 255, 255));
+    border: 1one;                         /* Remove borda padrão */
+    
+    /* Arredonda apenas os cantos superiores */
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    
+    padding: 8px;                         /* Espaçamento interno */
+}</string>
       </property>
       <property name="text">
        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;REDEFINIR SENHA&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -1633,9 +1646,20 @@ QPushButton {
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x1:0, y1:1, 
+       <string notr="true">QLabel {
+	background-color: qlineargradient(spread:pad, x1:0, y1:0, x1:0, y1:1, 
                                  stop:0 rgba(0, 50, 150, 255), 
-                                 stop:1 rgba(51, 156, 255, 255));</string>
+                                 stop:1 rgba(51, 156, 255, 255));
+    border: 1one;                         /* Remove borda padrão */
+    
+    /* Arredonda apenas os cantos superiores */
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    
+    padding: 8px;                         /* Espaçamento interno */
+}</string>
       </property>
       <property name="text">
        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;ESQUECI MINHA SENHA&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -1917,29 +1941,6 @@ QPushButton {
      <zorder>bttn_alterindex_4</zorder>
     </widget>
    </widget>
-   <widget class="QWidget" name="widget" native="true">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>-10</y>
-      <width>911</width>
-      <height>661</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QWidget {
-    background: qradialgradient(
-        cx: 0.5, cy: 0.2, radius: 0.8,
-        fx: 0.5, fy: 0.2,
-        stop: 0 #7FA3A6,  /* Brilho no topo (mais suave) */
-        stop: 0.4 #4E7580, /* Azul intermediário mais escuro */
-        stop: 0.7 #27425A, /* Azul mais escuro na transição */
-        stop: 1 #0A1A30   /* Azul bem escuro na parte inferior */
-    );
-}
-</string>
-    </property>
-   </widget>
    <widget class="QLabel" name="label_4">
     <property name="geometry">
      <rect>
@@ -1962,26 +1963,24 @@ QPushButton {
    <widget class="QLabel" name="label_9">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>110</y>
-      <width>331</width>
-      <height>331</height>
+      <x>10</x>
+      <y>70</y>
+      <width>361</width>
+      <height>361</height>
      </rect>
     </property>
     <property name="text">
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>../imagens/imagens/Logo_Hostinn.png</pixmap>
+     <pixmap>../imagens/imagens/logo_hostinn.png</pixmap>
     </property>
     <property name="scaledContents">
      <bool>true</bool>
     </property>
    </widget>
-   <zorder>widget</zorder>
    <zorder>label_3</zorder>
    <zorder>label</zorder>
-   <zorder>label_7</zorder>
    <zorder>stackedWidget</zorder>
    <zorder>label_4</zorder>
    <zorder>label_9</zorder>

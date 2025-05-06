@@ -1,4 +1,4 @@
-from PyQt6 import uic, QtWidgets
+from PyQt6 import uic, QtWidgets, QtCore
 from PyQt6.QtCore import QDate, Qt
 from PyQt6.QtGui import QIcon, QPainter, QColor
 from PyQt6.QtCore import QDate
@@ -8,7 +8,7 @@ from PyQt6.QtWidgets import (QLineEdit, QMessageBox, QMainWindow, QPushButton, Q
 )
 from PyQt6.QtCharts import QChart, QChartView, QPieSeries, QBarSeries, QBarSet, QBarCategoryAxis, QValueAxis
 import sys, pymysql, Tela_edicao
-from chatbot import ChatBotWindow 
+from chatbot import ChatBotWindow
 from PyQt6.QtWidgets import QScrollArea, QVBoxLayout
 
 
@@ -25,8 +25,8 @@ class MainMenu(QMainWindow):
         super().__init__()
         # self(self)
         # Carregar a interface gráfica
-        uic.loadUi(r"C:\Users\ferre\Desktop\PI\HOSTIIN\Prototipo HostInn\Telas\Menu.ui", self)
-        icon_eye_closed = QIcon(r"C:\Users\11054836\Desktop\PI\HOSTIIN\Prototipo HostInn\Icones\visibility_off.png")
+        uic.loadUi(r"C:\Users\11054836\Desktop\PI\HOSTIIN\Prototipo HostInn\Telas\Menu.ui", self)
+        icon_eye_closed = QIcon(r"C:\Users\10816146\Desktop\PI\HOSTIIN\Prototipo HostInn\Icones\visibility_off.png")
         self.setWindowTitle("HostInn")
         self.setFixedSize(801, 752)
 
@@ -92,7 +92,8 @@ class MainMenu(QMainWindow):
         ####################### FINANCEIRO ##############################
         self.bttn_financial.clicked.connect(self.financial_menu)
         self.bttn_movements.clicked.connect(self.movements_subMenu)
-        # self.pushButton_despesas.clicked.connect(self.cadastr_despesas)
+        self.pushButton_despesas.clicked.connect(self.menu_despesas)
+        self.editButton_11.clicked.connect(self.cadstr_despesa)
         self.bttn_newPayment.clicked.connect(self.novo_pagamento)
         self.bttn_validate.clicked.connect(self.validate_payment)
         self.bttn_voltar.clicked.connect(self.back_confirmation)
@@ -484,6 +485,7 @@ class MainMenu(QMainWindow):
             self.lineEdit_passwrd_2.setEchoMode(QLineEdit.EchoMode.Password)
             # Atualiza os ícones para o olho fechado
             self.passButton_view.setIcon(icon_eye_closed)
+            
 
     def list_user(self):
         self.stackedWidget.setCurrentIndex(2)
@@ -813,9 +815,95 @@ class MainMenu(QMainWindow):
         self.stackedWidget.show()
         self.stackedWidget_2.hide()
 
-    def cadastr_despesas(self):
-        0
+    def menu_despesas(self):
+        self.label_47.setText("CADASTRO DE DESPESAS")
+        self.label_47.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.stackedWidget_2.setCurrentIndex(2)
+        self.stackedWidget_2.show()
+        self.listar_despesas()
 
+    def cadstr_despesa(self):
+        categoria = self.comboBox_11.currentText()
+        tipo_pagamento = self.comboBox_8.currentText()
+        data_despesa = self.dateEdit_despesa.date().toPyDate()
+        descricao = self.lineEdit_35.text().strip()
+        valor_texto = self.lineEdit_31.text().strip()
+
+        if not categoria or not tipo_pagamento or not descricao or not valor_texto:
+            QMessageBox.warning(self, "Erro", "Todos os campos devem ser preenchidos!")
+            return
+
+        try:
+            valor = float(valor_texto.replace(',', '.'))
+        except ValueError:
+            QMessageBox.warning(self, "Erro", "Valor inválido!")
+            return
+
+        try:
+            cursor = banco.cursor()
+            comando_SQL = """
+                INSERT INTO despesas 
+                (categorias_despesas, metodo_pagamento, data_despesa, descricao, valor) 
+                VALUES (%s, %s, %s, %s, %s)
+            """
+            dados = (categoria, tipo_pagamento, data_despesa, descricao, valor)
+            cursor.execute(comando_SQL, dados)
+            banco.commit()
+            QMessageBox.information(self, "Sucesso", "Cadastro realizado com sucesso!")
+        except Exception as e:
+            QMessageBox.critical(self, "Erro", f"Erro ao cadastrar: {e}")
+        finally:
+            cursor.close()
+
+        # Limpa os campos após cadastro
+        self.lineEdit_35.clear()
+        self.lineEdit_31.clear()
+        self.comboBox_11.setCurrentIndex(0)
+        self.comboBox_8.setCurrentIndex(0)
+        self.dateEdit_despesa.setDate(QDate.currentDate())
+        self.listar_despesas()
+
+    def listar_despesas(self):
+        cursor = banco.cursor()
+        # Seleciona apenas as colunas necessárias na ordem desejada
+        cursor.execute("""
+            SELECT 
+                categorias_despesas, 
+                descricao, 
+                valor, 
+                data_despesa, 
+                metodo_pagamento 
+            FROM despesas
+        """)
+        dados_lidos = cursor.fetchall()
+
+        # Definir número de linhas e colunas
+        self.tableWidget_7.setRowCount(len(dados_lidos))
+        self.tableWidget_7.setColumnCount(5)  # 5 colunas conforme solicitado
+
+        # Definir os cabeçalhos das colunas na ordem correta
+        headers = ["Categoria", "Descrição", "Valor (R$)", "Data", "Método de Pagamento"]
+        self.tableWidget_7.setHorizontalHeaderLabels(headers)
+
+        for i, linha in enumerate(dados_lidos):
+            for j, valor in enumerate(linha):
+                # Formatação especial para o valor (coluna 2)
+                if j == 2:  # Coluna de valor
+                    item = QtWidgets.QTableWidgetItem(f"R$ {float(valor):,.2f}")
+                # Formatação especial para data (coluna 3)
+                elif j == 3:  # Coluna de data
+                    data = QtCore.QDate.fromString(str(valor), "yyyy-MM-dd")
+                    item = QtWidgets.QTableWidgetItem(data.toString("dd/MM/yyyy"))
+                else:
+                    item = QtWidgets.QTableWidgetItem(str(valor))
+                
+                # Centraliza o texto em todas as células
+                item.setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                self.tableWidget_7.setItem(i, j, item)
+
+        # Ajusta a largura das colunas para melhor visualização
+        self.tableWidget_7.resizeColumnsToContents()
+        
     def novo_pagamento(self):
         self.label_47.setText("NOVO PAGAMENTO")
         self.label_47.setAlignment(Qt.AlignmentFlag.AlignCenter)
@@ -1237,7 +1325,7 @@ class MainMenu(QMainWindow):
         self.stackedWidget_2.hide()
 
     def dashboard(self):
-        self.label_47.setText("DASHBOARD")
+        self.label_47.setText("RESUMO DO FINANCEIRO")
         self.label_47.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.stackedWidget_2.setCurrentIndex(3)
         self.stackedWidget_2.show()
@@ -1675,12 +1763,9 @@ class MainMenu(QMainWindow):
     def listar_quartos_manutencao(self):
         self.listar_quartos_filtrados("Em manutenção")
 
-
-
     def chatbot(self):
         if not hasattr(self, 'chatbot_window'):
             self.chatbot_window = ChatBotWindow(self)
-        
         # Sempre traz a janela para frente
         self.chatbot_window.show()
         self.chatbot_window.raise_()
