@@ -28,7 +28,7 @@
       <x>20</x>
       <y>30</y>
       <width>671</width>
-      <height>281</height>
+      <height>331</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -495,8 +495,8 @@ QStackedWidget &gt; QWidget {
      <widget class="QComboBox" name="combo_novotipo">
       <property name="geometry">
        <rect>
-        <x>450</x>
-        <y>140</y>
+        <x>410</x>
+        <y>150</y>
         <width>201</width>
         <height>21</height>
        </rect>
@@ -532,7 +532,7 @@ QStackedWidget &gt; QWidget {
        <rect>
         <x>370</x>
         <y>140</y>
-        <width>71</width>
+        <width>41</width>
         <height>31</height>
        </rect>
       </property>
@@ -613,6 +613,11 @@ QStackedWidget &gt; QWidget {
         <height>31</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
       <property name="toolTip">
        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;NÚMERO&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
@@ -644,7 +649,7 @@ QStackedWidget &gt; QWidget {
      <widget class="QLineEdit" name="line_novacap">
       <property name="geometry">
        <rect>
-        <x>170</x>
+        <x>150</x>
         <y>140</y>
         <width>191</width>
         <height>31</height>
@@ -685,7 +690,7 @@ QStackedWidget &gt; QWidget {
      <widget class="QPushButton" name="btn_salvar_edit_quarto">
       <property name="geometry">
        <rect>
-        <x>442</x>
+        <x>460</x>
         <y>240</y>
         <width>131</width>
         <height>31</height>
